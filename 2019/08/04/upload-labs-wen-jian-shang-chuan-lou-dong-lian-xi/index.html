@@ -1,0 +1,1382 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="upload-labs文件上传漏洞练习, dylan&#39;s blog">
+    <meta name="description" content="0x01 前言最近在研究文件上传漏洞，找到一个很好的靶场——upload-labs，一个想帮你总结所有类型的上传漏洞的靶场 ，可以用docker快速搭建，闯关的过程中遇到很多问题，受益匪浅。
+
+0x02 环境搭建使用docker快速搭建，d">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>upload-labs文件上传漏洞练习 | dylan&#39;s blog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">dylan's blog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">dylan's blog</div>
+        <div class="logo-desc">
+            
+            心若在，梦就在。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/dylan903/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/dylan903/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('Being their worst nightmare！')).toString(CryptoJS.enc.Hex)) {
+                alert('Error！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        upload-labs文件上传漏洞练习
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/靶场/" target="_blank">
+                                <span class="chip bg-color">靶场</span>
+                            </a>
+                        
+                            <a href="/tags/dcoker/" target="_blank">
+                                <span class="chip bg-color">dcoker</span>
+                            </a>
+                        
+                            <a href="/tags/upload-labs/" target="_blank">
+                                <span class="chip bg-color">upload-labs</span>
+                            </a>
+                        
+                            <a href="/tags/文件上传/" target="_blank">
+                                <span class="chip bg-color">文件上传</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/web安全/" class="post-category" target="_blank">
+                                web安全
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2019-08-04
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        2.7k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        10 分
+                    </div>
+                    
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="0x01-前言"><a href="#0x01-前言" class="headerlink" title="0x01 前言"></a>0x01 前言</h1><p>最近在研究文件上传漏洞，找到一个很好的靶场——<a href="https://github.com/c0ny1/upload-labs" target="_blank" rel="noopener">upload-labs</a>，<br>一个想帮你总结所有类型的上传漏洞的靶场 ，可以用docker快速搭建，闯关的过程中遇到很多问题，受益匪浅。</p>
+<hr>
+<h1 id="0x02-环境搭建"><a href="#0x02-环境搭建" class="headerlink" title="0x02 环境搭建"></a>0x02 环境搭建</h1><p>使用docker快速搭建，docker的安装这里不再赘述。</p>
+<p><code>docker pull c0ny1/upload-labs</code><br><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20190804145816.png" alt></p>
+<p>创建容器<br><code>docker run -d -p 8000:80 c0ny1/upload-labs:latest</code></p>
+<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20190804150235.png" alt></p>
+<p>本地环境，访问<code>127.0.0.1:8000</code><br>云服务器上搭建的，访问<code>服务器ip:8000</code>（注意开放防火墙端口，阿里云服务器需要在云控制台配置开放端口）</p>
+<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20190804150626.png" alt></p>
+<hr>
+<h1 id="0x03-闯关"><a href="#0x03-闯关" class="headerlink" title="0x03 闯关"></a>0x03 闯关</h1><h2 id="Pass-01（前端）"><a href="#Pass-01（前端）" class="headerlink" title="Pass-01（前端）"></a>Pass-01（前端）</h2><p>这一关是在客户端使用js对不合法图片进行检查，直接F12，把调用相关js的代码删掉，直接上传拿shell</p>
+<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20190804151107.png" alt></p>
+<h2 id="Pass-02（MIME）"><a href="#Pass-02（MIME）" class="headerlink" title="Pass-02（MIME）"></a>Pass-02（MIME）</h2><p>第二关主要是检查MIME，直接抓包修改Content-Type（例如：<code>image/gif</code>）上传即可</p>
+<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20190804151431.png" alt></p>
+<h2 id="Pass-03（特殊可解析后缀）"><a href="#Pass-03（特殊可解析后缀）" class="headerlink" title="Pass-03（特殊可解析后缀）"></a>Pass-03（特殊可解析后缀）</h2><p>第三关是黑名单禁止上传.asp|.aspx|.php|.jsp后缀文件，尝试另类文件名绕过。（phtml，php3，php4, php5, pht等）<br>直接抓包修改文件后缀，将php改为phtml，php3，php4, php5, pht等，上传成功<br><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20190804152622.png" alt></p>
+<p>但是很鸡肋，如果服务器没有配置别名解析，上传上去是无法被解析执行的。<br>如果无法解析执行，需要修改apache配置文件。<br>这里以docker搭建的环境为例：<br>输入命令进入容器内部：</p>
+<pre><code>docker exec -it condescending_nightingale /bin/bash 
+# 这里的condescending_nightingale是容器的name，可以输入docker ps查看</code></pre><p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20190804153104.png" alt></p>
+<pre><code>vim /etc/apache2/apache2.conf</code></pre><p>修改apache2配置文件，添加下面这句话<br><code>AddType application/x-httpd-php .php .phtml .phps .php3 .php5 .pht</code></p>
+<p>退出容器内部<br><code>exit</code></p>
+<p>重启容器，即可解析成功<br><code>docker restart condescending_nightingale</code></p>
+<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20190804154224.png" alt></p>
+<h2 id="Pass-04（htaccess）"><a href="#Pass-04（htaccess）" class="headerlink" title="Pass-04（htaccess）"></a>Pass-04（htaccess）</h2><p>这一关过滤了各种罕见后缀，但是没有过滤<code>.htaccess</code>文件<br>.htaccess文件(或者”分布式配置文件”）,全称是Hypertext Access(超文本入口)。提供了针对目录改变配置的方法，<br>即在一个特定的文档目录中放置一个包含一个或多个指令的文件， 以作用于此目录及其所有子目录。<br>作为用户，所能使用的命令受到限制。管理员可以通过Apache的AllowOverride指令来设置。<br>启用.htaccess，需要修改<code>apache2.conf</code><strong>(同Pass-03)</strong>，启用AllowOverride.</p>
+<p><code>AllowOverride None</code><br>改为<br><code>AllowOverride All</code></p>
+<p>如果需要使用.htaccess以外的其他文件名，可以用AccessFileName指令来改变。<br>例如，需要使用.config ，则可以在服务器配置文件中按以下方法配置：</p>
+<p><code>AccessFileName .config</code> </p>
+<p>然后执行命令启用Mod_rewrite模块</p>
+<p><code>sudo a2enmod rewrite</code></p>
+<p>最后重启apache2</p>
+<p><code>service apache2 restart</code></p>
+<p>使用 快捷键<code>ctrl + p + q</code>退出容器（不会中止容器）</p>
+<p>先上传<code>.htaccess</code>文件，文件内容如下(引号内替换成你要上传执行的文件名)：</p>
+<pre><code>    &lt;FilesMatch &quot;cmd.jpeg&quot;&gt;
+      SetHandler application/x-httpd-php
+    &lt;/FilesMatch&gt;</code></pre><p>windows系统文件不能命名为<code>.*</code>，所以在上传的时候抓包，改文件名，删掉点前面的</p>
+<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20190804215949.png" alt></p>
+<p>然后上传图片木马文件  <code>cmd.jpeg</code> ，成功解析。</p>
+<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20190804220610.png" alt></p>
+<h2 id="Pass-05（大小写）"><a href="#Pass-05（大小写）" class="headerlink" title="Pass-05（大小写）"></a>Pass-05（大小写）</h2><p>这一关把<code>.htaccess</code>后缀也禁止了，查看源代码，发现把转换成小写的代码去掉了</p>
+<p><code>$file_ext = strtolower($file_ext); //转换为小写</code></p>
+<p>因此我们可以上传Php、phP之类的来绕过黑名单后缀，成功上传。<br>(在Linux没有特殊配置的情况下，这种情况只有win可以解析执行，因为win会忽略大小写)</p>
+<h2 id="Pass-06（空格）"><a href="#Pass-06（空格）" class="headerlink" title="Pass-06（空格）"></a>Pass-06（空格）</h2><p>这一关，少了这一段代码<br><code>$file_ext = trim($file_ext); //首尾去空</code></p>
+<p>可以进行空格绕过，直接抓包修改文件名，再文件名末尾添加空格，成功上传</p>
+<h2 id="Pass-07（点）"><a href="#Pass-07（点）" class="headerlink" title="Pass-07（点）"></a>Pass-07（点）</h2><p>这一关少了这段代码</p>
+<p><code>$file_name = deldot($file_name);//删除文件名末尾的点</code></p>
+<p>没有对后缀名进行去”.”处理，利用windows特性，会自动去掉后缀名中最后的”.”，可在后缀名中加”.”绕过。</p>
+<h2 id="Pass-08（-DATA）"><a href="#Pass-08（-DATA）" class="headerlink" title="Pass-08（::$DATA）"></a>Pass-08（::$DATA）</h2><p><code>$file_ext = str_ireplace(&#39;::$DATA&#39;, &#39;&#39;, $file_ext);//去除字符串::$DATA</code><br>NTFS文件系统包括对备用数据流的支持，主要包括提供与Macintosh文件系统中的文件的兼容性。<br>备用数据流允许文件包含多个数据流。每个文件至少有一个数据流。在Windows中，此默认数据流称为：<code>$ DATA</code>。<br>上传.php::$DATA绕过。(仅限windows)</p>
+<h2 id="Pass-09-代码审计"><a href="#Pass-09-代码审计" class="headerlink" title="Pass-09(代码审计)"></a>Pass-09(代码审计)</h2><pre><code>        $deny_ext = array(&quot;.php&quot;,&quot;.php5&quot;,&quot;.php4&quot;,&quot;.php3&quot;,&quot;.php2&quot;,&quot;.html&quot;,&quot;.htm&quot;,&quot;.phtml&quot;,&quot;.pht&quot;,&quot;.pHp&quot;,&quot;.pHp5&quot;,&quot;.pHp4&quot;,&quot;.pHp3&quot;,&quot;.pHp2&quot;,&quot;.Html&quot;,&quot;.Htm&quot;,&quot;.pHtml&quot;,&quot;.jsp&quot;,&quot;.jspa&quot;,&quot;.jspx&quot;,&quot;.jsw&quot;,&quot;.jsv&quot;,&quot;.jspf&quot;,&quot;.jtml&quot;,&quot;.jSp&quot;,&quot;.jSpx&quot;,&quot;.jSpa&quot;,&quot;.jSw&quot;,&quot;.jSv&quot;,&quot;.jSpf&quot;,&quot;.jHtml&quot;,&quot;.asp&quot;,&quot;.aspx&quot;,&quot;.asa&quot;,&quot;.asax&quot;,&quot;.ascx&quot;,&quot;.ashx&quot;,&quot;.asmx&quot;,&quot;.cer&quot;,&quot;.aSp&quot;,&quot;.aSpx&quot;,&quot;.aSa&quot;,&quot;.aSax&quot;,&quot;.aScx&quot;,&quot;.aShx&quot;,&quot;.aSmx&quot;,&quot;.cEr&quot;,&quot;.sWf&quot;,&quot;.swf&quot;,&quot;.htaccess&quot;);
+        $file_name = trim($_FILES[&#39;upload_file&#39;][&#39;name&#39;]);
+        $file_name = deldot($file_name);//删除文件名末尾的点
+        $file_ext = strrchr($file_name, &#39;.&#39;);
+        $file_ext = strtolower($file_ext); //转换为小写
+        $file_ext = str_ireplace(&#39;::$DATA&#39;, &#39;&#39;, $file_ext);//去除字符串::$DATA
+        $file_ext = trim($file_ext); //首尾去空</code></pre><p>查看源码，这里只过滤了一次，所以直接构造 <code>.php. .</code> 绕过</p>
+<h2 id="Pass-10-双写"><a href="#Pass-10-双写" class="headerlink" title="Pass-10(双写)"></a>Pass-10(双写)</h2><p><code>$file_name = str_ireplace($deny_ext,&quot;&quot;, $file_name);</code></p>
+<p>这里是将黑名单里的后缀替换为空，可以利用双写绕过<br>构造<code>.pphpph</code>,成功上传解析执行。</p>
+<h2 id="Pass-11（-00截断）"><a href="#Pass-11（-00截断）" class="headerlink" title="Pass-11（%00截断）"></a>Pass-11（%00截断）</h2><p><code>$img_path = $_GET[&#39;save_path&#39;].&quot;/&quot;.rand(10, 99).date(&quot;YmdHis&quot;).&quot;.&quot;.$file_ext;</code></p>
+<p>可以参考这篇文章：<a href="https://www.cnblogs.com/cyjaysun/p/4390930.html" target="_blank" rel="noopener">PHP任意文件上传漏洞CVE-2015-2348浅析</a></p>
+<p><code>save_path</code> 是一个可控的变量，可以使用%00截断<br>使用条件：</p>
+<ul>
+<li>php 版本&lt;5.3.4 才有可能存在此漏洞</li>
+<li>php的magic_quotes_gpc为OFF状态</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20190805093837.png" alt></p>
+<h2 id="Pass-12（0x00截断）"><a href="#Pass-12（0x00截断）" class="headerlink" title="Pass-12（0x00截断）"></a>Pass-12（0x00截断）</h2><p>原理同Pass-11,只不过<code>save_path</code>是通过post传进来的，需要在Hex里修改</p>
+<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20190805100157.png" alt></p>
+<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20190805095929.png" alt></p>
+<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20190805100023.png" alt></p>
+<p><code>+</code>的URL编码的16进制 为2b，将2b改为00即可</p>
+<h2 id="Pass-13（文件头）"><a href="#Pass-13（文件头）" class="headerlink" title="Pass-13（文件头）"></a>Pass-13（文件头）</h2><p>这一关通过读文件的前2个字节判断文件类型<br>直接使用 cmd命令生成图片木马上传</p>
+<p><code>copy pikachu.gif /b + cmd.php /a cmd.gif</code></p>
+<p>用给出的文件包含漏洞页面来测试图片马是否能正常运行！<br><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20190805103257.png" alt></p>
+<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20190805103451.png" alt></p>
+<h2 id="Pass-14（getimagesize）"><a href="#Pass-14（getimagesize）" class="headerlink" title="Pass-14（getimagesize）"></a>Pass-14（getimagesize）</h2><p>这一关使用<code>getimagesize</code>获取文件类型，直接就可以利用图片马进行绕过。（同Pass-13）</p>
+<h2 id="Pass-15（exif-imagetype-）"><a href="#Pass-15（exif-imagetype-）" class="headerlink" title="Pass-15（exif_imagetype()）"></a>Pass-15（exif_imagetype()）</h2><p>本关使用<code>exif_imagetype()</code>检查是否为图片文件,直接就可以利用图片马就可进行绕过。</p>
+<h2 id="Pass-16（二次渲染）"><a href="#Pass-16（二次渲染）" class="headerlink" title="Pass-16（二次渲染）"></a>Pass-16（二次渲染）</h2><p>本关判断了后缀名、content-type，以及利用imagecreatefromgif判断是否为gif图片，最后再做了一次二次渲染<br>具体可以参考这篇文章：<a href="https://xz.aliyun.com/t/2657" target="_blank" rel="noopener">upload-labs之pass 16详细分析</a></p>
+<p>先上传图片码，然后下载下来，用16进制编辑器打开，寻找图片被渲染后与原始图片部分对比仍然相同的数据块部分，<br>将Webshell代码插在该部分，然后上传即可<br>jpg和png很麻烦，gif直接修改没有改变的区域即可。</p>
+<h2 id="Pass-17（条件竞争）"><a href="#Pass-17（条件竞争）" class="headerlink" title="Pass-17（条件竞争）"></a>Pass-17（条件竞争）</h2><p>本关文件先经过保存，然后判断后缀名是否在白名单中，如果不在则删除。<br>此时可以利用条件竞争在保存文件后删除文件前来执行php文件。<br>可以用burp suite中的Intruder模块同时批量上传、访问webshell，<br>将payloads中的payload type设置为Null payload，<br>Generate payload次数多点。</p>
+<h2 id="Pass-18（条件竞争）"><a href="#Pass-18（条件竞争）" class="headerlink" title="Pass-18（条件竞争）"></a>Pass-18（条件竞争）</h2><p>和Pass-17一样，也是一个条件竞争的问题，查看源代码<br>对文件后缀名做了白名单判断，然后会一步一步检查文件大小、文件是否存在等等，将文件上传后，对文件重新命名等。<br>可以不断利用burp发送上传图片马的数据包，由于条件竞争，程序会出现来不及rename的问题，从而上传成功</p>
+<h2 id="Pass-19（代码审计）"><a href="#Pass-19（代码审计）" class="headerlink" title="Pass-19（代码审计）"></a>Pass-19（代码审计）</h2><pre><code>$img_path = UPLOAD_PATH . &#39;/&#39; .$file_name;
+            if (move_uploaded_file($_FILES[&#39;upload_file&#39;][&#39;tmp_name&#39;], $img_path)) { 
+                $is_upload = true;
+            }else{
+                $msg = &#39;上传失败！&#39;;
+            }</code></pre><p><code>move_uploaded_file()</code>函数中的<code>img_path</code>是由post参数<code>save_name</code>控制的，因此可以在<code>save_name</code>利用00截断绕过。</p>
+<p>另外<strong><code>move_uploaded_file</code></strong>会忽略掉文件末尾的 <code>/.</code><br>所以可以构造 <code>cmd.php/.</code> 来绕过<br><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20190805121815.png" alt></p>
+<h2 id="Pass-20（代码审计）"><a href="#Pass-20（代码审计）" class="headerlink" title="Pass-20（代码审计）"></a>Pass-20（代码审计）</h2><p>这个题目用了数组+/.的方式去绕过，因为源代码里面含有这样的两句代码，成了关键得绕过的地方</p>
+<pre><code>if (!is_array($file)) {
+                    $file = explode(&#39;.&#39;, strtolower($file));
+                }</code></pre><pre><code>$file_name = reset($file) . &#39;.&#39; . $file[count($file) - 1];</code></pre><p>这同样我们就需要满足两个条件，第一个是先得保证另外修改的名字需要满足是数组的条件，所以我们可以抓包构造数组，<br>第二点由于后面filename构成的过程中由于<code>$file[count($file) - 1]</code>的作用，导致<code>$file[1] = NULL</code>，所以构造文件名后相当于直接就是<code>xx.php/.</code>，<br>根据上面一题的知识，可以直接在<code>move_uploaded_file</code>函数的作用下可以将/.忽略，因此还是可以上传成功的。<br>因此<code>save_name</code>变量的两个值分别是<code>xx.php/</code>，另外一个值是<code>jpg</code>，其实从代码审计的角度上看，还是可控变量导致这样的后果</p>
+<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20190805123452.png" alt></p>
+<hr>
+<h1 id="0x04-总结"><a href="#0x04-总结" class="headerlink" title="0x04 总结"></a>0x04 总结</h1><h2 id="upload-labs总结"><a href="#upload-labs总结" class="headerlink" title="upload-labs总结"></a>upload-labs总结</h2><p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20190805134449.png" alt></p>
+<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20190805134922.png" alt></p>
+<p>其中有一些漏洞因为环境原因，没能成功解析执行。<br>顺便在总结一下其他中间件问题导致的解析漏洞</p>
+<h2 id="IIS-6-0"><a href="#IIS-6-0" class="headerlink" title="IIS 6.0"></a>IIS 6.0</h2><p>IIS 6.0解析利用方法有三种：<br>1.目录解析<br>建立xx.asp为名称的文件夹，将asp文件放入，访问/xx.asp/xx.jpg，其中xx.jpg可以为任意文件后缀，即可解析<br>2.文件解析<br>后缀解析：/xx.asp;.jpg /xx.asp:.jpg(此处需抓包修改文件名)<br>3.默认解析<br>IIS6.0 默认的可执行文件除了asp还包含这三种</p>
+<pre><code>/xxx.asa
+/xxx.cer
+/xxx.cdx
+/xxx.apsx</code></pre><h2 id="IIS-7-0-7-5"><a href="#IIS-7-0-7-5" class="headerlink" title="IIS 7.0/7.5"></a>IIS 7.0/7.5</h2><p>在正常图片URL后添加 /.php，可以解析为php</p>
+<h2 id="Apache"><a href="#Apache" class="headerlink" title="Apache"></a>Apache</h2><p>一般都在2.3.x以下版本，但是有时候配置文件的不同也会导致不安全</p>
+<p>后缀解析：test.php.x1.x2.x3<br>Apache将从右至左开始判断后缀，若x3非可识别后缀，再判断x2，直到找到可识别后缀为止，然后将该可识别后缀进解析<br>test.php.x1.x2.x3则会被解析为php</p>
+<p>apache 2.1.x的版本就可以用test.php.jpg直接就可以getshell了</p>
+<h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><p>Nginx &lt;8.03畸形解析漏洞<br>直接在正常图片URL后添加/.php<br>Nginx &lt;=0.8.37<br>在Fast-CGI关闭的情况下，Nginx &lt;=0.8.37 依然存在解析漏洞</p>
+<p>在一个文件路径(/xx.jpg)后面加上%00.php会将 /xx.jpg%00.php 解析为 php 文件。</p>
+<hr>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://xz.aliyun.com/t/4029" target="_blank" rel="noopener">Upload-labs 20关通关笔记</a><br><a href="https://blog.csdn.net/u011377996/article/details/86776198" target="_blank" rel="noopener">upload-labs刷关记录</a><br><a href="http://poetichacker.com/writeup/从upload-labs总结上传漏洞及其绕过.html" target="_blank" rel="noopener">从upload-labs总结上传漏洞及其绕过 </a><br><a href="https://www.smi1e.top/文件解析漏洞总结/" target="_blank" rel="noopener">文件解析漏洞总结</a></p>
+
+            </div>
+            <hr/>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        <p class="reprint-tip">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;
+            <span>转载规则</span>
+        </p>
+        
+            <div class="center-align">
+                <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                    <img alt=""
+                         style="border-width:0"
+                         src="https://i.creativecommons.org/l/by/4.0/88x31.png"/>
+                </a>
+            </div>
+            <br/>
+            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+                  property="dct:title" rel="dct:type">
+                    《upload-labs文件上传漏洞练习》
+                </span> 由
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/08/04/upload-labs-wen-jian-shang-chuan-lou-dong-lian-xi/" property="cc:attributionName"
+               rel="cc:attributionURL">
+                dylan
+            </a> 采用
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                知识共享署名 4.0 国际许可协议
+            </a>进行许可。
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '6W9FUXsnyPz7MgGApFVK9M6A-MdYXbMMI',
+        appKey: 'ETPOz2DkTDSuyncXoVo6bYy2',
+        notify: 'false' === 'true',
+        verify: 'false' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'mm',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!'
+    });
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2019/08/06/weblogic-wls-zu-jian-lou-dong-fu-xian/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="WebLogic WLS组件漏洞复现">
+                        
+                        <span class="card-title">WebLogic WLS组件漏洞复现</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            0x01 漏洞概述漏洞编号：CVE-2017-10271
+漏洞描述：Weblogic的WLS Security组件对外提供webservice服务，其中使用了XMLDecoder来解析用户传入的XML数据，在解析的过程中出现反序列化漏洞，导
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-06
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/web安全/" class="post-category" target="_blank">
+                                    web安全
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/漏洞/" target="_blank">
+                        <span class="chip bg-color">漏洞</span>
+                    </a>
+                    
+                    <a href="/tags/复现/" target="_blank">
+                        <span class="chip bg-color">复现</span>
+                    </a>
+                    
+                    <a href="/tags/WebLogic-WLS/" target="_blank">
+                        <span class="chip bg-color">WebLogic WLS</span>
+                    </a>
+                    
+                    <a href="/tags/中间件/" target="_blank">
+                        <span class="chip bg-color">中间件</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/08/02/cve-2018-11776-lou-dong-fu-xian/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="CVE-2018-11776漏洞复现">
+                        
+                        <span class="card-title">CVE-2018-11776漏洞复现</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            0x01 漏洞概述2018年8月23日，ApacheStrust2发布最新安全公告，ApacheStruts2 存在远程代码执行的高危漏洞，该漏洞由SemmleSecurity Researchteam的安全研究员汇报，漏洞编号为CVE-2
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-02
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/web安全/" class="post-category" target="_blank">
+                                    web安全
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/漏洞复现/" target="_blank">
+                        <span class="chip bg-color">漏洞复现</span>
+                    </a>
+                    
+                    <a href="/tags/CVE-2018-11776/" target="_blank">
+                        <span class="chip bg-color">CVE-2018-11776</span>
+                    </a>
+                    
+                    <a href="/tags/struts2/" target="_blank">
+                        <span class="chip bg-color">struts2</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: dylan's blog<br />'
+            + '作者: Dylan He<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            <!--本站由&copy;<a href="https://github.com/dylan903" target="_blank">dylan</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.-->
+
+            
+                &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
+                <span class="white-color">39.8k</span>
+            
+
+            
+			
+                <br>
+                
+                <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span>
+                
+                
+                <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span>
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/dylan903" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:dylan9032@foxmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
