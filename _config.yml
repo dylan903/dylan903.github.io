@@ -82,7 +82,8 @@ deploy:
   - type: git
     repo: 
         github: git@github.com:dylan903/dylan903.github.io.git,master
-        coding: git@git.dev.tencent.com:dylan903/dylan903.coding.me.git,master
+        coding.net: git@e.coding.net:dylan903/xh.git,master
+        coding.me: git@git.dev.tencent.com:dylan903/dylan903.coding.me.git,master
   #branch: master
 
 # plugin
@@ -107,8 +108,8 @@ baidusitemap:
   path: baidusitemap.xml
 
 baidu_url_submit:
-  count: 5                   ## 提交最新的五个链接
-  host: dylan903.coding.me        ## 百度站长平台中注册的域名
+  count: 10                   ## 提交最新的五个链接
+  host: www.dylan.cf        ## 百度站长平台中注册的域名
   token: cKGTxI9CBxoY67Bq   ## 准入秘钥
   path: baidu_urls.txt       ## 文本文档的地址， 新链接会保存在此文本文档里
 
