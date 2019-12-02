@@ -1,10 +1,10 @@
-https://dylan903.coding.me/2019/11/20/xue-xi-zong-jie-pian-lou-dong-li-yong/
-https://dylan903.coding.me/2019/11/20/xue-xi-zong-jie-pian-getshell/
-https://dylan903.coding.me/2019/11/20/xue-xi-zong-jie-pian-linux/
-https://dylan903.coding.me/2019/11/20/xue-xi-zong-jie-pian-windows/
 https://dylan903.coding.me/2019/11/19/shen-tou-shi-zhan-zhi-qq-kong-jian-diao-yu-wang-zhan/
 https://dylan903.coding.me/2019/11/17/apache-flink-ren-yi-jar-bao-shang-chuan-zhi-rce-lou-dong-fu-xian/
 https://dylan903.coding.me/2019/11/07/xue-xi-zong-jie-pian-chang-yong-gong-ju/
 https://dylan903.coding.me/2019/11/06/wordpress-hou-tai-getshell-zong-jie/
 https://dylan903.coding.me/2019/11/04/hai-yang-cms-v6.53-v6.54-ming-ling-zhi-xing-lou-dong-fu-xian/
 https://dylan903.coding.me/2019/11/04/maccms8.x-ming-ling-zhi-xing-lou-dong-fu-xian-ping-guo-cms/
+https://dylan903.coding.me/2019/11/04/wordpress-wei-shou-quan-fang-wen-lou-dong-fu-xian-cve-2019-17671/
+https://dylan903.coding.me/2019/10/31/apache-solr-via-velocity-template-rce-fu-xian/
+https://dylan903.coding.me/2019/10/28/fan-wei-ecology-oa-shu-ju-ku-pei-zhi-xin-xi-xie-lu-lou-dong-fu-xian/
+https://dylan903.coding.me/2019/10/24/thinkcmf-kuang-jia-ren-yi-nei-rong-bao-han-lou-dong-fu-xian/
