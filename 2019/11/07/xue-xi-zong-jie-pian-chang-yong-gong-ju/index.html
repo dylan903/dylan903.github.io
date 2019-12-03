@@ -5,8 +5,8 @@
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta name="keywords" content="学习总结篇——常用工具, dylan&#39;s blog">
-    <meta name="description" content="0x00  前言收集整理自己用的一些工具和安装使用过程中的一些坑
-Linux0x01 Supervisor（进程管理）介绍Supervisor是用Python开发的一个client/server服务，是Linux/Unix系统下的一个进程管">
+    <meta name="description" content="前言收集整理自己用的一些工具和安装使用过程中的一些坑
+Linux一、Supervisor（进程管理）介绍Supervisor是用Python开发的一个client/server服务，是Linux/Unix系统下的一个进程管理工具，不支持Wi">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -426,14 +426,14 @@ Linux0x01 Supervisor（进程管理）介绍Supervisor是用Python开发的一�
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.8k
+                        3k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        11 分
+                        12 分
                     </div>
                     
                 
@@ -449,8 +449,8 @@ Linux0x01 Supervisor（进程管理）介绍Supervisor是用Python开发的一�
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00  前言"></a>0x00  前言</h1><p>收集整理自己用的一些工具和安装使用过程中的一些坑</p>
-<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><h2 id="0x01-Supervisor（进程管理）"><a href="#0x01-Supervisor（进程管理）" class="headerlink" title="0x01 Supervisor（进程管理）"></a>0x01 Supervisor（进程管理）</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p><a href="http://supervisord.org/" target="_blank" rel="noopener">Supervisor</a>是用Python开发的一个client/server服务，<br>是Linux/Unix系统下的一个进程管理工具，不支持Windows系统。<br>它可以很方便的监听、启动、停止、重启一个或多个进程。<br>用Supervisor管理的进程，当一个进程意外被杀死，supervisort监听到进程死后，会自动将它重新拉起，<br>很方便的做到进程自动恢复的功能，不再需要自己写shell脚本来控制。</p>
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>收集整理自己用的一些工具和安装使用过程中的一些坑</p>
+<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><h2 id="一、Supervisor（进程管理）"><a href="#一、Supervisor（进程管理）" class="headerlink" title="一、Supervisor（进程管理）"></a>一、Supervisor（进程管理）</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p><a href="http://supervisord.org/" target="_blank" rel="noopener">Supervisor</a>是用Python开发的一个client/server服务，<br>是Linux/Unix系统下的一个进程管理工具，不支持Windows系统。<br>它可以很方便的监听、启动、停止、重启一个或多个进程。<br>用Supervisor管理的进程，当一个进程意外被杀死，supervisort监听到进程死后，会自动将它重新拉起，<br>很方便的做到进程自动恢复的功能，不再需要自己写shell脚本来控制。</p>
 <p>Ubuntu 安装和使用 Supervisor 会遇到很多坑 </p>
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><code>sudo apt install supervisor</code></p>
 <h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><h4 id="默认配置文件"><a href="#默认配置文件" class="headerlink" title="默认配置文件"></a>默认配置文件</h4><p>使用<code>echo_supervisord_conf</code>生成<code>supervisor</code>默认的配置文件,<br>supervisor的配置参数较多，可以参考官方配置文档——<a href="http://supervisord.org/configuration.html" target="_blank" rel="noopener">Supervisor 4.1.0 documentation</a><br><code>echo_supervisord_conf &gt; /etc/supervisor/supervisord.conf</code></p>
@@ -554,14 +554,14 @@ root@dylan:~# unlink /run/supervisor.sock</code></pre><hr>
 </ul>
 <p><code>unlink /var/run/supervisor/supervisor.sock</code></p>
 <hr>
-<h2 id="0x02-ShadowsocksR"><a href="#0x02-ShadowsocksR" class="headerlink" title="0x02 ShadowsocksR"></a>0x02 ShadowsocksR</h2><h3 id="介绍-1"><a href="#介绍-1" class="headerlink" title="介绍"></a>介绍</h3><p>ShadowsocksR WIKI 地址：<a href="https://github.com/shadowsocksr-backup/shadowsocks-rss/wiki" target="_blank" rel="noopener">shadowsocks-rss Wiki</a><br>ShadowsocksR的wiki的单用户服务端配置：<a href="https://github.com/shadowsocksr-backup/shadowsocks-rss/wiki/Server-Setup" target="_blank" rel="noopener">shadowsocks-rss单用户服务端 Wiki</a><br>windows客户端下载地址：<a href="https://github.com/shadowsocksr-backup/shadowsocksr-csharp/releases" target="_blank" rel="noopener">windows客户端</a><br>Android客户端下载地址：<a href="https://github.com/shadowsocksr-backup/shadowsocksr-android/releases" target="_blank" rel="noopener"> Android客户端</a></p>
+<h2 id="二、-ShadowsocksR"><a href="#二、-ShadowsocksR" class="headerlink" title="二、 ShadowsocksR"></a>二、 ShadowsocksR</h2><h3 id="介绍-1"><a href="#介绍-1" class="headerlink" title="介绍"></a>介绍</h3><p>ShadowsocksR WIKI 地址：<a href="https://github.com/shadowsocksr-backup/shadowsocks-rss/wiki" target="_blank" rel="noopener">shadowsocks-rss Wiki</a><br>ShadowsocksR的wiki的单用户服务端配置：<a href="https://github.com/shadowsocksr-backup/shadowsocks-rss/wiki/Server-Setup" target="_blank" rel="noopener">shadowsocks-rss单用户服务端 Wiki</a><br>windows客户端下载地址：<a href="https://github.com/shadowsocksr-backup/shadowsocksr-csharp/releases" target="_blank" rel="noopener">windows客户端</a><br>Android客户端下载地址：<a href="https://github.com/shadowsocksr-backup/shadowsocksr-android/releases" target="_blank" rel="noopener"> Android客户端</a></p>
 <h3 id="下载安装配置"><a href="#下载安装配置" class="headerlink" title="下载安装配置"></a>下载安装配置</h3><pre><code>git clone -b manyuser https://github.com/shadowsocksr-backup/shadowsocksr.git #将github上的ShadowsocksR源码存档克隆到本地
 cd shadowsocksr #进入shadowsocksr根目录
 ./initcfg.sh  #shadowsocksr初始化配置
 cd shadowsocks    #进入单用户版目录
 python server.py -p 443 -k password -m aes-256-cfb -O auth_sha1_v4 -o http_simple #快速运行
 #这里的选项都可以改,不明白选项的含义的话建议只改端口号和密码，即修改443和password</code></pre><h3 id="自启动"><a href="#自启动" class="headerlink" title="自启动"></a>自启动</h3><p>使用supervisor来管理ShadowsocksR进程的自启动，意外停止恢复自启动。<br>使用方法见 <strong>0x01</strong></p>
-<h2 id="0x03-Tmux终端复用"><a href="#0x03-Tmux终端复用" class="headerlink" title="0x03 Tmux终端复用"></a>0x03 Tmux终端复用</h2><h3 id="介绍-2"><a href="#介绍-2" class="headerlink" title="介绍"></a>介绍</h3><p>我们在linux服务器上的工作一般都是通过一个远程的终端连接软件连接到远端系统进行操作，例如使用xshell或者SecureCRT工具通过ssh进行远程连接。在使用过程中，如果要做比较耗时的操作，例如有时候进行编译，或者下载大文件需要比较长的时间，一般情况下是下班之后直接运行希望第二天早上过来运行完成，这样就不用耽误工作时间。但是网络有时候不稳定，可能在半夜会出现连接断掉的情况，一旦连接断掉，我们所执行的程序也就中断，我们当然可以写一个脚本后台运行，但是还是不方便。那么有没有一种工具可以解决这样的问题呢。这就是我们这里要提到的tmux了。其实类似tmux的工具还有很多。例如gnu screen等。tmux刚好可以解决我们描述的问题，当我们在tmux中工作的时候，即使关掉SecureCRT的连接窗口，再次连接，进入tmux的会话我们之前的工作仍然在继续。</p>
+<h2 id="三、Tmux终端复用"><a href="#三、Tmux终端复用" class="headerlink" title="三、Tmux终端复用"></a>三、Tmux终端复用</h2><h3 id="介绍-2"><a href="#介绍-2" class="headerlink" title="介绍"></a>介绍</h3><p>我们在linux服务器上的工作一般都是通过一个远程的终端连接软件连接到远端系统进行操作，例如使用xshell或者SecureCRT工具通过ssh进行远程连接。在使用过程中，如果要做比较耗时的操作，例如有时候进行编译，或者下载大文件需要比较长的时间，一般情况下是下班之后直接运行希望第二天早上过来运行完成，这样就不用耽误工作时间。但是网络有时候不稳定，可能在半夜会出现连接断掉的情况，一旦连接断掉，我们所执行的程序也就中断，我们当然可以写一个脚本后台运行，但是还是不方便。那么有没有一种工具可以解决这样的问题呢。这就是我们这里要提到的tmux了。其实类似tmux的工具还有很多。例如gnu screen等。tmux刚好可以解决我们描述的问题，当我们在tmux中工作的时候，即使关掉SecureCRT的连接窗口，再次连接，进入tmux的会话我们之前的工作仍然在继续。</p>
 <p>tmux是一个linux下面的工具，在使用之前需要安装，就像安装linux下的其他工具一样方便。首先我们通过SecureCRT连接登入远程的linux机器，我们将此时的环境称为终端环境。如果这个机器上并没有安装tmux，我们需要安装。例如在CentOs上是yum install tmux，完成之后我们就可以使用tmux命令了。tmux中有3种概念，会话，窗口(window)，窗格(pane)。会话有点像是tmux的服务，在后端运行，我们可以通过tmux命令创建这种服务，并且可以通过tmux命令查看，附加到后端运行的会话中。一个会话可以包含多个窗口，一个窗口可以被分割成多个窗格(pane)。</p>
 <h3 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h3><p>Ubuntu:</p>
 <p><code>sudo apt install tmux</code></p>
@@ -595,8 +595,16 @@ python server.py -p 443 -k password -m aes-256-cfb -O auth_sha1_v4 -o http_simpl
 <li><code>ctrl+b Space (空格键) # 对当前窗口下的所有pane重新排列布局，每按一次，换一种样式。</code></li>
 <li><code>ctrl+b z # 最大化当前pane。再按一次后恢复。</code></li>
 </ul>
-<h1 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h1><h2 id="Sublime-Text3"><a href="#Sublime-Text3" class="headerlink" title="Sublime Text3"></a>Sublime Text3</h2><p>详见之前的文章：<br><a href="https://dylan903.coding.me/2019/08/31/sublime-text3-shi-yong-zhi-nan/">Sublime Text3使用指南</a></p>
-<p>## </p>
+<h2 id="四、open-vm-tools"><a href="#四、open-vm-tools" class="headerlink" title="四、open-vm-tools"></a>四、open-vm-tools</h2><h3 id="介绍-3"><a href="#介绍-3" class="headerlink" title="介绍"></a>介绍</h3><p>kali与win10主机间不能文件互通,但是在新版本中，<br>VMware自带的vmware-tools已经没效果，<br>官方建议是安装<code>open-vm-tools-desktop</code>来代替其跟物理机交互。</p>
+<h3 id="安装-2"><a href="#安装-2" class="headerlink" title="安装"></a>安装</h3><p>如果之前安装过<code>VM Tools</code>，运行下面命令，回车即可删除</p>
+<p><code>vmware-uninstall-tools.pl</code></p>
+<p>安装<code>open-vm-tools-desktop</code>,记得替换源，这里不赘述。</p>
+<p><code>apt-get install open-vm-tools-desktop fuse</code></p>
+<p><code>reboot</code></p>
+<h3 id="报错解决"><a href="#报错解决" class="headerlink" title="报错解决"></a>报错解决</h3><p><code>E: dpkg was interrupted, you must manually run &#39;dpkg --configure -a&#39; to correct the probl</code></p>
+<pre><code>mv /usr/bin/localedef /usr/bin/localedef.old
+dpkg --configure -a
+reboot  #（重启生效）</code></pre><h1 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h1><h2 id="一、Sublime-Text3"><a href="#一、Sublime-Text3" class="headerlink" title="一、Sublime Text3"></a>一、Sublime Text3</h2><p>详见之前的文章：<br><a href="https://dylan903.coding.me/2019/08/31/sublime-text3-shi-yong-zhi-nan/">Sublime Text3使用指南</a></p>
 <h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="http://www.amazonwhy.com/blog/post/6/" target="_blank" rel="noopener">ubuntu下搭建SSR服务端教程</a><br><a href="https://www.cnblogs.com/xishuai/p/ubuntu-install-supervisor.html" target="_blank" rel="noopener">Ubuntu 安装和使用 Supervisor（进程管理）</a><br><a href="https://www.cnblogs.com/wangqiguo/p/8905081.html" target="_blank" rel="noopener">tmux 终端复用详解</a></p>
 
             </div>
@@ -1317,7 +1325,7 @@ python server.py -p 443 -k password -m aes-256-cfb -O auth_sha1_v4 -o http_simpl
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">39.8k</span>
+                <span class="white-color">41.8k</span>
             
 
             
