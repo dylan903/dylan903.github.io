@@ -958,24 +958,21 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2019/12/02/htb-hack-the-box-xi-lie-ru-men-zhi-nan/">
+                <a href="/2019/12/02/htb-hack-the-box-xi-lie-heist/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="HTB(Hack The Box)系列—入门指南">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="HTB(Hack The Box)系列—Heist">
                         
-                        <span class="card-title">HTB(Hack The Box)系列—入门指南</span>
+                        <span class="card-title">HTB(Hack The Box)系列—Heist</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            0x00 前言0x01 注册登陆注册需要邀请码
-快速获取邀请码方法一首先打开邀请界面
-https://www.hackthebox.eu/invite
-
-按下F12，打开Console输入如下代码执行
-$.post(&#39;https:/
+                            0x00 前言今天挑战的靶机是Hack The Box的“Heist”，10.10.10.149
+0x01 信息收集使用masscan进行全端口扫描
+masscan -p 1-65535,U:1-65535 -e tun0 10.10.10
                         
                     </div>
                     <div class="publish-info">
