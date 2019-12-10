@@ -5,12 +5,11 @@ author: dylan
 top: false
 cover: false
 password: 
-categories: summary
+categories: Tools
 tags: 
     - Ubuntu16
     - 源码
     - IVRE
-    - tools
     - 网络侦查框架
 ---
 # 0x01 前言

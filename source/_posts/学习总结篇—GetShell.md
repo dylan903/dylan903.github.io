@@ -1,6 +1,6 @@
 ---
 title: 学习总结篇—GetShell
-date: 2019-11-20 00:30:16
+date: 2019-8-28 00:30:16
 author: dylan
 top: false
 cover: false
@@ -15,7 +15,13 @@ tags:
 
 各种GetShell总结
 
-# 0x01 phpMyAdmin GetShell
+# 0x01 文件上传
+
+
+[upload-labs文件上传漏洞练习](https://dylan903.coding.me/2019/08/04/upload-labs-wen-jian-shang-chuan-lou-dong-lian-xi/)
+
+
+# 0x02 phpMyAdmin GetShell
 ## 网站路径信息获取
 
 找网站的安装路径，其实就是通过“配置页面”或者“配置文件”找到Document Root 指向的网站路径位置，
@@ -448,7 +454,7 @@ http://127.0.0.1/phpmyadmin/sql.php?db=数据库名&token=token值&table=数据�
 ```
 
 
-# CMS GetShell
+# 0x03 CMS GetShell
 ## WordPress
 
 [Wordpress 后台GetShell总结](https://dylan903.coding.me/2019/11/06/wordpress-hou-tai-getshell-zong-jie/)

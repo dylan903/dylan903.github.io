@@ -1,0 +1,47 @@
+vnote_backup_file_826537664 E:/Blog/master/source/_posts/HTB(Hack The Box)系列—Heist.md
+---
+title: HTB(Hack The Box)系列—Heist
+date: 2019-12-2 13:14:52
+author: dylan
+top: false
+cover: false
+categories: HTB系列
+tags: 
+    - HTB
+    - Hack The Box
+    - 靶场
+---
+
+# 0x00 前言
+
+
+
+# 0x01 
+
+使用`masscan`进行全端口扫描
+
+`masscan -p 1-65535,U:1-65535 -e tun0 10.10.10.149 --rate=1000`
+
+![](https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20191202160154.png)
+
+使用`nmap`查看端口详细信息
+
+`nmap -A -p 80,135,445,5985,49669 10.10.10.149`
+
+![](https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20191202161302.png)
+
+尝试连接`smb`，发现需要密码
+
+`smbclient --list 10.10.10.149 -U ""`
+
+![](https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20191202163244.png)
+
+
+浏览器访问80端口，需要登陆，可以以游客身份登陆
+
+![](https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20191202163737.png)
+
+
+
+![](https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20191202164032.png)
+

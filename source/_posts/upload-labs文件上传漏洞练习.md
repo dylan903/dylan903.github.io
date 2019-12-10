@@ -268,6 +268,7 @@ $file_name = reset($file) . '.' . $file[count($file) - 1];
 ***
 # 0x04 总结
 ## upload-labs总结
+
 ![](https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20190805134449.png)
 
 ![](https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20190805134922.png)
@@ -276,6 +277,7 @@ $file_name = reset($file) . '.' . $file[count($file) - 1];
 顺便在总结一下其他中间件问题导致的解析漏洞
 
 ## IIS 6.0
+
 IIS 6.0解析利用方法有三种：
 1.目录解析
 建立xx.asp为名称的文件夹，将asp文件放入，访问/xx.asp/xx.jpg，其中xx.jpg可以为任意文件后缀，即可解析
@@ -283,6 +285,7 @@ IIS 6.0解析利用方法有三种：
 后缀解析：/xx.asp;.jpg /xx.asp:.jpg(此处需抓包修改文件名)
 3.默认解析
 IIS6.0 默认的可执行文件除了asp还包含这三种
+
 ```
 /xxx.asa
 /xxx.cer
@@ -294,6 +297,7 @@ IIS6.0 默认的可执行文件除了asp还包含这三种
 在正常图片URL后添加 /.php，可以解析为php
 
 ## Apache
+
 一般都在2.3.x以下版本，但是有时候配置文件的不同也会导致不安全
 
 后缀解析：test.php.x1.x2.x3
@@ -303,6 +307,7 @@ test.php.x1.x2.x3则会被解析为php
 apache 2.1.x的版本就可以用test.php.jpg直接就可以getshell了
 
 ## Nginx
+
 Nginx <8.03畸形解析漏洞
 直接在正常图片URL后添加/.php
 Nginx <=0.8.37
@@ -312,6 +317,7 @@ Nginx <=0.8.37
 
 ***
 # 参考文章
+
 [Upload-labs 20关通关笔记](https://xz.aliyun.com/t/4029)
 [upload-labs刷关记录](https://blog.csdn.net/u011377996/article/details/86776198)
 [从upload-labs总结上传漏洞及其绕过 ](http://poetichacker.com/writeup/从upload-labs总结上传漏洞及其绕过.html)
