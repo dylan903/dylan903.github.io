@@ -484,10 +484,10 @@
 <h3 id="本地工具"><a href="#本地工具" class="headerlink" title="本地工具"></a>本地工具</h3><pre><code>nmap -A -v -T4   192.168.1.1  //查看开放端口
 masscan -p80 192.168.1.1/24 --rate=10000    //测试目标指定端口
 netstat -pantu    //测试kalikali本身开放端口</code></pre><h2 id="三、子域名"><a href="#三、子域名" class="headerlink" title="三、子域名"></a>三、子域名</h2><p>国外组织统计的最受欢迎子域名列表：<br><a href="https://github.com/bitquark/dnspop/tree/master/results" target="_blank" rel="noopener">https://github.com/bitquark/dnspop/tree/master/results</a></p>
-<h3 id="搜索引擎"><a href="#搜索引擎" class="headerlink" title="搜索引擎"></a>搜索引擎</h3><ul>
+<h3 id="1-搜索引擎"><a href="#1-搜索引擎" class="headerlink" title="1.搜索引擎"></a>1.搜索引擎</h3><ul>
 <li>site:baidu.com</li>
 </ul>
-<h3 id="有许多第三方服务聚合了大量的DNS数据集，并通过它们来检索给定域名的子域名。"><a href="#有许多第三方服务聚合了大量的DNS数据集，并通过它们来检索给定域名的子域名。" class="headerlink" title="有许多第三方服务聚合了大量的DNS数据集，并通过它们来检索给定域名的子域名。"></a>有许多第三方服务聚合了大量的DNS数据集，并通过它们来检索给定域名的子域名。</h3><ul>
+<h3 id="2-有许多第三方服务聚合了大量的DNS数据集，并通过它们来检索给定域名的子域名。"><a href="#2-有许多第三方服务聚合了大量的DNS数据集，并通过它们来检索给定域名的子域名。" class="headerlink" title="2.有许多第三方服务聚合了大量的DNS数据集，并通过它们来检索给定域名的子域名。"></a>2.有许多第三方服务聚合了大量的DNS数据集，并通过它们来检索给定域名的子域名。</h3><ul>
 <li><a href="https://viewdns.info/" target="_blank" rel="noopener">https://viewdns.info/</a></li>
 <li><a href="https://securitytrails.com/" target="_blank" rel="noopener">https://securitytrails.com/</a></li>
 <li><a href="https://dnsdb.io/zh-cn/" target="_blank" rel="noopener">https://dnsdb.io/zh-cn/</a></li>
@@ -496,20 +496,20 @@ netstat -pantu    //测试kalikali本身开放端口</code></pre><h2 id="三、�
 <li><a href="https://x.threatbook.cn/en" target="_blank" rel="noopener">https://x.threatbook.cn/en</a></li>
 <li><a href="https://www.virustotal.com/gui/home/upload" target="_blank" rel="noopener">Virustotal</a>//输入”domain:target.com”,返回子域名列表和一些辅助信息。</li>
 </ul>
-<h3 id="基于SSL证书查询"><a href="#基于SSL证书查询" class="headerlink" title="基于SSL证书查询"></a>基于SSL证书查询</h3><ul>
+<h3 id="3-基于SSL证书查询"><a href="#3-基于SSL证书查询" class="headerlink" title="3.基于SSL证书查询"></a>3.基于SSL证书查询</h3><ul>
 <li><a href="https://censys.io" target="_blank" rel="noopener">https://censys.io</a> </li>
 <li><a href="https://crt.sh/" target="_blank" rel="noopener">https://crt.sh/</a></li>
 <li><a href="https://developers.facebook.com/tools/ct/" target="_blank" rel="noopener">https://developers.facebook.com/tools/ct/</a></li>
 <li><a href="https://spyse.com/search/certificate" target="_blank" rel="noopener">https://spyse.com/search/certificate</a></li>
 <li><a href="https://google.com/transparencyreport/https/ct/" target="_blank" rel="noopener">https://google.com/transparencyreport/https/ct/</a></li>
 </ul>
-<h3 id="在线爆破"><a href="#在线爆破" class="headerlink" title="在线爆破"></a>在线爆破</h3><ul>
+<h3 id="4-在线爆破"><a href="#4-在线爆破" class="headerlink" title="4.在线爆破"></a>4.在线爆破</h3><ul>
 <li><a href="http://tool.chinaz.com/subdomain" target="_blank" rel="noopener">http://tool.chinaz.com/subdomain</a>   //站长工具</li>
 <li><a href="https://phpinfo.me/domain" target="_blank" rel="noopener">https://phpinfo.me/domain</a>     //在线子域名爆破工具</li>
 <li><a href="http://z.zcjun.com/" target="_blank" rel="noopener">http://z.zcjun.com/</a>    //在线子域名爆破-子成君提供</li>
 <li><a href="https://dns.bufferover.run/dns?q=," target="_blank" rel="noopener">https://dns.bufferover.run/dns?q=,</a></li>
 </ul>
-<h3 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h3><ul>
+<h3 id="5-工具"><a href="#5-工具" class="headerlink" title="5.工具"></a>5.工具</h3><ul>
 <li><a href="https://github.com/shmilylty/OneForAll" target="_blank" rel="noopener">OneForAll</a></li>
 <li><a href="https://github.com/ring04h/wydomain" target="_blank" rel="noopener">wydomain</a></li>
 <li>Maltego</li>
@@ -518,42 +518,42 @@ netstat -pantu    //测试kalikali本身开放端口</code></pre><h2 id="三、�
 <li><a href="https://github.com/FeeiCN/ESD" target="_blank" rel="noopener">ESD: Enumeration sub domains(枚举子域名)</a></li>
 <li>Nmap   //使用 –script dns-brute 脚本</li>
 </ul>
-<h2 id="四、旁站C段"><a href="#四、旁站C段" class="headerlink" title="四、旁站C段"></a>四、旁站C段</h2><h3 id="搜索引擎-1"><a href="#搜索引擎-1" class="headerlink" title="搜索引擎"></a>搜索引擎</h3><p>利用google搜索C段服务器信息<br><code>site:218.87.21.*</code></p>
-<h3 id="网站"><a href="#网站" class="headerlink" title="网站"></a>网站</h3><ul>
+<h2 id="四、旁站C段"><a href="#四、旁站C段" class="headerlink" title="四、旁站C段"></a>四、旁站C段</h2><h3 id="1-搜索引擎-1"><a href="#1-搜索引擎-1" class="headerlink" title="1.搜索引擎"></a>1.搜索引擎</h3><p>利用google搜索C段服务器信息<br><code>site:218.87.21.*</code></p>
+<h3 id="2-网站"><a href="#2-网站" class="headerlink" title="2.网站"></a>2.网站</h3><ul>
 <li><a href="https://phpinfo.me/bing.php" target="_blank" rel="noopener">https://phpinfo.me/bing.php</a>   //在线旁站|C段|必应接口C段|同ip网站 - phpinfo.me</li>
 <li><a href="http://www.114best.com/ip/" target="_blank" rel="noopener">http://www.114best.com/ip/</a></li>
 <li><a href="http://www.webscan.cc/" target="_blank" rel="noopener">http://www.webscan.cc/</a></li>
 </ul>
-<h2 id="五、指纹识别"><a href="#五、指纹识别" class="headerlink" title="五、指纹识别"></a>五、指纹识别</h2><h3 id="在线识别"><a href="#在线识别" class="headerlink" title="在线识别"></a>在线识别</h3><ul>
+<h2 id="五、指纹识别"><a href="#五、指纹识别" class="headerlink" title="五、指纹识别"></a>五、指纹识别</h2><h3 id="1-在线识别"><a href="#1-在线识别" class="headerlink" title="1.在线识别"></a>1.在线识别</h3><ul>
 <li><a href="http://whatweb.bugscaner.com/look/" target="_blank" rel="noopener">http://whatweb.bugscaner.com/look/</a></li>
 <li><a href="http://www.yunsee.cn/" target="_blank" rel="noopener">http://www.yunsee.cn/</a></li>
 </ul>
-<h3 id="本地工具-1"><a href="#本地工具-1" class="headerlink" title="本地工具"></a>本地工具</h3><ul>
+<h3 id="2-本地工具"><a href="#2-本地工具" class="headerlink" title="2.本地工具"></a>2.本地工具</h3><ul>
 <li>御剑cms</li>
 <li>大禹cms</li>
 </ul>
-<h3 id="kali"><a href="#kali" class="headerlink" title="kali"></a>kali</h3><ul>
+<h3 id="3-kali"><a href="#3-kali" class="headerlink" title="3.kali"></a>3.kali</h3><ul>
 <li>whatweb <a href="https://www.baidubaidu.com" target="_blank" rel="noopener">https://www.baidubaidu.com</a></li>
 </ul>
-<h3 id="cms漏洞利用"><a href="#cms漏洞利用" class="headerlink" title="cms漏洞利用"></a>cms漏洞利用</h3><ul>
+<h3 id="4-cms漏洞利用"><a href="#4-cms漏洞利用" class="headerlink" title="4.cms漏洞利用"></a>4.cms漏洞利用</h3><ul>
 <li><a href="https://bugss.shuimugan.com" target="_blank" rel="noopener">https://bugss.shuimugan.com</a>     //乌云查找相关漏洞</li>
 </ul>
-<h2 id="六、敏感目录"><a href="#六、敏感目录" class="headerlink" title="六、敏感目录"></a>六、敏感目录</h2><h3 id="工具-1"><a href="#工具-1" class="headerlink" title="工具:"></a>工具:</h3><ul>
+<h2 id="六、敏感目录"><a href="#六、敏感目录" class="headerlink" title="六、敏感目录"></a>六、敏感目录</h2><h3 id="工具"><a href="#工具" class="headerlink" title="工具:"></a>工具:</h3><ul>
 <li>御剑后台扫描</li>
 <li>wwwscan</li>
 </ul>
-<h3 id="kali-1"><a href="#kali-1" class="headerlink" title="kali"></a>kali</h3><ul>
+<h3 id="kali"><a href="#kali" class="headerlink" title="kali"></a>kali</h3><ul>
 <li><code>dirb http://www.baidu.com</code>      //命令工具</li>
 <li>dirbuster         //界面化工具</li>
 <li><code>wpscan -u http://www.baidu.comcom</code>  //kali扫描WordPress漏洞</li>
 </ul>
-<h2 id="七、敏感信息"><a href="#七、敏感信息" class="headerlink" title="七、敏感信息"></a>七、敏感信息</h2><h3 id="网络返回包"><a href="#网络返回包" class="headerlink" title="网络返回包"></a>网络返回包</h3><ul>
+<h2 id="七、敏感信息"><a href="#七、敏感信息" class="headerlink" title="七、敏感信息"></a>七、敏感信息</h2><h3 id="1-网络返回包"><a href="#1-网络返回包" class="headerlink" title="1.网络返回包"></a>1.网络返回包</h3><ul>
 <li>F12查看系统，php版本</li>
 </ul>
-<h3 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h3><ul>
+<h3 id="2-Github"><a href="#2-Github" class="headerlink" title="2.Github"></a>2.Github</h3><ul>
 <li>site:Github password     //github上查找敏感信息</li>
 </ul>
-<h3 id="搜索引擎-2"><a href="#搜索引擎-2" class="headerlink" title="搜索引擎"></a>搜索引擎</h3><h4 id="Google"><a href="#Google" class="headerlink" title="Google"></a>Google</h4><h5 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h5><ul>
+<h3 id="3-搜索引擎"><a href="#3-搜索引擎" class="headerlink" title="3.搜索引擎"></a>3.搜索引擎</h3><h4 id="Google"><a href="#Google" class="headerlink" title="Google"></a>Google</h4><h5 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h5><ul>
 <li>site</li>
 <li>inurl</li>
 <li>intext</li>
@@ -1394,7 +1394,7 @@ autonomous_system.description: University　　系统描述
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">44.8k</span>
+                <span class="white-color">44.9k</span>
             
 
             
