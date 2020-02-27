@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://dylan903.coding.me/2020/02/20/thinkphp6-session-wen-jian-cao-zuo-lou-dong/</loc>
+    <lastmod>2020-02-27</lastmod>
+  </url>  <url>
+    <loc>https://dylan903.coding.me/2019/08/28/xue-xi-zong-jie-pian-getshell/</loc>
+    <lastmod>2020-02-26</lastmod>
+  </url>  <url>
     <loc>https://dylan903.coding.me/2020/02/14/apache-dubbo-deserialization-vulnerability-cve-2019-17564/</loc>
     <lastmod>2020-02-14</lastmod>
   </url>  <url>
@@ -20,9 +26,6 @@
     <lastmod>2019-12-10</lastmod>
   </url>  <url>
     <loc>https://dylan903.coding.me/2019/09/21/yuan-ma-da-jian-ivre/</loc>
-    <lastmod>2019-12-09</lastmod>
-  </url>  <url>
-    <loc>https://dylan903.coding.me/2019/08/28/xue-xi-zong-jie-pian-getshell/</loc>
     <lastmod>2019-12-09</lastmod>
   </url>  <url>
     <loc>https://dylan903.coding.me/2019/12/03/htb-hack-the-box-xi-lie-heist/</loc>
