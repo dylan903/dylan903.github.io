@@ -430,7 +430,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        221
+                        384
                     </div>
                     
 
@@ -469,7 +469,7 @@ sudo apt-get install php7.2-mbstring
 composer require topthink/framework:6.0.1</code></pre><p>thinkphp6默认是未开启session功能的,我们需要在``app\middleware.php`文件中开启</p>
 <p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/img/20200227194534.png" alt></p>
 <p>app\controller\Index.php`中添加测试代码</p>
-<pre class=" language-PHP"><code class="language-PHP"><?php
+<pre><code>&lt;?php
     namespace app\controller;
 
 use app\BaseController;
@@ -479,16 +479,15 @@ class Index extends BaseController
 {
     public function index()
     {
-        Session::set('name','thinkphp');
+        Session::set(&#39;name&#39;,&#39;thinkphp&#39;);
         return 1;
     }
 
-    public function hello($name = 'ThinkPHP6')
+    public function hello($name = &#39;ThinkPHP6&#39;)
     {
-        return 'hello,' . $name;
+        return &#39;hello,&#39; . $name;
     }
-}</code></pre>
-<p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/img/20200227195015.png" alt></p>
+}</code></pre><p><img src="https://raw.githubusercontent.com/dylan903/ImgUrl/master/img/20200227195015.png" alt></p>
 <p>进tp目录启动调试环境</p>
 <p><code>php think run</code>  </p>
 <h1 id="0x03-漏洞复现"><a href="#0x03-漏洞复现" class="headerlink" title="0x03 漏洞复现"></a>0x03 漏洞复现</h1><p>thinkphp的网站一般会把<code>/public</code>设置为网站的根目录,</p>
@@ -1224,7 +1223,7 @@ class Index extends BaseController
 
             
                 &nbsp;<i class="fa fa-area-chart"></i>&nbsp;站点总字数:&nbsp;
-                <span class="white-color">45.6k</span>
+                <span class="white-color">45.7k</span>
             
 
             
